@@ -41,7 +41,36 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="bg-white p-10 rounded-3xl shadow-xl"></div>
+      <div className="bg-white p-5 rounded-3xl shadow-xl">
+        <div className="flex mb-5 justify-between items-center">
+          <span>⬅️</span>
+          <div className="space-x-3">
+            <span>⭐️ 4.9</span>
+            <span className="shadow-xl p-2 rounded-full">💖</span>
+          </div>
+        </div>
+        <div className="bg-fuchsia-600 h-72" />
+        <div>
+          <div>
+            <span>Swoon Lounge</span>
+            <span>Chair</span>
+            <input type="radio" />
+            <input type="radio" />
+            <input type="radio" />
+          </div>
+          <div>
+            <button>-</button>
+            <span>1</span>
+            <button>+</button>
+          </div>
+        </div>
+        <div>
+          <div>
+            <span>$450</span>
+            <button>Add to cart</button>
+          </div>
+        </div>
+      </div>
       <div className="bg-white p-10 rounded-3xl shadow-xl"></div>
     </div>
   );
