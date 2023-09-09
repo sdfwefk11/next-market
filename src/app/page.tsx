@@ -49,25 +49,31 @@ export default function Home() {
             <span className="shadow-xl p-2 rounded-full">💖</span>
           </div>
         </div>
-        <div className="bg-fuchsia-600 h-72" />
-        <div>
-          <div>
-            <span>Swoon Lounge</span>
-            <span>Chair</span>
-            <input type="radio" />
-            <input type="radio" />
-            <input type="radio" />
+        <div className="bg-fuchsia-600 h-72 mb-3" />
+        <div className="flex flex-col">
+          <span className="font-semibold text-xl">Swoon Lounge</span>
+          <span className="text-zinc-400 -mt-1">Chair</span>
+          <div className="mb-5 flex justify-between items-center">
+            <div>
+              <input type="radio" />
+              <input type="radio" />
+              <input type="radio" />
+            </div>
+            <div className="flex items-center space-x-4">
+              <button className="bg-blue-100 items-center flex justify-center aspect-square w-8 rounded-lg">
+                -
+              </button>
+              <span className="font-extrabold">1</span>
+              <button className="bg-blue-100 items-center flex justify-center aspect-square w-8 rounded-lg">
+                +
+              </button>
+            </div>
           </div>
-          <div>
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-          </div>
-        </div>
-        <div>
-          <div>
-            <span>$450</span>
-            <button>Add to cart</button>
+          <div className="flex justify-between items-center">
+            <span className="font-bold text-xl">$450</span>
+            <button className="bg-blue-500 text-white font-light text-xs rounded-lg px-11 py-2.5">
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
