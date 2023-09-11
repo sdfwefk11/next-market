@@ -32,7 +32,7 @@ export default function Home() {
           <span className="font-semibold">Total</span>
           <span className="font-semibold">${}</span>
         </div>
-        <button className="text-white bg-blue-500 mt-5 p-2 rounded-lg m-auto w-72 flex justify-center hover:bg-teal-600 active:bg-yellow-500">
+        <button className="text-white bg-blue-500 mt-5 p-2 rounded-lg m-auto w-72 flex justify-center hover:bg-teal-600 active:bg-yellow-500 transition">
           Checkout
         </button>
       </div>
@@ -52,8 +52,10 @@ export default function Home() {
               <span className="font-medium">$340</span>
             </div>
           </div>
-          <div className="relative -mt-12 -mb-4 flex flex-col items-center ">
-            <span className="text-xl font-medium">Tony Molloy</span>
+          <div className="relative -mt-12 -mb-4 flex flex-col items-center group">
+            <span className="text-xl font-medium group-hover:text-pink-400 transition">
+              Tony Molloy
+            </span>
             <span className="text-sm text-zinc-400">New York, USA</span>
           </div>
         </div>
@@ -94,7 +96,43 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="bg-white p-10 rounded-3xl shadow-xl"></div>
+      <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <form className="flex-col p-6 space-y-2 flex items-center m-10">
+          <div className="flex flex-col items-center">
+            <input
+              placeholder="아이디"
+              required
+              type="text"
+              className="rounded-md peer border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+            <span className="hidden peer-invalid:block peer-invalid:text-red-500">
+              This input invalid
+            </span>
+            <span className="hidden peer-hover:block peer-hover:text-red-500">
+              아이디는 최소 5자리
+            </span>
+          </div>
+          <div className="flex flex-col items-center">
+            <input
+              placeholder="비밀번호"
+              required
+              type="password"
+              className="rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500 peer"
+            />
+            <span className="peer-invalid:text-red-500 peer-valid:hidden">
+              This input invalid
+            </span>
+            <span className="hidden peer-hover:block text-red-500">
+              비밀번호는 최소 10자리
+            </span>
+          </div>
+          <input
+            value="로그인"
+            type="submit"
+            className="rounded-md bg-gray-100 w-1/4 border-2 border-gray-300 cursor-pointer focus:outline-none focus:border-blue-500"
+          />
+        </form>
+      </div>
     </div>
   );
 }
