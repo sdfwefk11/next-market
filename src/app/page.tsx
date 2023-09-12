@@ -133,6 +133,25 @@ export default function Home() {
           />
         </form>
       </div>
+      <div className="bg-white p-5 rounded-3xl shadow-xl">
+        <details className="flex open:bg-zinc-200">
+          <summary className="select-none cursor-pointer">광란의 비약</summary>
+          <span className="selection:text-green-500">재생의 오일 x 1</span>
+          <span>맑은 액체 시약 x 5</span>
+          <span>유령 버섯 x 2</span>
+          <span>전투의 흔적 x 3</span>
+          <span>삼나무 수액 x 5</span>
+        </details>
+      </div>
+      <div className="bg-white p-5 rounded-3xl shadow-xl">
+        <input
+          type="file"
+          className="file:bg-pink-500 file:font-semibold file:rounded-xl file:border-0 file:px-5 file:transition file:cursor-pointer file:text-yellow-200 file:mx-2 file:hover:text-pink-500 file:hover:bg-yellow-200 file:hover:border file:hover:border-pink-500"
+        />
+        <p className="first-letter:text-6xl first-letter:hover:text-purple-400 first-line:text-blue-500">
+          sdfsdfefsd sdfsdf sdfsdf sfsd
+        </p>
+      </div>
     </div>
   );
 }
