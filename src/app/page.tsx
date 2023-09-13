@@ -5,8 +5,8 @@ export default function Home() {
     { product: "Keyboard", price: 100, id: 3 },
   ];
   return (
-    <div className="bg-slate-400 py-10 px-20 grid gap-5">
-      <div className="bg-white p-5 rounded-3xl shadow-xl">
+    <div className="bg-slate-400 py-10 px-10 grid gap-5">
+      <div className="bg-white xl:hover:bg-blue-500 p-5 rounded-3xl shadow-xl">
         <span className="font-semibold text-2xl">Select Item</span>
         <ul>
           {item.map((items) => (
