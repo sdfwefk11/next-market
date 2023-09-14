@@ -5,7 +5,7 @@ export default function Home() {
     { product: "Keyboard", price: 100, id: 3 },
   ];
   return (
-    <div className="bg-slate-400 py-10 px-10 grid gap-5">
+    <div className="bg-slate-400 py-10 px-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center">
       <div className="bg-white xl:hover:bg-blue-500 p-5 rounded-3xl shadow-xl">
         <span className="font-semibold text-2xl">Select Item</span>
         <ul>
@@ -32,12 +32,12 @@ export default function Home() {
           <span className="font-semibold">Total</span>
           <span className="font-semibold">${}</span>
         </div>
-        <button className="text-white bg-blue-500 mt-5 p-2 rounded-lg m-auto w-72 flex justify-center hover:bg-teal-600 active:bg-yellow-500 transition">
+        <button className="text-white bg-blue-500 mt-5 p-2 rounded-lg mx-auto w-11/12 block justify-center hover:bg-teal-600 active:bg-yellow-500 transition">
           Checkout
         </button>
       </div>
       <div className="bg-white overflow-hidden rounded-3xl shadow-xl">
-        <div className="bg-blue-500 p-5 pb-14">
+        <div className="bg-blue-500 p-5 pb-14 md:pb-32 lg:pb-40">
           <span className="text-white text-2xl">Profile</span>
         </div>
         <div className="rounded-3xl p-5 relative -top-5 bg-white">
@@ -97,7 +97,7 @@ export default function Home() {
         </div>
       </div>
       <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-        <form className="flex-col p-6 space-y-2 flex items-center m-10">
+        <form className="flex-col p-6 space-y-2 flex items-center m-10 md:m-40 lg:m-10 xl:m-32 justify-center">
           <div className="flex flex-col items-center">
             <input
               placeholder="아이디"
@@ -129,11 +129,11 @@ export default function Home() {
           <input
             value="로그인"
             type="submit"
-            className="rounded-md bg-gray-100 w-1/4 border-2 border-gray-300 cursor-pointer focus:outline-none focus:border-blue-500"
+            className="rounded-md bg-gray-100 w-auto border-2 border-gray-300 cursor-pointer focus:outline-none focus:border-blue-500"
           />
         </form>
       </div>
-      <div className="bg-white p-5 rounded-3xl shadow-xl">
+      <div className="bg-white p-5 rounded-3xl shadow-xl xl:col-span-2 2xl:col-span-1">
         <details className="flex open:bg-zinc-200">
           <summary className="select-none cursor-pointer">광란의 비약</summary>
           <span className="selection:text-green-500">재생의 오일 x 1</span>
@@ -143,7 +143,7 @@ export default function Home() {
           <span>삼나무 수액 x 5</span>
         </details>
       </div>
-      <div className="bg-white p-5 rounded-3xl shadow-xl">
+      <div className="bg-white p-5 rounded-3xl shadow-xl xl:col-span-2 2xl:col-span-5">
         <input
           type="file"
           className="file:bg-pink-500 file:font-semibold file:rounded-xl file:border-0 file:px-5 file:transition file:cursor-pointer file:text-yellow-200 file:mx-2 file:hover:text-pink-500 file:hover:bg-yellow-200 file:hover:border file:hover:border-pink-500"
