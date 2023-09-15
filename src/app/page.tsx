@@ -5,7 +5,7 @@ export default function Home() {
     { product: "Keyboard", price: 100, id: 3 },
   ];
   return (
-    <div className="bg-slate-400 py-10 px-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center">
+    <div className="bg-slate-400 py-10 px-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center landscape:bg-yellow-500 portrait:bg-purple-600 dark">
       <div className="bg-white xl:hover:bg-blue-500 p-5 rounded-3xl shadow-xl">
         <span className="font-semibold text-2xl">Select Item</span>
         <ul>
@@ -96,9 +96,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-        <form className="flex-col p-6 space-y-2 flex items-center m-10 md:m-40 lg:m-10 xl:m-32 justify-center">
-          <div className="flex flex-col items-center">
+      <div className="bg-white rounded-3xl shadow-xl overflow-hidden dark:bg-black">
+        <form className="flex-col space-y-2 flex items-center justify-center md:mt-36 xl:mt-36 lg:-mt-0 pt-10 pb-10">
+          <div className="flex flex-col items-center justify-center">
             <input
               placeholder="아이디"
               required
@@ -112,7 +112,7 @@ export default function Home() {
               아이디는 최소 5자리
             </span>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center justify-center">
             <input
               placeholder="비밀번호"
               required
@@ -129,7 +129,7 @@ export default function Home() {
           <input
             value="로그인"
             type="submit"
-            className="rounded-md bg-gray-100 w-auto border-2 border-gray-300 cursor-pointer focus:outline-none focus:border-blue-500"
+            className="rounded-md bg-gray-100 border-2 w-3/12 border-gray-300 cursor-pointer focus:outline-none focus:border-blue-500"
           />
         </form>
       </div>
