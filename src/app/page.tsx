@@ -156,7 +156,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className="text-[#6534] bg-[url('/vercel.svg')]"></div>
     </>
   );
 }
