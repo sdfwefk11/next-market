@@ -1,18 +1,42 @@
+"use client";
 import { useState } from "react";
+
+function cls(...classnames: string[]) {
+  return classnames.join(" ");
+}
 
 export default function Enter() {
   const [method, setMethod] = useState<"email" | "phone">("email");
   const onEmailClick = () => setMethod("email");
   const onPhoneClick = () => setMethod("phone");
   return (
-    <div>
-      <h3>Enter to Carrot</h3>
-      <div>
-        <div>
-          <h5>Enter using:</h5>
-          <div>
-            <button onClick={onEmailClick}>Email</button>
-            <button onClick={onPhoneClick}>Phone</button>
+    <div className="mt-10">
+      <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
+      <div className="mt-6">
+        <div className="flex flex-col items-center">
+          <h5 className="text-sm text-gray-500 font-medium">Enter using:</h5>
+          <div className="grid grid-cols-2 mt-5 border-b w-full">
+            <button
+              className={cls(
+                "font-medium pb-3",
+                method === "email"
+                  ? "text-emerald-500 border-b-2 border-b-emerald-500"
+                  : ""
+              )}
+              onClick={onEmailClick}
+            >
+              Email
+            </button>
+            <button
+              className={`font-medium pb-3 ${
+                method === "phone"
+                  ? "text-emerald-500 border-b-2 border-b-emerald-500"
+                  : ""
+              }`}
+              onClick={onPhoneClick}
+            >
+              Phone
+            </button>
           </div>
         </div>
         <form>
