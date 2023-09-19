@@ -11,49 +11,60 @@ export default function Enter() {
   const onPhoneClick = () => setMethod("phone");
   return (
     <div className="mt-10">
-      <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
-      <div className="mt-6">
+      <h3 className="text-3xl font-bold text-center text-orange-500">
+        Enter to Carrot
+      </h3>
+      <div className="mt-6 p-7">
         <div className="flex flex-col items-center">
           <h5 className="text-sm text-gray-500 font-medium">Enter using:</h5>
-          <div className="grid grid-cols-2 mt-5 border-b w-full">
+          <div className="grid grid-cols-2 mt-5 w-full border-b">
             <button
               className={cls(
-                "font-medium pb-3",
+                "font-medium pb-3 border-b-2 transition",
                 method === "email"
-                  ? "text-emerald-500 border-b-2 border-b-emerald-500"
-                  : ""
+                  ? "text-emerald-500 border-b-emerald-600"
+                  : "border-transparent text-gray-400"
               )}
               onClick={onEmailClick}
             >
               Email
             </button>
             <button
-              className={`font-medium pb-3 ${
+              className={cls(
+                "font-medium pb-3 border-b-2 transition",
                 method === "phone"
-                  ? "text-emerald-500 border-b-2 border-b-emerald-500"
-                  : ""
-              }`}
+                  ? "text-emerald-500 border-b-emerald-600"
+                  : "border-transparent text-gray-400"
+              )}
               onClick={onPhoneClick}
             >
               Phone
             </button>
           </div>
         </div>
-        <form>
-          <label>
+        <form className="flex flex-col mt-8">
+          <label className="text-sm font-medium text-gray-700">
             {method === "email" ? "Email address" : null}
             {method === "phone" ? "Phone number" : null}
           </label>
-          <div>
-            {method === "email" ? <input type="email" required /> : null}
+          <div className="mt-2">
+            {method === "email" ? (
+              <input
+                className="appearance-none w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-emerald-600 focus:ring-emerald-600"
+                type="email"
+                required
+              />
+            ) : null}
             {method === "phone" ? (
-              <div>
-                <span>+82</span>
+              <div className="flex rounded-md shadow-sm">
+                <span className="flex items-center justify-center px-3 rounded-l-md border border-r-0">
+                  +82
+                </span>
                 <input type="number" required />
               </div>
             ) : null}
           </div>
-          <button>
+          <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-4 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none">
             {method === "email" ? "Get login link" : null}
             {method === "phone" ? "Get one-time password" : null}
           </button>
