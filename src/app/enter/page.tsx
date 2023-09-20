@@ -57,10 +57,14 @@ export default function Enter() {
             ) : null}
             {method === "phone" ? (
               <div className="flex rounded-md shadow-sm">
-                <span className="flex items-center justify-center px-3 rounded-l-md border border-r-0">
+                <span className="flex items-center justify-center px-3 rounded-l-md border border-r-0 bg-gray-50 border-gray-300 text-gray-500 select-none text-sm">
                   +82
                 </span>
-                <input type="number" required />
+                <input
+                  type="number"
+                  className="appearance-none w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-emerald-600 focus:ring-emerald-600 rounded-l-none"
+                  required
+                />
               </div>
             ) : null}
           </div>
@@ -69,15 +73,17 @@ export default function Enter() {
             {method === "phone" ? "Get one-time password" : null}
           </button>
         </form>
-        <div>
-          <div>
-            <div />
-            <div>
-              <span>Or enter with</span>
+        <div className="mt-8">
+          <div className="relative">
+            <div className="absolute w-full border-t border-gray-300" />
+            <div className="relative -top-3 text-center">
+              <span className="bg-white text-gray-500 text-sm">
+                Or enter with
+              </span>
             </div>
           </div>
-          <div>
-            <button>
+          <div className="grid grid-cols-2 mt-2 gap-4">
+            <button className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm text-gray-500 hover:bg-gray-50">
               <svg
                 className="w-5 h-5"
                 aria-hidden="true"
@@ -87,7 +93,7 @@ export default function Enter() {
                 <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
               </svg>
             </button>
-            <button>
+            <button className="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm text-gray-500 hover:bg-gray-50">
               <svg
                 className="w-5 h-5"
                 aria-hidden="true"
