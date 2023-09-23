@@ -4,7 +4,7 @@ export default function Detail() {
       <div>
         <div className="h-96 bg-emerald-400" />
         <div className="flex items-center space-x-3 py-3 border-t border-b">
-          <div className="w-12 h-12 rounded-full bg-pink-300" />
+          <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
           <div className="cursor-pointer">
             <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
             <p className="text-xs font-medium text-gray-500">
@@ -12,10 +12,10 @@ export default function Detail() {
             </p>
           </div>
         </div>
-        <div>
-          <h1>Galaxy S50</h1>
-          <p>$140</p>
-          <p>
+        <div className="mt-5">
+          <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
+          <p className="text-3xl mt-3 text-gray-900 block">$140</p>
+          <p className="text-base my-6 text-gray-700">
             My money&apos;s in that office, right? If she start giving me some
             bullshit about it ain&apos;t there, and we got to go someplace else
             and get it, I&apos;m gonna shoot you in the head then and there.
@@ -25,9 +25,11 @@ export default function Detail() {
             and that ni**a Winston or anybody else is in there, you the first
             motherfucker to get shot. You understand?
           </p>
-          <div>
-            <button>Talk to seller</button>
-            <button>
+          <div className="flex items-center justify-between space-x-2">
+            <button className="flex-1 bg-orange-500 text-white py-3 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 hover:bg-orange-600 transition focus:outline-none shadow-md">
+              Talk to seller
+            </button>
+            <button className="p-3 flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 transition rounded-md">
               <svg
                 className="h-6 w-6 "
                 xmlns="http://www.w3.org/2000/svg"
