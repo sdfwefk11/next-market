@@ -1,7 +1,7 @@
 export default function Detail() {
   return (
     <div className="px-4 py-10">
-      <div>
+      <div className="mb-6">
         <div className="h-96 bg-emerald-400" />
         <div className="flex items-center space-x-3 py-3 border-t border-b">
           <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
@@ -29,7 +29,7 @@ export default function Detail() {
             <button className="flex-1 bg-orange-500 text-white py-3 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 hover:bg-orange-600 transition focus:outline-none shadow-md">
               Talk to seller
             </button>
-            <button className="p-3 flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 transition rounded-md">
+            <button className="p-3 flex items-center justify-center text-red-400 hover:bg-gray-100 hover:text-red-500 transition rounded-md">
               <svg
                 className="h-6 w-6 "
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,14 +49,14 @@ export default function Detail() {
           </div>
         </div>
       </div>
-      <div>
-        <h2>Similar items</h2>
-        <div>
+      <div className="border-t py-5">
+        <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
+        <div className="grid grid-cols-2 gap-4 mt-6">
           {[1, 2, 3, 4, 5, 6].map((_, i) => (
             <div key={i}>
-              <div />
-              <h3>Galaxy S60</h3>
-              <p>$6</p>
+              <div className="h-56 w-56 bg-yellow-500 mb-4" />
+              <h3 className="text-gray-700 -mb-1">Galaxy S60</h3>
+              <p className="text-sm font-medium text-gray-900">$6</p>
             </div>
           ))}
         </div>
