@@ -70,7 +70,7 @@ export default function Enter() {
               </div>
             ) : null}
           </div>
-          <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-4 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none">
+          <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-4 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition">
             {method === "email" ? "Get login link" : null}
             {method === "phone" ? "Get one-time password" : null}
           </button>
