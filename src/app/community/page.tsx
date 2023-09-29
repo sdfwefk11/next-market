@@ -3,7 +3,7 @@ export default function Community() {
     <div className="py-16 px-4 space-y-8">
       {[1, 2, 3, 4, 5, 6].map((_, key) => (
         <div key={key} className="flex flex-col items-start cursor-pointer">
-          <span className="flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 shadow-md">
+          <span className="flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 shadow-sm">
             동네질문
           </span>
           <div className="mt-2 text-gray-700">
@@ -15,7 +15,7 @@ export default function Community() {
             <span>18시간 전</span>
           </div>
           <div className="flex space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[1.5px] w-full shadow-sm">
-            <span className="flex mt-1 space-x-1 items-center justify-center text-sm">
+            <span className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors">
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -32,7 +32,7 @@ export default function Community() {
               </svg>
               <span>궁금해요 1</span>
             </span>
-            <span className="flex mt-1 space-x-1 items-center justify-center text-sm">
+            <span className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors">
               <svg
                 className="w-4 h-4"
                 fill="none"
