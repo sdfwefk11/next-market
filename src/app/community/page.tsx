@@ -1,6 +1,6 @@
 export default function Community() {
   return (
-    <div className="py-16 px-4 space-y-8">
+    <div className="pt-16 px-4 space-y-8 pb-28">
       {[1, 2, 3, 4, 5, 6].map((_, key) => (
         <div key={key} className="flex flex-col items-start cursor-pointer">
           <span className="flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 shadow-sm">
@@ -52,7 +52,7 @@ export default function Community() {
           </div>
         </div>
       ))}
-      <button className="fixed bottom-24 right-5 bg-orange-500 rounded-full p-4 text-white shadow-xl hover:bg-orange-600 cursor-pointer transition-colors">
+      <button className="fixed bottom-8 right-5 bg-orange-500 rounded-full p-4 text-white shadow-xl hover:bg-orange-600 cursor-pointer transition-colors">
         <svg
           className="w-6 h-6"
           fill="none"
