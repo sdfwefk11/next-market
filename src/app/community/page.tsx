@@ -1,3 +1,5 @@
+import FloatingButton from "@/components/floating-button";
+import BButton from "../../components/button";
 import RootLayout from "../layout";
 
 export default function Community() {
@@ -55,7 +57,7 @@ export default function Community() {
             </div>
           </div>
         ))}
-        <button className="fixed bottom-24 right-5 bg-orange-500 rounded-full p-4 text-white shadow-xl hover:bg-orange-600 cursor-pointer transition-colors">
+        <FloatingButton href="/community/write">
           <svg
             className="w-6 h-6"
             fill="none"
@@ -70,7 +72,7 @@ export default function Community() {
               d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
             ></path>
           </svg>
-        </button>
+        </FloatingButton>
       </div>
     </RootLayout>
   );

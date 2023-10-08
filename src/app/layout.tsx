@@ -2,7 +2,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { cls } from "../../libs/utils";
+import { cls } from "../libs/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -41,7 +41,22 @@ export default function RootLayout({
           )}
         >
           {canGoBack ? (
-            <button onClick={() => router.back()}>&larr;</button>
+            <button onClick={() => router.back()}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
           ) : null}
           {title ? <span>{title}</span> : null}
         </div>
