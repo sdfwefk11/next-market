@@ -1,3 +1,4 @@
+import FloatingButton from "@/components/floating-button";
 import RootLayout from "../layout";
 
 export default function Product() {
@@ -57,7 +58,7 @@ export default function Product() {
             </div>
           </div>
         ))}
-        <button className="fixed bottom-24 right-5 bg-orange-500 rounded-full p-4 text-white shadow-xl hover:bg-orange-600 cursor-pointer transition-colors">
+        <FloatingButton href="/product/upload">
           <svg
             className="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +74,7 @@ export default function Product() {
               d="M12 6v6m0 0v6m0-6h6m-6 0H6"
             />
           </svg>
-        </button>
+        </FloatingButton>
       </div>
     </RootLayout>
   );

@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { cls } from "../libs/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +37,7 @@ export default function RootLayout({
         <div
           className={cls(
             "bg-white text-lg font-medium py-4 fixed text-gray-700 border-b border-l border-r top-0 flex items-center w-full max-w-xl mx-auto px-6",
-            !canGoBack ? "justify-center " : ""
+            !canGoBack ? "justify-center" : ""
           )}
         >
           {canGoBack ? (
