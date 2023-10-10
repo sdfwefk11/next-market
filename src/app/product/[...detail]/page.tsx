@@ -1,4 +1,5 @@
 import RootLayout from "@/app/layout";
+import ViewProfile from "@/components/view-profie";
 
 export default function Detail() {
   return (
@@ -6,15 +7,7 @@ export default function Detail() {
       <div className="px-4">
         <div className="mb-6">
           <div className="h-96 bg-emerald-400" />
-          <div className="flex items-center space-x-3 py-3 border-t border-b">
-            <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
-            <div className="cursor-pointer">
-              <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
-              <p className="text-xs font-medium text-gray-500">
-                View profile &rarr;
-              </p>
-            </div>
-          </div>
+          <ViewProfile userName="Steve Jebs" />
           <div className="mt-5">
             <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
             <p className="text-3xl mt-3 text-gray-900 block">$140</p>

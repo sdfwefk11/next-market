@@ -1,5 +1,5 @@
 import FloatingButton from "@/components/floating-button";
-import BButton from "../../components/button";
+import BButton from "../../components/profile-button";
 import RootLayout from "../layout";
 
 export default function Community() {

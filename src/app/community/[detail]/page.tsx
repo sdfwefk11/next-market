@@ -1,4 +1,5 @@
 import RootLayout from "@/app/layout";
+import ViewProfile from "@/components/view-profie";
 
 export default function CommunityDetail() {
   return (
@@ -9,15 +10,7 @@ export default function CommunityDetail() {
             동네질문
           </span>
         </div>
-        <div className="flex mb-3 items-center space-x-3 py-3 border-b px-4">
-          <div className="w-10 h-10 rounded-full bg-pink-300 shadow-md" />
-          <div className="cursor-pointer">
-            <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
-            <p className="text-xs font-medium text-gray-500">
-              View profile &rarr;
-            </p>
-          </div>
-        </div>
+        <ViewProfile userName="Steve Jebs" />
         <div className="px-4">
           <div className="mt-2 text-gray-700">
             <span className="text-orange-500 font-medium">Q.</span> What is the
