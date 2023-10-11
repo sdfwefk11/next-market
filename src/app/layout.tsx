@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  main,
   children,
   title,
   canGoBack,
@@ -24,6 +25,7 @@ export default function RootLayout({
   title?: string;
   canGoBack?: boolean;
   hasTabBar?: boolean;
+  main?: boolean;
 }) {
   const router = useRouter();
   return (
@@ -34,32 +36,34 @@ export default function RootLayout({
           inter.className
         )}
       >
-        <div
-          className={cls(
-            "bg-white text-lg font-medium py-4 fixed text-gray-700 border-b border-l border-r top-0 flex items-center w-full max-w-xl mx-auto px-6",
-            !canGoBack ? "justify-center" : ""
-          )}
-        >
-          {canGoBack ? (
-            <button onClick={() => router.back()}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15.75 19.5L8.25 12l7.5-7.5"
-                />
-              </svg>
-            </button>
-          ) : null}
-          {title ? <span>{title}</span> : null}
-        </div>
+        {!main ? (
+          <div
+            className={cls(
+              "bg-white text-lg font-medium py-4 fixed text-gray-700 border-b border-l border-r top-0 flex items-center w-full max-w-xl mx-auto px-6",
+              !canGoBack ? "justify-center" : ""
+            )}
+          >
+            {canGoBack ? (
+              <button onClick={() => router.back()}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
+              </button>
+            ) : null}
+            {title ? <span>{title}</span> : null}
+          </div>
+        ) : null}
         {children}
         {hasTabBar ? (
           <nav className="bg-white text-gray-800 border-t fixed bottom-0 py-3 px-10 flex justify-between items-center max-w-xl w-full select-none">
