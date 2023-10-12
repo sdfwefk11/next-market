@@ -4,7 +4,7 @@ import RootLayout from "../layout";
 
 export default function Product() {
   return (
-    <RootLayout title="Home" hasTabBar>
+    <RootLayout title="홈" hasTabBar>
       <ProductList>
         <FloatingButton href="/product/upload">
           <svg
