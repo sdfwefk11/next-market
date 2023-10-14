@@ -1,5 +1,9 @@
 interface ProductList {
   children: React.ReactNode;
+  id: number;
+  price: number;
+  comments: number;
+  hearts: number;
 }
 
 export default function ProductList() {
