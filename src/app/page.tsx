@@ -8,7 +8,11 @@ interface LoginForm {
 }
 
 export default function Forms() {
-  const { register, handleSubmit } = useForm<LoginForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>();
   const onVaild = (data: LoginForm) => {
     console.log(data);
   };
@@ -29,11 +33,22 @@ export default function Forms() {
         type="text"
         placeholder="Username"
       />
+      {errors.username?.message}
       <input
-        {...register("email", { required: "emial is required" })}
+        {...register("email", {
+          required: "emial is required",
+          validate: {
+            allowEmail: (value) =>
+              value.includes("@gmail.com") ||
+              value.includes("@naver.com") ||
+              value.includes("@github.io") ||
+              "Can used only Gmail, Naver, Github",
+          },
+        })}
         type="email"
         placeholder="Email"
       />
+      {errors.email?.message}
       <input
         {...register("password", { required: "password is required" })}
         type="password"
