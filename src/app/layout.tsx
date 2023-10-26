@@ -1,15 +1,10 @@
 "use client";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { cls } from "../libs/utils";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import HeaderTabBar from "@/components/header-tap";
 import BottomTabBar from "@/components/bottom-tap";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useEffect, useState } from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +14,7 @@ export const metadata: Metadata = {
 interface RootLayout {
   main?: boolean;
   children: React.ReactNode;
-  title?: string;
+  title: string;
   canGoBack?: boolean;
   hasTabBar?: boolean;
 }
@@ -32,37 +27,38 @@ export default function RootLayout({
   hasTabBar,
 }: RootLayout) {
   const router = useRouter();
+  const [titles, setTitles] = useState("");
+  useEffect(() => setTitles(title), []);
   return (
-    <html lang="en">
-      <body
-        className={cls(
-          "w-full max-w-xl mx-auto pt-[80px]",
-          inter.className,
-          title ? " pb-[70px]" : ""
-        )}
-      >
+    <html>
+      <body className="w-full max-w-xl mx-auto pt-[80px] pb-[70px]">
         {!main ? (
-          <HeaderTabBar canGoBack={canGoBack}>
+          <nav
+            className={cls(
+              "bg-white text-lg font-medium py-4 fixed text-gray-700 border-b border-l border-r top-0 flex items-center w-full max-w-xl mx-auto px-6",
+              !canGoBack ? "justify-center" : ""
+            )}
+          >
+            {titles ? titles : null}
             {canGoBack ? (
               <button onClick={() => router.back()}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-6 h-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M15.75 19.5L8.25 12l7.5-7.5"
                   />
                 </svg>
               </button>
             ) : null}
-            {title ? <span>{title}</span> : null}
-          </HeaderTabBar>
+          </nav>
         ) : null}
         {children}
         {hasTabBar ? <BottomTabBar /> : null}

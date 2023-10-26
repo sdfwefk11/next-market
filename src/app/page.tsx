@@ -1,60 +1,31 @@
-"use client";
-import { FieldErrors, useForm } from "react-hook-form";
+import FloatingButton from "@/components/floating-button";
+import ProductList from "@/components/product-list";
+import Link from "next/link";
+import RootLayout from "./layout";
 
-interface LoginForm {
-  username: string;
-  password: string;
-  email: string;
-}
-
-export default function Forms() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginForm>();
-  const onVaild = (data: LoginForm) => {
-    console.log(data);
-  };
-  const onInvalid = (errors: FieldErrors) => {
-    console.log(errors);
-  };
+export default function Product() {
   return (
-    <form onSubmit={handleSubmit(onVaild, onInvalid)}>
-      <input
-        {...register("username", {
-          required: "username is required",
-          minLength: {
-            message: "the username should be longer than 5 chars",
-            value: 5,
-          },
-          maxLength: 20,
-        })}
-        type="text"
-        placeholder="Username"
-      />
-      {errors.username?.message}
-      <input
-        {...register("email", {
-          required: "emial is required",
-          validate: {
-            allowEmail: (value) =>
-              value.includes("@gmail.com") ||
-              value.includes("@naver.com") ||
-              value.includes("@github.io") ||
-              "Can used only Gmail, Naver, Github",
-          },
-        })}
-        type="email"
-        placeholder="Email"
-      />
-      {errors.email?.message}
-      <input
-        {...register("password", { required: "password is required" })}
-        type="password"
-        placeholder="Password"
-      />
-      <input type="submit" value="Create Account" />
-    </form>
+    <RootLayout hasTabBar title="홈">
+      <Link href="/product/detail/1">
+        <ProductList />
+      </Link>
+      <FloatingButton href="/product/upload">
+        <svg
+          className="h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </FloatingButton>
+    </RootLayout>
   );
 }

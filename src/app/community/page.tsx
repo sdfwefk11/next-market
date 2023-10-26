@@ -6,7 +6,7 @@ import RootLayout from "../layout";
 
 export default function Community() {
   return (
-    <RootLayout title="동네생활" hasTabBar>
+    <RootLayout hasTabBar title="동네생활">
       <div className="space-y-8 px-4 -mt-5">
         {[1, 2, 3, 4, 5, 6].map((_, key) => (
           <Link key={key} href="/community/1">
