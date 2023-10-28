@@ -41,6 +41,7 @@ export default function Forms() {
     <form onSubmit={handleSubmit(onVaild, onInvalid)}>
       <input
         {...register("username", {
+          //register function이 input의 모든기능을 제어한다
           required: "username is required",
           minLength: {
             message: "the username should be longer than 5 chars",
@@ -56,6 +57,7 @@ export default function Forms() {
         {...register("email", {
           required: "emial is required",
           validate: {
+            //validate로 email의 여러가지 rule을 정할수있다.
             allowEmail: (value) =>
               value.includes("@gmail.com") ||
               value.includes("@naver.com") ||
