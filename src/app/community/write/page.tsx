@@ -2,7 +2,7 @@ import RootLayout from "@/app/layout";
 
 export default function Write() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <form className="px-4 py-10">
         <textarea
           rows={4}

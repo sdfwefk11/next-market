@@ -2,7 +2,7 @@ import RootLayout from "@/app/layout";
 
 export default function Create() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <div className="space-y-5 py-10 px-4">
         <div className="my-5">
           <label

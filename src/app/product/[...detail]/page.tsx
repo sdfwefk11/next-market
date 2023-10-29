@@ -3,7 +3,7 @@ import ViewProfile from "@/components/view-profie";
 
 export default function Detail() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <div className="px-4">
         <div className="mb-6">
           <div className="h-96 bg-emerald-400" />

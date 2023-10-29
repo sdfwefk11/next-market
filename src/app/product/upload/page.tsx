@@ -2,7 +2,7 @@ import RootLayout from "@/app/layout";
 
 export default function Upload() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <div className="px-4">
         <div className="w-full flex items-center justify-center border-dashed border-2 border-gray-300 py-6 h-48 rounded-md group hover:border-blue-600 transition">
           <label className="text-blue-600 group-hover:text-blue-200  cursor-pointer transition group-hover:shadow-md rounded-full">

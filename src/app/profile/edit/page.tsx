@@ -2,7 +2,7 @@ import RootLayout from "@/app/layout";
 
 export default function Edit() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <div className="px-4 space-y-4">
         <div className="flex items-center space-x-3">
           <div className="w-14 h-14 rounded-full bg-orange-500" />

@@ -3,10 +3,8 @@ import ProductList from "@/components/product-list";
 
 export default function Buy() {
   return (
-    <RootLayout canGoBack>
-      <ProductList>
-        <div></div>
-      </ProductList>
+    <RootLayout canGoBack title={true}>
+      <ProductList />
     </RootLayout>
   );
 }

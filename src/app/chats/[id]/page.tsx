@@ -2,7 +2,7 @@ import RootLayout from "@/app/layout";
 
 export default function ChatProfile() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <div className="pt-10 px-4 space-y-4 pb-36">
         <div className="flex items-start space-x-2">
           <div className="w-8 h-8 rounded-full bg-amber-300 shadow-sm" />

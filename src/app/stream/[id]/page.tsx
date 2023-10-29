@@ -2,7 +2,7 @@ import RootLayout from "@/app/layout";
 
 export default function StreamDetail() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <div className="px-4">
         <div className="w-full bg-red-300 aspect-video rounded-md shadow-sm" />
         <div className="mt-6">

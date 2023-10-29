@@ -5,7 +5,7 @@ import ViewProfile from "@/components/view-profie";
 
 export default function CommunityDetail() {
   return (
-    <RootLayout canGoBack>
+    <RootLayout canGoBack title={true}>
       <div className="-mt-5">
         <div className="px-4">
           <CommunityHashTag />
