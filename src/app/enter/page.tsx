@@ -3,18 +3,34 @@ import { useState } from "react";
 import { cls } from "../../libs/utils";
 import RootLayout from "../layout";
 import { useForm } from "react-hook-form";
+import Input from "@/components/input";
+import Button from "@/components/button";
 
 interface EnterForm {
   email?: string;
   phone?: string;
-  password: string;
 }
 
 export default function Enter() {
-  const { register, handleSubmit } = useForm<EnterForm>();
+  const { register, handleSubmit, reset } = useForm<EnterForm>();
   const [method, setMethod] = useState<"email" | "phone">("email");
-  const onEmailClick = () => setMethod("email");
-  const onPhoneClick = () => setMethod("phone");
+  const onEmailClick = () => {
+    setMethod("email");
+    reset();
+  };
+  const onPhoneClick = () => {
+    setMethod("phone");
+    reset();
+  };
+  const onValid = (data: EnterForm) => {
+    fetch("/api/users/enter", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
   return (
     <RootLayout main={true}>
       <div className="mt-10">
@@ -49,41 +65,33 @@ export default function Enter() {
               </button>
             </div>
           </div>
-          <form className="flex flex-col mt-8">
-            <label
-              htmlFor="input"
-              className="text-sm font-medium text-gray-700"
-            >
-              {method === "email" ? "Email address" : null}
-              {method === "phone" ? "Phone number" : null}
-            </label>
-            <div className="mt-2">
-              {method === "email" ? (
-                <input
-                  id="input"
-                  className="appearance-none w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-emerald-600 focus:ring-emerald-600"
-                  type="email"
-                  required
-                />
-              ) : null}
-              {method === "phone" ? (
-                <div className="flex rounded-md shadow-sm">
-                  <span className="flex items-center justify-center px-3 rounded-l-md border border-r-0 bg-gray-50 border-gray-300 text-gray-500 select-none text-sm">
-                    +82
-                  </span>
-                  <input
-                    id="input"
-                    type="number"
-                    className="appearance-none w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-emerald-600 focus:ring-emerald-600 rounded-l-none"
-                    required
-                  />
-                </div>
-              ) : null}
-            </div>
-            <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-4 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition">
-              {method === "email" ? "Get login link" : null}
-              {method === "phone" ? "Get one-time password" : null}
-            </button>
+          <form
+            onSubmit={handleSubmit(onValid)}
+            className="flex flex-col mt-8 space-y-4"
+          >
+            {method === "email" ? (
+              <Input
+                register={register("email")}
+                name="email"
+                label="Email address"
+                type="email"
+                required
+              />
+            ) : null}
+            {method === "phone" ? (
+              <Input
+                register={register("phone")}
+                name="phone"
+                label="Phone number"
+                type="number"
+                kind="phone"
+                required
+              />
+            ) : null}
+            {method === "email" ? <Button text={"Get login link"} /> : null}
+            {method === "phone" ? (
+              <Button text={"Get one-time password"} />
+            ) : null}
           </form>
           <div className="mt-8">
             <div className="relative">
