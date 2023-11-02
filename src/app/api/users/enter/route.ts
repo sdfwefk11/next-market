@@ -4,6 +4,5 @@ const DATA_SOURCE_URL = "https://jsonplaceholder.typicode.com/todos";
 const API_KEY: string = process.env.DATA_API_KEY as string;
 
 export async function POST(res: Response) {
-  console.log(res.body?.pipeTo());
   return NextResponse.json(res.body);
 }
