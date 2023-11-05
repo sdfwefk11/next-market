@@ -1,4 +1,4 @@
-import { cls } from "@/libs/client/utils";
+import { cls } from "@/libs/utils";
 import Link from "next/link";
 
 interface ProfileButton {

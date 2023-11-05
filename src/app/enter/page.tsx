@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { cls } from "../../libs/client/utils";
+import { cls } from "../../libs/utils";
 import RootLayout from "../layout";
 import { useForm } from "react-hook-form";
 import Input from "@/components/input";

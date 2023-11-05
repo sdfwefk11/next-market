@@ -1,7 +1,7 @@
 "use client";
 import "./globals.css";
 import type { Metadata } from "next";
-import { cls } from "../libs/client/utils";
+import { cls } from "../libs/utils";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
