@@ -26,6 +26,8 @@ export default function Enter() {
   };
   const onValid = (validForm: EnterForm) => {
     enter(validForm);
+    //validForm = 객체 형태 {email: "abcd@efg.com"}
+    //따라서 enter의 인자로 전달되어 api를 호출할때 validForm에 맞는 조건이나 결과를 return 받을수 있다.
   };
   console.log(loading, data, error);
   return (
@@ -72,6 +74,7 @@ export default function Enter() {
                 name="email"
                 label="Email address"
                 type="email"
+                kind="text"
                 required
               />
             ) : null}
