@@ -30,7 +30,7 @@ export default function RootLayout({
   const path = usePathname();
   const [titles, setTitles] = useState();
   useEffect(() => setTitles(title as any), []);
-  //next는 서버에서 완성된 페이지를 클라이언트에 제공하기 때문에 사용자 환경에 따라 달라지는 if나 삼항연산자와 같은 것을 사용할수없다. 따라서 처음 렌더링 시킬 페이지를 useEffact함수를 사용하여 변할수없는 고정된값을 next서버에 보낸후 클라이언트가 완성된 페이지를 받아온 뒤 state변경을 해줘야한다.
+  //next는 서버에서 완성된 페이지를 클라이언트에 제공하기 때문에 사용자 환경에 따라 달라지는 if나 삼항연산자와 같은 것을 사용할수없다. 따라서 처음 렌더링 시킬 페이지를 useEffect함수를 사용하여 변할수없는 고정된값을 next서버에 보낸후 클라이언트가 완성된 페이지를 받아온 뒤 state변경을 해줘야한다.
   return (
     <html>
       <body className="w-full max-w-xl mx-auto pt-[80px] pb-[70px]">
