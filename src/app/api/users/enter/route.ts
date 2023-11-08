@@ -17,7 +17,12 @@ export async function POST(req: Request) {
     update: {},
     //update는 하지않을 것이기 때문에 빈 obj 형태
   });
-
+  const token = await apiClient.token.create({
+    data: {
+      payload: "123",
+      user: { connect: { id: user.id } },
+    },
+  });
   // if (email) {
   //   user = await apiClient.user.findUnique({
   //     where: {
