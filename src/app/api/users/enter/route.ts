@@ -1,10 +1,13 @@
 import { apiClient } from "@/libs/server/client";
 import { NextResponse } from "next/server";
+import twilio from "twilio";
 
 interface ResponseType {
   ok: boolean;
   [key: string]: any;
 }
+
+const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 export async function POST(req: Request) {
   const { email, phone } = await req.json();
@@ -27,7 +30,14 @@ export async function POST(req: Request) {
       },
     },
   });
-  console.log(token);
+  if (phone) {
+    const message = await client.messages.create({
+      messagingServiceSid: process.env.MESSAGING_SERVICE_ID,
+      to: process.env.MY_PHONE_NUMBER!,
+      body: `Your login token is ${payload}`,
+    });
+    console.log(message);
+  }
   // if (email) {
   //   user = await apiClient.user.findUnique({
   //     where: {
