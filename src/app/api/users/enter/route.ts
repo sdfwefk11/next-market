@@ -1,13 +1,18 @@
 import { apiClient } from "@/libs/server/client";
+import { emailModule, phoneModule } from "@/libs/server/email&pass";
 import { NextResponse } from "next/server";
-import twilio from "twilio";
 
 interface ResponseType {
   ok: boolean;
   [key: string]: any;
 }
 
-const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
+interface MailOption {
+  from: string | undefined;
+  to: string | undefined;
+  subject: string;
+  text: string;
+}
 
 export async function POST(req: Request) {
   const { email, phone } = await req.json();
@@ -31,12 +36,25 @@ export async function POST(req: Request) {
     },
   });
   if (phone) {
-    const message = await client.messages.create({
+    const message = await phoneModule.messages.create({
       messagingServiceSid: process.env.MESSAGING_SERVICE_ID,
       to: process.env.MY_PHONE_NUMBER!,
       body: `Your login token is ${payload}`,
     });
     console.log(message);
+  }
+  if (email) {
+    const mailOption: MailOption = {
+      from: process.env.MY_EMAIL_ID,
+      to: process.env.MY_EMAIL_ID,
+      subject: "Email Token",
+      text: `Your login token is ${payload}`,
+    };
+    const result = await emailModule.sendMail(mailOption, (error, info) => {
+      error ? console.log(error) : console.log(info);
+    });
+    console.log(result);
+    emailModule.close();
   }
   // if (email) {
   //   user = await apiClient.user.findUnique({
