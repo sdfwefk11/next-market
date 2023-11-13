@@ -13,7 +13,8 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  phone     Int?     @unique
+  phone     BigInt?  @unique
+  //큰숫자를 db에 저장할때 일반적인 Int 타입은 불가능. 따라서 BigInt나 String 타입을 사용해야한다.
   email     String?  @unique
   name      String
   avatar    String?
@@ -25,7 +26,8 @@ model User {
 model Token {
   id        Int      @id @default(autoincrement())
   payload   String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  //onDelete: Cascade = 부모인 User를 삭제하면 자식인 Token도 같이 삭제된다.
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    Int
