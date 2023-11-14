@@ -37,64 +37,88 @@ export default function Enter() {
           Enter to Carrot
         </h3>
         <div className="mt-6 p-7">
-          <div className="flex flex-col items-center">
-            <h5 className="text-sm text-gray-500 font-medium">Enter using:</h5>
-            <div className="grid grid-cols-2 mt-5 w-full border-b">
-              <button
-                className={cls(
-                  "font-medium pb-3 border-b-2 transition",
-                  method === "email"
-                    ? "text-emerald-500 border-b-emerald-600"
-                    : "border-transparent text-gray-400"
-                )}
-                onClick={onEmailClick}
-              >
-                Email
-              </button>
-              <button
-                className={cls(
-                  "font-medium pb-3 border-b-2 transition",
-                  method === "phone"
-                    ? "text-emerald-500 border-b-emerald-600"
-                    : "border-transparent text-gray-400"
-                )}
-                onClick={onPhoneClick}
-              >
-                Phone
-              </button>
-            </div>
-          </div>
-          <form
-            onSubmit={handleSubmit(onValid)}
-            className="flex flex-col mt-8 space-y-4"
-          >
-            {method === "email" ? (
+          {data ? (
+            <form
+              onSubmit={handleSubmit(onValid)}
+              className="flex flex-col mt-8 space-y-4"
+            >
               <Input
-                register={register("email")}
+                register={register("token")}
                 name="email"
-                label="Email address"
+                label="Confirmation Token"
                 type="email"
                 kind="text"
                 required
               />
-            ) : null}
-            {method === "phone" ? (
-              <Input
-                register={register("phone")}
-                name="phone"
-                label="Phone number"
-                type="number"
-                kind="phone"
-                required
-              />
-            ) : null}
-            {method === "email" ? (
-              <Button text={loading ? "Loading..." : "Get login link"} />
-            ) : null}
-            {method === "phone" ? (
-              <Button text={loading ? "Loading..." : "Get one-time password"} />
-            ) : null}
-          </form>
+
+              <Button text={loading ? "Loading..." : "Confirm Token"} />
+            </form>
+          ) : (
+            <>
+              <div className="flex flex-col items-center">
+                <h5 className="text-sm text-gray-500 font-medium">
+                  Enter using:
+                </h5>
+                <div className="grid grid-cols-2 mt-5 w-full border-b">
+                  <button
+                    className={cls(
+                      "font-medium pb-3 border-b-2 transition",
+                      method === "email"
+                        ? "text-emerald-500 border-b-emerald-600"
+                        : "border-transparent text-gray-400"
+                    )}
+                    onClick={onEmailClick}
+                  >
+                    Email
+                  </button>
+                  <button
+                    className={cls(
+                      "font-medium pb-3 border-b-2 transition",
+                      method === "phone"
+                        ? "text-emerald-500 border-b-emerald-600"
+                        : "border-transparent text-gray-400"
+                    )}
+                    onClick={onPhoneClick}
+                  >
+                    Phone
+                  </button>
+                </div>
+              </div>
+              <form
+                onSubmit={handleSubmit(onValid)}
+                className="flex flex-col mt-8 space-y-4"
+              >
+                {method === "email" ? (
+                  <Input
+                    register={register("email")}
+                    name="email"
+                    label="Email address"
+                    type="email"
+                    kind="text"
+                    required
+                  />
+                ) : null}
+                {method === "phone" ? (
+                  <Input
+                    register={register("phone")}
+                    name="phone"
+                    label="Phone number"
+                    type="number"
+                    kind="phone"
+                    required
+                  />
+                ) : null}
+                {method === "email" ? (
+                  <Button text={loading ? "Loading..." : "Get login link"} />
+                ) : null}
+                {method === "phone" ? (
+                  <Button
+                    text={loading ? "Loading..." : "Get one-time password"}
+                  />
+                ) : null}
+              </form>
+            </>
+          )}
           <div className="mt-8">
             <div className="relative">
               <div className="absolute w-full border-t border-gray-300" />

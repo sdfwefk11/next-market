@@ -36,15 +36,15 @@ export async function POST(req: Request) {
     },
   });
   if (phone) {
-    const message = await phoneModule.messages.create({
+    /* const message = await phoneModule.messages.create({
       messagingServiceSid: process.env.MESSAGING_SERVICE_ID,
       to: process.env.MY_PHONE_NUMBER!,
       body: `Your login token is ${payload}`,
     });
-    console.log(message);
+    console.log(message); */
   }
   if (email) {
-    const mailOption: MailOption = {
+    /* const mailOption: MailOption = {
       from: process.env.MY_EMAIL_ID,
       to: process.env.MY_EMAIL_ID,
       subject: "Email Token",
@@ -54,8 +54,9 @@ export async function POST(req: Request) {
       error ? console.log(error) : console.log(info);
     });
     console.log(result);
-    emailModule.close();
+    emailModule.close(); */
   }
+
   // if (email) {
   //   user = await apiClient.user.findUnique({
   //     where: {
