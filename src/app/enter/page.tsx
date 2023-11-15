@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cls } from "../../libs/utils";
 import RootLayout from "../layout";
 import { useForm } from "react-hook-form";
@@ -12,9 +12,17 @@ interface EnterForm {
   phone?: string;
 }
 
+interface TokenForm {
+  token: string;
+}
+
 export default function Enter() {
   const [enter, { loading, data, error }] = useMutation("/api/users/enter");
+  const [confirmToken, { loading: tokenLoading, data: tokenData }] =
+    useMutation("/api/users/confirm");
   const { register, handleSubmit, reset } = useForm<EnterForm>();
+  const { register: tokenReg, handleSubmit: tokenHandleSubmit } =
+    useForm<TokenForm>();
   const [method, setMethod] = useState<"email" | "phone">("email");
   const onEmailClick = () => {
     setMethod("email");
@@ -29,6 +37,11 @@ export default function Enter() {
     //validForm = 객체 형태 {email: "abcd@efg.com"}
     //따라서 enter의 인자로 전달되어 api를 호출할때 validForm에 맞는 조건이나 결과를 return 받을수 있다.
   };
+  const onTokenValid = (validForm: TokenForm) => {
+    console.log(validForm);
+    if (tokenLoading) return;
+    confirmToken(validForm);
+  };
   console.log(loading, data, error);
   return (
     <RootLayout main={true}>
@@ -39,19 +52,18 @@ export default function Enter() {
         <div className="mt-6 p-7">
           {data ? (
             <form
-              onSubmit={handleSubmit(onValid)}
+              onSubmit={tokenHandleSubmit(onTokenValid)}
               className="flex flex-col mt-8 space-y-4"
             >
               <Input
-                register={register("token")}
-                name="email"
+                register={tokenReg("token")}
+                name="token"
                 label="Confirmation Token"
-                type="email"
-                kind="text"
+                type="number"
                 required
               />
 
-              <Button text={loading ? "Loading..." : "Confirm Token"} />
+              <Button text={tokenLoading ? "Loading..." : "Confirm Token"} />
             </form>
           ) : (
             <>
