@@ -1,4 +1,4 @@
-import { apiClient } from "@/libs/server/client";
+import apiClient from "@/libs/server/client";
 import { emailModule, phoneModule } from "@/libs/server/email&pass";
 import { NextResponse } from "next/server";
 

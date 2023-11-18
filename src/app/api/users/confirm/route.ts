@@ -1,12 +1,11 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { apiClient } from "@/libs/server/client";
 import { NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { token } = await req.body;
+export async function POST(req: Request) {
+  const { token } = await req.json();
   console.log(token);
-  withIronSessionApiRoute(res.json, {
+  withIronSessionApiRoute(token, {
     cookieName: "carrotsession",
     password: "123123123131231253425",
   });
