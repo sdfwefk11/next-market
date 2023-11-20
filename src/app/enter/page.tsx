@@ -42,7 +42,7 @@ export default function Enter() {
     if (tokenLoading) return;
     confirmToken(validForm);
   };
-  console.log(loading, data, error);
+  console.log(data);
   return (
     <RootLayout main={true}>
       <div className="mt-10">
