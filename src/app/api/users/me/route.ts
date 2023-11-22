@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
 import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
-import apiClient from "@/libs/server/client";
+import { SessionData, sessionOption } from "@/libs/lib";
 
-export async function GET(req: Request, res: Response) {
-  console.log(res.headers);
-  return NextResponse.json({ ok: true });
+export async function GET() {
+  const session = getIronSession<SessionData>(cookies(), sessionOption);
+  if ((await session).isLoggedIn !== true) {
+    return NextResponse.json({ ok: false });
+  }
+  return NextResponse.json((await session).user.payload);
 }
