@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cls } from "../../libs/utils";
 import RootLayout from "../layout";
 import { useForm } from "react-hook-form";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import useMutation from "@/libs/client/useMutation";
+import { useRouter } from "next/navigation";
 
 interface EnterForm {
   email?: string;
@@ -42,7 +43,12 @@ export default function Enter() {
     if (tokenLoading) return;
     confirmToken(validForm);
   };
-  console.log(data);
+  const router = useRouter();
+  useEffect(() => {
+    if (tokenData?.ok) {
+      router.push("/");
+    }
+  }, [tokenData, router]);
   return (
     <RootLayout main={true}>
       <div className="mt-10">

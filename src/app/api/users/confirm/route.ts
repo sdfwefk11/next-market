@@ -6,18 +6,23 @@ import { SessionData, sessionOption } from "@/libs/lib";
 
 export async function POST(req: NextRequest) {
   const { token } = await req.json();
-  const exists = await apiClient.token.findUnique({
+  const foundToken = await apiClient.token.findUnique({
     where: {
       payload: token,
     },
     // include: { user: true } user에 대한 정보 또한 가져올수있다.
   });
-  if (!exists) return NextResponse.error();
+  if (!foundToken) return NextResponse.error();
   const session = getIronSession<SessionData>(cookies(), sessionOption);
   (await session).user = {
-    id: exists.userId,
+    id: foundToken.userId,
   };
   (await session).isLoggedIn = true;
   await (await session).save();
-  return NextResponse.json((await session).user.id);
+  await apiClient.token.deleteMany({
+    where: {
+      userId: foundToken.userId,
+    },
+  });
+  return NextResponse.json({ ok: true });
 }
