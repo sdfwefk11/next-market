@@ -16,7 +16,7 @@ interface MailOption {
 
 export async function POST(req: Request) {
   const { email, phone } = await req.json();
-  const user = phone ? { phone: +phone } : email ? { email } : null;
+  const user = phone ? { phone: phone } : email ? { email } : null;
   if (!user) return NextResponse.json<ResponseType>({ ok: false });
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
   const token = await apiClient.token.create({

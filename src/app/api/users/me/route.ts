@@ -14,6 +14,5 @@ export async function GET() {
       id: (await session).user.id,
     },
   });
-  console.log(profile);
   return NextResponse.json({ ok: true, profile });
 }
