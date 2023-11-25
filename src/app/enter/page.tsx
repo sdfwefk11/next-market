@@ -39,7 +39,6 @@ export default function Enter() {
     //따라서 enter의 인자로 전달되어 api를 호출할때 validForm에 맞는 조건이나 결과를 return 받을수 있다.
   };
   const onTokenValid = (validForm: TokenForm) => {
-    console.log(validForm);
     if (tokenLoading) return;
     confirmToken(validForm);
   };

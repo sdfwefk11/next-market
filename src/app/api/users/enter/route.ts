@@ -16,7 +16,7 @@ interface MailOption {
 
 export async function POST(req: Request) {
   const { email, phone } = await req.json();
-  const user = phone ? { phone: phone } : email ? { email } : null;
+  const user = phone ? { phone } : email ? { email } : null;
   if (!user) return NextResponse.json<ResponseType>({ ok: false });
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
   const token = await apiClient.token.create({
@@ -35,16 +35,16 @@ export async function POST(req: Request) {
       },
     },
   });
-  if (phone) {
-    /* const message = await phoneModule.messages.create({
+  /* if (phone) {
+    const message = await phoneModule.messages.create({
       messagingServiceSid: process.env.MESSAGING_SERVICE_ID,
       to: process.env.MY_PHONE_NUMBER!,
       body: `Your login token is ${payload}`,
     });
-    console.log(message); */
+    console.log(message);
   }
   if (email) {
-    /* const mailOption: MailOption = {
+    const mailOption: MailOption = {
       from: process.env.MY_EMAIL_ID,
       to: process.env.MY_EMAIL_ID,
       subject: "Email Token",
@@ -54,39 +54,39 @@ export async function POST(req: Request) {
       error ? console.log(error) : console.log(info);
     });
     console.log(result);
-    emailModule.close(); */
+    emailModule.close();
   }
 
-  // if (email) {
-  //   user = await apiClient.user.findUnique({
-  //     where: {
-  //       email,
-  //     },
-  //   });s
-  //   if (!user) {
-  //     user = await apiClient.user.create({
-  //       data: {
-  //         name: "익명",
-  //         email,
-  //       },
-  //     });
-  //   }
-  // }
-  // if (phone) {
-  //   user = await apiClient.user.findUnique({
-  //     where: {
-  //       phone: +phone,
-  //     },
-  //   });
-  //   if (user) console.log("found it");
-  //   if (!user) {
-  //     user = await apiClient.user.create({
-  //       data: {
-  //         name: "익명",
-  //         phone: +phone,
-  //       },
-  //     });
-  //   }
-  // };
+  if (email) {
+    user = await apiClient.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!user) {
+      user = await apiClient.user.create({
+        data: {
+          name: "익명",
+          email,
+        },
+      });
+    }
+  }
+  if (phone) {
+    user = await apiClient.user.findUnique({
+      where: {
+        phone: phone,
+      },
+    });
+    if (user) console.log("found it");
+    if (!user) {
+      user = await apiClient.user.create({
+        data: {
+          name: "익명",
+          phone: phone,
+        },
+      });
+    }
+  }; */
   return NextResponse.json(token);
 }

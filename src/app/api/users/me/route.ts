@@ -7,7 +7,7 @@ import apiClient from "@/libs/server/client";
 export async function GET() {
   const session = getIronSession<SessionData>(cookies(), sessionOption);
   if ((await session).isLoggedIn !== true) {
-    return NextResponse.json({ ok: false });
+    return NextResponse.json({ ok: false, error: "Please Log In" });
   }
   const profile = await apiClient.user.findUnique({
     where: {
