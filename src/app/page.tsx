@@ -1,11 +1,17 @@
+"use client";
 import FloatingButton from "@/components/floating-button";
 import ProductList from "@/components/product-list";
+import useUser from "@/libs/client/useUser";
 import Link from "next/link";
+import Head from "./head";
 import RootLayout from "./layout";
 
 export default function Product() {
+  const user = useUser();
+  console.log(user);
   return (
     <RootLayout hasTabBar title="홈">
+      <Head />
       <Link href="/product/detail/1">
         <ProductList />
       </Link>
