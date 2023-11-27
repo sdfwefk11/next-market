@@ -7,8 +7,8 @@ import Head from "./head";
 import RootLayout from "./layout";
 
 export default function Product() {
-  const user = useUser();
-  console.log(user);
+  const { user, isLoading } = useUser();
+  console.log(user, isLoading);
   return (
     <RootLayout hasTabBar title="홈">
       <Head />
