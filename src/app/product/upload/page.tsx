@@ -1,5 +1,11 @@
+"use client";
 import RootLayout from "@/app/layout";
+import Button from "@/components/button";
 import Input from "@/components/input";
+import TextArea from "@/components/textarea";
+import useMutation from "@/libs/client/useMutation";
+import { Product } from "@prisma/client";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface UploadProductForm {
@@ -8,13 +14,28 @@ interface UploadProductForm {
   description: string;
 }
 
+interface UploadProductMutation {
+  ok: boolean;
+  product: Product;
+}
+
 export default function Upload() {
   const { register, handleSubmit } = useForm<UploadProductForm>();
+  const [uploadProduct, { loading, data: uploadData }] =
+    useMutation<UploadProductMutation>("/api/products");
+  const onValid = (data: UploadProductForm) => {
+    if (loading) return;
+    uploadProduct(data);
+  };
+  useEffect(() => {
+    if (uploadData?.ok) {
+    }
+  }, [uploadData]);
   return (
     <RootLayout canGoBack title={true}>
-      <form className="px-4">
+      <form className="px-4" onSubmit={handleSubmit(onValid)}>
         <div className="w-full flex items-center justify-center border-dashed border-2 hover:border-gray-300 py-6 h-48 rounded-md group border-emerald-600 transition">
-          <label className="group-hover:text-orange-600 text-blue-200  cursor-pointer transition group-hover:shadow-md rounded-full">
+          <label className="group-hover:text-orange-500 text-blue-200  cursor-pointer transition group-hover:shadow-md rounded-full">
             <svg
               className="h-12 w-12"
               stroke="currentColor"
@@ -33,34 +54,27 @@ export default function Upload() {
           </label>
         </div>
         <Input
-          register={register("name")}
+          register={register("name", { required: true })}
           required
           label="Name"
           name="name"
           type="text"
         />
         <Input
-          register={register("price")}
+          register={register("price", { required: true })}
           required
           label="Price"
           name="price"
           type="number"
           kind="price"
         />
-        <div {...register("description")}>
-          <label className="text-sm font-medium text-gray-700 mb-1 block">
-            Description
-          </label>
-          <div>
-            <textarea
-              className="mt-1 shadow-sm w-full rounded-md border border-gray-300 focus:ring-emerald-600 focus:outline-none focus:border-emerald-600"
-              rows={4}
-            />
-          </div>
-        </div>
-        <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-5 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition w-full">
-          Upload product
-        </button>
+        <TextArea
+          register={register("description", { required: true })}
+          label="Description"
+          name="description"
+          required
+        />
+        <Button text={loading ? "Loading..." : "Upload product"} />
       </form>
     </RootLayout>
   );

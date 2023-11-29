@@ -19,7 +19,7 @@ export default function Input({
   required,
 }: InputProps) {
   return (
-    <div>
+    <div className="my-4">
       <label
         className="mb-1 block text-sm font-medium text-gray-700"
         htmlFor={name}
@@ -30,9 +30,9 @@ export default function Input({
         <div className="rounded-md relative flex  items-center shadow-sm">
           <input
             id={name}
-            {...register}
             type={type}
             required={required}
+            {...register}
             className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-600 focus:border-emerald-600"
           />
         </div>
@@ -43,7 +43,10 @@ export default function Input({
             <span className="text-gray-500 text-sm">$</span>
           </div>
           <input
+            type="number"
             id={name}
+            required={required}
+            {...register}
             className="appearance-none pl-7 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-600 focus:border-emerald-600"
           />
           <div className="absolute right-0 pointer-events-none pr-3 flex items-center">

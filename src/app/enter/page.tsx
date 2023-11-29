@@ -34,6 +34,7 @@ export default function Enter() {
     reset();
   };
   const onValid = (validForm: EnterForm) => {
+    if (loading) return;
     enter(validForm);
     //validForm = 객체 형태 {email: "abcd@efg.com"}
     //따라서 enter의 인자로 전달되어 api를 호출할때 validForm에 맞는 조건이나 결과를 return 받을수 있다.
@@ -67,7 +68,6 @@ export default function Enter() {
                 type="number"
                 required
               />
-
               <Button text={tokenLoading ? "Loading..." : "Confirm Token"} />
             </form>
           ) : (
