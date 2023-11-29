@@ -5,6 +5,7 @@ import Input from "@/components/input";
 import TextArea from "@/components/textarea";
 import useMutation from "@/libs/client/useMutation";
 import { Product } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -20,6 +21,7 @@ interface UploadProductMutation {
 }
 
 export default function Upload() {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<UploadProductForm>();
   const [uploadProduct, { loading, data: uploadData }] =
     useMutation<UploadProductMutation>("/api/products");
@@ -29,8 +31,9 @@ export default function Upload() {
   };
   useEffect(() => {
     if (uploadData?.ok) {
+      router.push(`/products/${uploadData.product.id}`);
     }
-  }, [uploadData]);
+  }, [uploadData, router]);
   return (
     <RootLayout canGoBack title={true}>
       <form className="px-4" onSubmit={handleSubmit(onValid)}>

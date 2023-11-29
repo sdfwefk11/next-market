@@ -7,11 +7,11 @@ import apiClient from "@/libs/server/client";
 export async function POST(req: Request) {
   const { name, price, description } = await req.json();
   const session = getIronSession<SessionData>(cookies(), sessionOption);
-
+  console.log((await session).user.id);
   const product = await apiClient.product.create({
     data: {
       name,
-      price,
+      price: +price,
       description,
       image: "sdfsf",
       user: {
