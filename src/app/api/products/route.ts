@@ -23,3 +23,7 @@ export async function POST(req: Request) {
   });
   return NextResponse.json({ ok: true, product });
 }
+export async function GET() {
+  const product = await apiClient.product.findMany({});
+  return NextResponse.json({ ok: true, product });
+}

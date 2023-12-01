@@ -1,19 +1,23 @@
 "use client";
 import FloatingButton from "@/components/floating-button";
-import ProductList from "@/components/product-list";
+import ProductList from "@/components/item";
 import useUser from "@/libs/client/useUser";
 import Link from "next/link";
 import Head from "./head";
 import RootLayout from "./layout";
+import useSWR from "swr";
+import Item from "@/components/item";
 
 export default function Product() {
   const { user, isLoading } = useUser();
-  console.log(user, isLoading);
+  const { data } = useSWR("/api/products");
   return (
     <RootLayout hasTabBar title="홈">
       <Head />
       <Link href="/product/detail/1">
-        <ProductList />
+        {data?.product?.map((result, index) => (
+          <Item key={index} />
+        ))}
       </Link>
       <FloatingButton href="/products/upload">
         <svg
