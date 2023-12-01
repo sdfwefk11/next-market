@@ -8,15 +8,37 @@ import RootLayout from "./layout";
 import useSWR from "swr";
 import Item from "@/components/item";
 
+interface ProductData {
+  ok: boolean;
+  product: ProductDetail[];
+}
+interface ProductDetail {
+  createdAt: string;
+  description: string;
+  id: number;
+  image: string;
+  name: string;
+  price: number;
+  updatedAt: string;
+  userId: number;
+}
+
 export default function Product() {
   const { user, isLoading } = useUser();
-  const { data } = useSWR("/api/products");
+  const { data } = useSWR<ProductData>("/api/products");
+  console.log(data);
   return (
     <RootLayout hasTabBar title="홈">
       <Head />
       <Link href="/product/detail/1">
         {data?.product?.map((result, index) => (
-          <Item key={index} />
+          <Item
+            key={index}
+            name={result.name}
+            image={result.image}
+            price={result.price}
+            createdAt={result.createdAt}
+          />
         ))}
       </Link>
       <FloatingButton href="/products/upload">

@@ -1,21 +1,27 @@
 interface ProductList {
-  children: React.ReactNode;
-  id: number;
+  createdAt: string;
+  description?: string;
+  image?: string;
+  name: string;
   price: number;
-  comments: number;
-  hearts: number;
 }
 
-export default function Item() {
+export default function Item({
+  description,
+  image,
+  name,
+  price,
+  createdAt,
+}: ProductList) {
   return (
     <div className="flex flex-col space-y-5">
       <div className="flex border-b px-4 pb-4 cursor-pointer justify-between">
         <div className="flex space-x-4">
           <div className="w-20 h-20 bg-emerald-500 rounded-md" />
           <div className="pt-2 flex flex-col">
-            <h3 className="text-sm font-medium text-gray-900">New iPhone 14</h3>
-            <span className="text-xs text-gray-500">Black</span>
-            <span className="font-md mt-1 text-gray-950">$95</span>
+            <h3 className="text-sm font-medium text-gray-900">{name}</h3>
+            <span className="text-xs text-gray-500">{createdAt}</span>
+            <span className="font-md mt-1 text-gray-950">{price}원</span>
           </div>
         </div>
         <div className="flex items-end justify-end space-x-2">
