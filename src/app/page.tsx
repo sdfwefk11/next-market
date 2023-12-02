@@ -1,6 +1,5 @@
 "use client";
 import FloatingButton from "@/components/floating-button";
-import ProductList from "@/components/item";
 import useUser from "@/libs/client/useUser";
 import Link from "next/link";
 import Head from "./head";
@@ -29,8 +28,8 @@ export default function Product() {
   console.log(data);
   return (
     <RootLayout hasTabBar title="홈">
-      <Head />
-      <Link href="/product/detail/1">
+      <Head title={"홈"} />
+      <Link href="/products/detail?id=1">
         {data?.product?.map((result, index) => (
           <Item
             key={index}

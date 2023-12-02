@@ -1,7 +1,10 @@
-export default function Head() {
+interface HeadTitle {
+  title: string;
+}
+export default function Head({ title }: HeadTitle) {
   return (
     <>
-      <title>Home</title>
+      <title>{title}</title>
     </>
   );
 }

@@ -1,9 +1,15 @@
+"use client";
 import RootLayout from "@/app/layout";
 import ViewProfile from "@/components/view-profie";
+import { usePathname, useSearchParams } from "next/navigation";
+import useSWR from "swr";
 
 export default function Detail() {
+  const param = useSearchParams();
+  const id = param.get("id");
+  const {} = useSWR(`/api/products/${id}`);
   return (
-    <RootLayout canGoBack title={true}>
+    <RootLayout canGoBack title>
       <div className="px-4">
         <div className="mb-6">
           <div className="h-96 bg-emerald-400" />

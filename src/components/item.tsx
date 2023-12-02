@@ -1,4 +1,4 @@
-interface ProductList {
+interface ProductDetailData {
   createdAt: string;
   description?: string;
   image?: string;
@@ -12,7 +12,7 @@ export default function Item({
   name,
   price,
   createdAt,
-}: ProductList) {
+}: ProductDetailData) {
   return (
     <div className="flex flex-col space-y-5">
       <div className="flex border-b px-4 pb-4 cursor-pointer justify-between">
