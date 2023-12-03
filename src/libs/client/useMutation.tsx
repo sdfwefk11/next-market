@@ -16,7 +16,7 @@ export default function useMutation<T = any>(
     error: undefined,
   });
 
-  function mutation(data: any) {
+  async function mutation(data: any) {
     setState((prev) => ({ ...prev, loading: true }));
     fetch(url, {
       method: "POST",

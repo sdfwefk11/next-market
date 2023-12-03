@@ -1,35 +1,54 @@
 "use client";
 import RootLayout from "@/app/layout";
 import ViewProfile from "@/components/view-profie";
-import { usePathname, useSearchParams } from "next/navigation";
 import useSWR from "swr";
 
-export default function Detail() {
-  const param = useSearchParams();
-  const id = param.get("id");
-  const {} = useSWR(`/api/products/${id}`);
+interface ProductId {
+  params: { id: string };
+}
+
+interface ProductDetail {
+  ok: true;
+  product: {
+    createdAt: string;
+    description: string;
+    id: number;
+    image: string;
+    name: string;
+    price: number;
+    updatedAt: string;
+    userId: number;
+    user: { name: string; id: number };
+  };
+}
+
+export default function Detail({ params }: ProductId) {
+  const { data, isLoading } = useSWR<ProductDetail>(
+    params.id ? `/api/products/${params.id}` : null
+  );
+  const userId = data?.product.user.id;
   return (
     <RootLayout canGoBack title>
       <div className="px-4">
         <div className="mb-6">
           <div className="h-96 bg-emerald-400" />
-          <ViewProfile userName="Steve Jebs" />
+          <ViewProfile
+            userName={isLoading ? "Loading..." : data?.product.user.name!}
+            userId={userId}
+          />
           <div className="mt-5">
-            <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
-            <p className="text-3xl mt-3 text-gray-900 block">$140</p>
+            <h1 className="text-3xl font-bold text-gray-900">
+              {data?.product.name}
+            </h1>
+            <p className="text-3xl mt-3 text-gray-900 block">
+              {isLoading ? "Loading..." : `${data?.product.price}원`}
+            </p>
             <p className="text-base my-6 text-gray-700">
-              My money&apos;s in that office, right? If she start giving me some
-              bullshit about it ain&apos;t there, and we got to go someplace
-              else and get it, I&apos;m gonna shoot you in the head then and
-              there. Then I&apos;m gonna shoot that bitch in the kneecaps, find
-              out where my goddamn money is. She gonna tell me too. Hey, look at
-              me when I&apos;m talking to you, motherfucker. You listen: we go
-              in there, and that ni**a Winston or anybody else is in there, you
-              the first motherfucker to get shot. You understand?
+              {data?.product.description}
             </p>
             <div className="flex items-center justify-between space-x-2">
               <button className="flex-1 bg-orange-500 text-white py-3 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 hover:bg-orange-600 transition focus:outline-none shadow-md">
-                Talk to seller
+                판매자와 대화하기
               </button>
               <button className="p-3 flex items-center justify-center text-red-400 hover:bg-gray-100 hover:text-red-500 transition rounded-md">
                 <svg

@@ -29,7 +29,7 @@ export default function Product() {
   return (
     <RootLayout hasTabBar title="홈">
       <Head title={"홈"} />
-      <Link href="/products/detail?id=1">
+      <Link href="/products/4">
         {data?.product?.map((result, index) => (
           <Item
             key={index}
