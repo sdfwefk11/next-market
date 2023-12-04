@@ -18,5 +18,6 @@ export async function GET(req: NextRequest, { params }: ProductId) {
   });
   if (!product) return NextResponse.error();
   console.log(product);
+  const term = product.name.split(" ").map((data) => {});
   return NextResponse.json({ ok: true, product });
 }

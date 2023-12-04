@@ -1,6 +1,7 @@
 "use client";
 import RootLayout from "@/app/layout";
 import ViewProfile from "@/components/view-profie";
+import { Product, User } from "@prisma/client";
 import useSWR from "swr";
 
 interface ProductId {
@@ -9,17 +10,10 @@ interface ProductId {
 
 interface ProductDetail {
   ok: true;
-  product: {
-    createdAt: string;
-    description: string;
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    updatedAt: string;
-    userId: number;
-    user: { name: string; id: number };
-  };
+  product: UserIds;
+}
+interface UserIds extends Product {
+  user: User;
 }
 
 export default function Detail({ params }: ProductId) {
