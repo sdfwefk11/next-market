@@ -17,7 +17,20 @@ export async function GET(req: NextRequest, { params }: ProductId) {
     include: { user: { select: { name: true, id: true } } },
   });
   if (!product) return NextResponse.error();
-  console.log(product);
-  const term = product.name.split(" ").map((data) => {});
-  return NextResponse.json({ ok: true, product });
+  // const productName = "제로 콜라";
+  // console.log(
+  //   productName.split(" ").map((word) => ({ name: { contains: word } }))
+  // ); 문자열을 공백 기준으로 split 해서 각각 name: contains 이라는 객체에 담아 배열에 저장
+  const terms = product.name.split(" ").map((word) => ({
+    name: {
+      contains: word,
+    },
+  }));
+  const relatedProducts = await apiClient.product.findMany({
+    where: {
+      OR: terms,
+      NOT: { id: product.id },
+    },
+  });
+  return NextResponse.json({ ok: true, product, relatedProducts });
 }

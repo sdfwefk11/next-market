@@ -2,18 +2,21 @@
 import RootLayout from "@/app/layout";
 import ViewProfile from "@/components/view-profie";
 import { Product, User } from "@prisma/client";
+import Link from "next/link";
 import useSWR from "swr";
 
 interface ProductId {
   params: { id: string };
 }
 
+interface UserIds extends Product {
+  user: User;
+}
+
 interface ProductDetail {
   ok: true;
   product: UserIds;
-}
-interface UserIds extends Product {
-  user: User;
+  relatedProducts: Product[];
 }
 
 export default function Detail({ params }: ProductId) {
@@ -65,14 +68,20 @@ export default function Detail({ params }: ProductId) {
           </div>
         </div>
         <div className="border-t py-5">
-          <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
+          <h2 className="text-2xl font-bold text-gray-900">비슷한 상품</h2>
           <div className="grid grid-cols-2 gap-4 mt-6">
-            {[1, 2, 3, 4, 5, 6].map((_, i) => (
-              <div key={i}>
-                <div className="h-56 w-56 bg-yellow-500 mb-4" />
-                <h3 className="text-gray-700 -mb-1">Galaxy S60</h3>
-                <p className="text-sm font-medium text-gray-900">$6</p>
-              </div>
+            {data?.relatedProducts.map((product) => (
+              <>
+                <Link href={`/products/${product.id}`}>
+                  <div key={product.id}>
+                    <div className="h-56 w-56 bg-yellow-500 mb-4" />
+                    <h3 className="text-gray-700 -mb-1">{product.name}</h3>
+                    <p className="text-sm font-medium text-gray-900">
+                      {product.price}원
+                    </p>
+                  </div>
+                </Link>
+              </>
             ))}
           </div>
         </div>

@@ -29,17 +29,19 @@ export default function Product() {
   return (
     <RootLayout hasTabBar title="홈">
       <Head title={"홈"} />
-      <Link href="/products/4">
-        {data?.product?.map((result, index) => (
-          <Item
-            key={index}
-            name={result.name}
-            image={result.image}
-            price={result.price}
-            createdAt={result.createdAt}
-          />
-        ))}
-      </Link>
+      {data?.product?.map((result, index) => (
+        <>
+          <Link href={`/products/${result.id}`}>
+            <Item
+              key={index}
+              name={result.name}
+              image={result.image}
+              price={result.price}
+              createdAt={result.createdAt}
+            />
+          </Link>
+        </>
+      ))}
       <FloatingButton href="/products/upload">
         <svg
           className="h-6 w-6"
