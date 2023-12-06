@@ -1,6 +1,7 @@
 "use client";
 import RootLayout from "@/app/layout";
 import ViewProfile from "@/components/view-profie";
+import useMutation from "@/libs/client/useMutation";
 import { Product, User } from "@prisma/client";
 import Link from "next/link";
 import useSWR from "swr";
@@ -24,6 +25,10 @@ export default function Detail({ params }: ProductId) {
     params.id ? `/api/products/${params.id}` : null
   );
   const userId = data?.product.user.id;
+  const [toggleFav] = useMutation(`/api/products/${params.id}/fav`);
+  const onFavClick = () => {
+    toggleFav({});
+  };
   return (
     <RootLayout canGoBack title>
       <div className="px-4">
@@ -47,7 +52,10 @@ export default function Detail({ params }: ProductId) {
               <button className="flex-1 bg-orange-500 text-white py-3 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 hover:bg-orange-600 transition focus:outline-none shadow-md">
                 판매자와 대화하기
               </button>
-              <button className="p-3 flex items-center justify-center text-red-400 hover:bg-gray-100 hover:text-red-500 transition rounded-md">
+              <button
+                onClick={onFavClick}
+                className="p-3 flex items-center justify-center text-red-400 hover:bg-gray-100 hover:text-red-500 transition rounded-md"
+              >
                 <svg
                   className="h-6 w-6 "
                   xmlns="http://www.w3.org/2000/svg"

@@ -10,6 +10,7 @@ interface ProductId {
 
 export async function GET(req: NextRequest, { params }: ProductId) {
   const { id } = params;
+  const session = getIronSession<SessionData>(cookies(), sessionOption);
   const product = await apiClient.product.findUnique({
     where: {
       id: +id,
@@ -26,11 +27,18 @@ export async function GET(req: NextRequest, { params }: ProductId) {
       contains: word,
     },
   }));
-  const relatedProducts = await apiClient.product.findMany({
+  const relatedProducts = apiClient.product.findMany({
     where: {
       OR: terms,
       NOT: { id: product.id },
     },
   });
+  const isLiked = apiClient.fav.findFirst({
+    where: {
+      productId: product.id,
+      userId: (await session).user.id,
+    },
+  });
+  return apiClient.$transaction([relatedProducts, isLiked]);
   return NextResponse.json({ ok: true, product, relatedProducts });
 }
