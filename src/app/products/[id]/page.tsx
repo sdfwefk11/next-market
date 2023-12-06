@@ -2,6 +2,7 @@
 import RootLayout from "@/app/layout";
 import ViewProfile from "@/components/view-profie";
 import useMutation from "@/libs/client/useMutation";
+import { cls } from "@/libs/utils";
 import { Product, User } from "@prisma/client";
 import Link from "next/link";
 import useSWR from "swr";
@@ -18,12 +19,14 @@ interface ProductDetail {
   ok: true;
   product: UserIds;
   relatedProducts: Product[];
+  isLiked: boolean;
 }
 
 export default function Detail({ params }: ProductId) {
   const { data, isLoading } = useSWR<ProductDetail>(
     params.id ? `/api/products/${params.id}` : null
   );
+  console.log(data);
   const userId = data?.product.user.id;
   const [toggleFav] = useMutation(`/api/products/${params.id}/fav`);
   const onFavClick = () => {
@@ -54,12 +57,17 @@ export default function Detail({ params }: ProductId) {
               </button>
               <button
                 onClick={onFavClick}
-                className="p-3 flex items-center justify-center text-red-400 hover:bg-gray-100 hover:text-red-500 transition rounded-md"
+                className={cls(
+                  "p-3 flex items-center justify-center  transition rounded-md",
+                  data?.isLiked
+                    ? "hover:bg-gray-100 text-red-500"
+                    : "text-red-400 hover:bg-gray-100 hover:text-red-500"
+                )}
               >
                 <svg
                   className="h-6 w-6 "
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
+                  fill={data?.isLiked ? "red" : "white"}
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   aria-hidden="true"

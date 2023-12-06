@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, { params }: ProductId) {
     where: {
       id: +id,
     },
-    include: { user: { select: { name: true, id: true } } },
+    include: { user: { select: { name: true, id: true, avatar: true } } },
   });
   if (!product) return NextResponse.error();
   // const productName = "제로 콜라";
@@ -27,18 +27,20 @@ export async function GET(req: NextRequest, { params }: ProductId) {
       contains: word,
     },
   }));
-  const relatedProducts = apiClient.product.findMany({
+  const relatedProducts = await apiClient.product.findMany({
     where: {
       OR: terms,
       NOT: { id: product.id },
     },
   });
-  const isLiked = apiClient.fav.findFirst({
-    where: {
-      productId: product.id,
-      userId: (await session).user.id,
-    },
-  });
-  return apiClient.$transaction([relatedProducts, isLiked]);
-  return NextResponse.json({ ok: true, product, relatedProducts });
+  const isLiked = Boolean(
+    await apiClient.fav.findFirst({
+      where: {
+        productId: product.id,
+        userId: (await session).user.id,
+      },
+      select: { id: true },
+    })
+  );
+  return NextResponse.json({ ok: true, product, relatedProducts, isLiked });
 }
