@@ -1,6 +1,5 @@
 "use client";
 import RootLayout from "@/app/layout";
-import ViewProfile from "@/components/view-profie";
 import useMutation from "@/libs/client/useMutation";
 import { cls } from "@/libs/utils";
 import { Product, User } from "@prisma/client";
@@ -23,24 +22,33 @@ interface ProductDetail {
 }
 
 export default function Detail({ params }: ProductId) {
-  const { data, isLoading } = useSWR<ProductDetail>(
+  const { data, isLoading, mutate } = useSWR<ProductDetail | any>(
     params.id ? `/api/products/${params.id}` : null
   );
   console.log(data);
-  const userId = data?.product.user.id;
   const [toggleFav] = useMutation(`/api/products/${params.id}/fav`);
   const onFavClick = () => {
-    toggleFav({});
+    //toggleFav({});
+    mutate({ product: { name: "Pizza" } }, true);
   };
   return (
     <RootLayout canGoBack title>
       <div className="px-4">
         <div className="mb-6">
           <div className="h-96 bg-emerald-400" />
-          <ViewProfile
-            userName={isLoading ? "Loading..." : data?.product.user.name!}
-            userId={userId}
-          />
+          <div className="flex items-center space-x-3 py-3 border-t border-b px-4">
+            <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
+            <div>
+              <p className="text-sm font-medium text-gray-700">
+                {isLoading ? "Loading..." : data?.product.user.name}
+              </p>
+              <Link href={`/users/profiles/${data?.product.user.id}`}>
+                <p className="text-xs font-medium text-gray-500 cursor-pointer">
+                  View profile &rarr;
+                </p>
+              </Link>
+            </div>
+          </div>
           <div className="mt-5">
             <h1 className="text-3xl font-bold text-gray-900">
               {data?.product.name}
