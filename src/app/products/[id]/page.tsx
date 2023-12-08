@@ -1,10 +1,11 @@
 "use client";
 import RootLayout from "@/app/layout";
 import useMutation from "@/libs/client/useMutation";
+import useUser from "@/libs/client/useUser";
 import { cls } from "@/libs/utils";
 import { Product, User } from "@prisma/client";
 import Link from "next/link";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 interface ProductId {
   params: { id: string };
@@ -22,14 +23,23 @@ interface ProductDetail {
 }
 
 export default function Detail({ params }: ProductId) {
-  const { data, isLoading, mutate } = useSWR<ProductDetail | any>(
-    params.id ? `/api/products/${params.id}` : null
+  const { user, isLoading: useUserLoading } = useUser();
+  const { mutate: unboundMutate } = useSWRConfig();
+  const {
+    data,
+    isLoading,
+    mutate: boundMutate,
+  } = useSWR<ProductDetail>(params.id ? `/api/products/${params.id}` : null);
+  const [toggleFav, { loading }] = useMutation(
+    `/api/products/${params.id}/fav`
   );
-  console.log(data);
-  const [toggleFav] = useMutation(`/api/products/${params.id}/fav`);
   const onFavClick = () => {
-    //toggleFav({});
-    mutate({ product: { name: "Pizza" } }, true);
+    if (!data) return console.log("No data");
+    boundMutate({ ...data, isLiked: !data.isLiked }, false);
+    unboundMutate();
+    if (!loading) {
+      toggleFav({});
+    }
   };
   return (
     <RootLayout canGoBack title>
