@@ -20,6 +20,9 @@ interface ProductDetail {
   price: number;
   updatedAt: string;
   userId: number;
+  _count: {
+    favs: string;
+  };
 }
 
 export default function Product() {
@@ -38,6 +41,7 @@ export default function Product() {
               image={result.image}
               price={result.price}
               createdAt={result.createdAt}
+              hearts={result._count.favs}
             />
           </Link>
         </>

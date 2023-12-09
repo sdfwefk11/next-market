@@ -35,8 +35,8 @@ export default function Detail({ params }: ProductId) {
   );
   const onFavClick = () => {
     if (!data) return console.log("No data");
-    boundMutate({ ...data, isLiked: !data.isLiked }, false);
-    unboundMutate();
+    boundMutate((prev) => prev && { ...prev, isLiked: !data.isLiked }, false);
+    //unboundMutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false); 전체 데이터를 mutate할때, 예를 들어 좋아요 버튼을 누르면 로그인 화면으로 돌아가게 하고싶을때
     if (!loading) {
       toggleFav({});
     }
