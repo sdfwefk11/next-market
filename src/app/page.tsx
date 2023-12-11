@@ -6,20 +6,13 @@ import Head from "./head";
 import RootLayout from "./layout";
 import useSWR from "swr";
 import Item from "@/components/item";
+import { Product } from "@prisma/client";
 
 interface ProductData {
   ok: boolean;
   product: ProductDetail[];
 }
-interface ProductDetail {
-  createdAt: string;
-  description: string;
-  id: number;
-  image: string;
-  name: string;
-  price: number;
-  updatedAt: string;
-  userId: number;
+interface ProductDetail extends Product {
   _count: {
     favs: string;
   };
@@ -27,8 +20,7 @@ interface ProductDetail {
 
 export default function Product() {
   const { user, isLoading } = useUser();
-  const { data } = useSWR<ProductData>("/api/products");
-  console.log(data);
+  const { data, mutate } = useSWR<ProductData>("/api/products");
   return (
     <RootLayout hasTabBar title="홈">
       <Head title={"홈"} />
@@ -40,7 +32,7 @@ export default function Product() {
               name={result.name}
               image={result.image}
               price={result.price}
-              createdAt={result.createdAt}
+              createdAt={String(result.createdAt)}
               hearts={result._count.favs}
             />
           </Link>

@@ -12,7 +12,10 @@ export async function POST(req: NextRequest) {
     },
     // include: { user: true } user에 대한 정보 또한 가져올수있다.
   });
-  if (!foundToken) return NextResponse.error();
+  if (!foundToken)
+    return NextResponse.json({
+      error: "Invalid Token: Please check input value",
+    });
   const session = getIronSession<SessionData>(cookies(), sessionOption);
   (await session).user = {
     id: foundToken.userId,

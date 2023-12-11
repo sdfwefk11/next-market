@@ -15,12 +15,18 @@ interface EnterForm {
 
 interface TokenForm {
   token: string;
+  ok?: boolean;
+}
+
+interface TokenDataType {
+  ok?: boolean;
+  error?: string;
 }
 
 export default function Enter() {
   const [enter, { loading, data, error }] = useMutation("/api/users/enter");
   const [confirmToken, { loading: tokenLoading, data: tokenData }] =
-    useMutation("/api/users/confirm");
+    useMutation<TokenDataType>("/api/users/confirm");
   const { register, handleSubmit, reset } = useForm<EnterForm>();
   const { register: tokenReg, handleSubmit: tokenHandleSubmit } =
     useForm<TokenForm>();
@@ -44,6 +50,7 @@ export default function Enter() {
     confirmToken(validForm);
   };
   const router = useRouter();
+  console.log(tokenData?.error);
   useEffect(() => {
     if (tokenData?.ok) {
       router.push("/");

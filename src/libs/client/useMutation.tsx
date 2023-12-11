@@ -5,7 +5,7 @@ interface UseMutationState<T> {
   data?: T;
   error?: object;
 }
-type UseMutationResult<T> = [(data: any) => void, UseMutationState<T>];
+type UseMutationResult<T> = [(data: T) => void, UseMutationState<T>];
 
 export default function useMutation<T = any>(
   url: string
@@ -16,9 +16,9 @@ export default function useMutation<T = any>(
     error: undefined,
   });
 
-  async function mutation(data: any) {
+  async function mutation<T>(data: T) {
     setState((prev) => ({ ...prev, loading: true }));
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
