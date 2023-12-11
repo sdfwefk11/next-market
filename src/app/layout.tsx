@@ -40,13 +40,15 @@ export default function RootLayout({
             //조건에 !main만 있을 경우 !main조건에 일치하는 모든페이지에 무조건 nav가 렌더링 되기 때문에 nav가 hydration 과정을 거쳐서 두번 렌더링 되게된다. 따라서 useEffect에 걸어놓은 title이 존재할때만 렌더링되게 조건을 걸어줌.
             <nav
               className={cls(
-                "bg-white text-lg font-medium py-4 fixed text-gray-700 border-b border-l border-r top-0 flex items-center w-full max-w-xl mx-auto px-6",
-                !canGoBack ? "justify-center" : ""
+                "bg-white text-lg font-medium py-4 fixed text-gray-700 border-b border-l border-r top-0 flex items-center w-full max-w-xl mx-auto px-6 justify-center",
+                canGoBack ? "justify-between" : ""
               )}
             >
-              {titles ? titles : null}
               {canGoBack ? (
-                <button onClick={() => router.back()}>
+                <button
+                  className={cls("flex justify-start")}
+                  onClick={() => router.back()}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -63,6 +65,8 @@ export default function RootLayout({
                   </svg>
                 </button>
               ) : null}
+              {titles ? titles : null}
+              <div></div>
             </nav>
           ) : null}
           {children}

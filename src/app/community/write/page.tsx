@@ -1,17 +1,44 @@
+"use client";
 import RootLayout from "@/app/layout";
+import Button from "@/components/button";
+import TextArea from "@/components/textarea";
+import useMutation from "@/libs/client/useMutation";
+import { Post } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+interface WriteForm {
+  question: string;
+}
+
+interface WriteResponse {
+  ok: boolean;
+  post: Post;
+}
 
 export default function Write() {
+  const { register, handleSubmit } = useForm<WriteForm>();
+  const [post, { data, loading }] = useMutation<WriteResponse>("/api/posts");
+  const router = useRouter();
+  const onPostSubmit = (data: WriteForm) => {
+    if (loading) return;
+    post(data);
+  };
+  useEffect(() => {
+    if (data && data.ok) {
+      router.push(`/community/${data.post.id}`);
+    }
+  }, [data, router]);
   return (
-    <RootLayout canGoBack title={true}>
-      <form className="px-4 py-10">
-        <textarea
-          rows={4}
-          placeholder="Ask a question!"
-          className="mt-1 shadow-sm w-full rounded-md border border-gray-300 focus:ring-emerald-600 focus:outline-none focus:border-emerald-600"
+    <RootLayout canGoBack title="Write Post">
+      <form onSubmit={handleSubmit(onPostSubmit)}>
+        <TextArea
+          required
+          placeholder="Ask a question"
+          register={register("question", { required: true, minLength: 5 })}
         />
-        <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-2 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition w-full">
-          Submit
-        </button>
+        <Button text={loading ? "Loading..." : "Submit"} />
       </form>
     </RootLayout>
   );

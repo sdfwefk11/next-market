@@ -1,7 +1,6 @@
 import RootLayout from "@/app/layout";
 import CommunityHashTag from "@/components/community-hashtag";
 import CommunityLike from "@/components/community-like";
-import ViewProfile from "@/components/view-profie";
 
 export default function CommunityDetail() {
   return (
@@ -10,7 +9,15 @@ export default function CommunityDetail() {
         <div className="px-4">
           <CommunityHashTag />
         </div>
-        <ViewProfile userName="Steve Jebs" />
+        <div className="flex items-center space-x-3 py-3 border-t border-b px-4">
+          <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
+          <div>
+            <p className="text-sm font-medium text-gray-700">Name</p>
+            <p className="text-xs font-medium text-gray-500 cursor-pointer">
+              View profile &rarr;
+            </p>
+          </div>
+        </div>
         <div className="px-4">
           <div className="mt-2 text-gray-700">
             <span className="text-orange-500 font-medium">Q.</span> What is the

@@ -5,6 +5,7 @@ interface TextAreaProps {
   name?: string;
   register: UseFormRegisterReturn;
   required: boolean;
+  placeholder?: string;
   [key: string]: any;
 }
 export default function TextArea({
@@ -12,6 +13,7 @@ export default function TextArea({
   name,
   register,
   required,
+  placeholder,
   ...rest
 }: TextAreaProps) {
   return (
@@ -30,6 +32,7 @@ export default function TextArea({
         {...register}
         className="mt-1 shadow-sm w-full rounded-md border border-gray-300 focus:ring-emerald-600 focus:outline-none focus:border-emerald-600"
         rows={4}
+        placeholder={placeholder}
         {...rest}
       />
     </div>
