@@ -1,8 +1,14 @@
 import RootLayout from "@/app/layout";
 import CommunityHashTag from "@/components/community-hashtag";
 import CommunityLike from "@/components/community-like";
+import useSWR from "swr";
 
-export default function CommunityDetail() {
+export default function CommunityDetail({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { data, error } = useSWR(params.id ? `/api/posts/${params.id}` : null);
   return (
     <RootLayout canGoBack title={true}>
       <div className="-mt-5">

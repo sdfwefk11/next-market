@@ -15,7 +15,6 @@ interface EnterForm {
 
 interface TokenForm {
   token: string;
-  ok?: boolean;
 }
 
 interface TokenDataType {
