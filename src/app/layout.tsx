@@ -46,7 +46,7 @@ export default function RootLayout({
             >
               {canGoBack ? (
                 <button
-                  className={cls("flex justify-start")}
+                  className="flex justify-start hover:bg-emerald-400 shadow-sm rounded-md transition-colors"
                   onClick={() => router.back()}
                 >
                   <svg

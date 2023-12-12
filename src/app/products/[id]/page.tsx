@@ -12,7 +12,7 @@ interface ProductId {
 }
 
 interface UserIds extends Product {
-  user: User;
+  user: { avatar: string; id: number; name: string };
 }
 
 interface ProductDetail {
@@ -30,6 +30,7 @@ export default function Detail({ params }: ProductId) {
     isLoading,
     mutate: boundMutate,
   } = useSWR<ProductDetail>(params.id ? `/api/products/${params.id}` : null);
+  console.log(data);
   const [toggleFav, { loading }] = useMutation(
     `/api/products/${params.id}/fav`
   );

@@ -1,14 +1,37 @@
+"use client";
 import RootLayout from "@/app/layout";
 import CommunityHashTag from "@/components/community-hashtag";
 import CommunityLike from "@/components/community-like";
+import { Post, User } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import useSWR from "swr";
 
-export default function CommunityDetail({
-  params,
-}: {
+interface ProductId {
   params: { id: string };
-}) {
-  const { data, error } = useSWR(params.id ? `/api/posts/${params.id}` : null);
+}
+
+interface PostAndUser extends Post {
+  user: { id: number; name: string; avatar: string };
+}
+
+interface PostData {
+  ok: boolean;
+  findPostData: PostAndUser;
+}
+
+export default function CommunityDetail({ params }: ProductId) {
+  const { data, error } = useSWR<PostData>(
+    params.id ? `/api/posts/${params.id}` : null
+  );
+  const router = useRouter();
+  useEffect(() => {
+    if (data && !data.ok) {
+      router.push("/404page");
+    }
+  }, [data, router]);
+  if (error) console.log(error);
+  console.log(data?.findPostData.user.id);
   return (
     <RootLayout canGoBack title={true}>
       <div className="-mt-5">
@@ -18,7 +41,9 @@ export default function CommunityDetail({
         <div className="flex items-center space-x-3 py-3 border-t border-b px-4">
           <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
           <div>
-            <p className="text-sm font-medium text-gray-700">Name</p>
+            <p className="text-sm font-medium text-gray-700">
+              {data?.findPostData.user.name}
+            </p>
             <p className="text-xs font-medium text-gray-500 cursor-pointer">
               View profile &rarr;
             </p>
@@ -26,8 +51,8 @@ export default function CommunityDetail({
         </div>
         <div className="px-4">
           <div className="mt-2 text-gray-700">
-            <span className="text-orange-500 font-medium">Q.</span> What is the
-            best mandu restaurant?
+            <span className="text-orange-500 font-medium">Q. </span>
+            {data?.findPostData.question}
           </div>
           <CommunityLike />
         </div>

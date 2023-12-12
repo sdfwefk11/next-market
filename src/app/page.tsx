@@ -24,11 +24,10 @@ export default function Product() {
   return (
     <RootLayout hasTabBar title="홈">
       <Head title={"홈"} />
-      {data?.product?.map((result, index) => (
-        <>
+      {data?.product?.map((result) => (
+        <div key={result.id}>
           <Link href={`/products/${result.id}`}>
             <Item
-              key={index}
               name={result.name}
               image={result.image}
               price={result.price}
@@ -36,7 +35,7 @@ export default function Product() {
               hearts={result._count.favs}
             />
           </Link>
-        </>
+        </div>
       ))}
       <FloatingButton href="/products/upload">
         <svg

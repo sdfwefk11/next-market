@@ -32,7 +32,7 @@ export default function Write() {
   }, [data, router]);
   return (
     <RootLayout canGoBack title="Write Post">
-      <form onSubmit={handleSubmit(onPostSubmit)}>
+      <form onSubmit={handleSubmit(onPostSubmit)} className="px-4">
         <TextArea
           required
           placeholder="Ask a question"

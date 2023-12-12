@@ -1,10 +1,11 @@
 interface ProductDetailData {
-  createdAt: string;
+  createdAt?: string;
   description?: string;
   image?: string;
-  name: string;
-  price: number;
-  hearts: string;
+  name?: string;
+  price?: number;
+  hearts?: string;
+  key?: number;
 }
 
 export default function Item({
@@ -14,10 +15,11 @@ export default function Item({
   price,
   createdAt,
   hearts,
+  key,
 }: ProductDetailData) {
   return (
-    <div className="flex flex-col space-y-5">
-      <div className="flex border-b px-4 pb-4 cursor-pointer justify-between">
+    <div className="flex flex-col space-y-5" key={key}>
+      <div className="flex border-b px-4 py-3 cursor-pointer justify-between">
         <div className="flex space-x-4">
           <div className="w-20 h-20 bg-emerald-500 rounded-md" />
           <div className="pt-2 flex flex-col">

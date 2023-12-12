@@ -1,10 +1,10 @@
 import RootLayout from "@/app/layout";
-import ProductList from "@/components/item";
+import Item from "@/components/item";
 
 export default function Like() {
   return (
     <RootLayout canGoBack title={true}>
-      <ProductList />
+      <Item key={1} />
     </RootLayout>
   );
 }
