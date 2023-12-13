@@ -12,7 +12,28 @@ export async function GET(req: NextRequest, { params }: ProductId) {
   const { id } = params;
   const findPostData = await apiClient.post.findUnique({
     where: { id: +id },
-    include: { user: { select: { id: true, name: true, avatar: true } } },
+    include: {
+      user: { select: { id: true, name: true, avatar: true } },
+      _count: {
+        select: {
+          wondering: true,
+          answer: true,
+        },
+      },
+      answer: {
+        select: {
+          answer: true,
+          id: true,
+          createdAt: true,
+          user: {
+            select: {
+              avatar: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
   });
   if (!findPostData)
     return NextResponse.json({

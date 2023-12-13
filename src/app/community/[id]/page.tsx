@@ -1,8 +1,7 @@
 "use client";
 import RootLayout from "@/app/layout";
 import CommunityHashTag from "@/components/community-hashtag";
-import CommunityLike from "@/components/community-like";
-import { Post, User } from "@prisma/client";
+import { Answer, Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import useSWR from "swr";
@@ -13,6 +12,21 @@ interface ProductId {
 
 interface PostAndUser extends Post {
   user: { id: number; name: string; avatar: string };
+  _count: {
+    wondering: number;
+    answer: number;
+  };
+  answer: [
+    answer: {
+      answer: string;
+      id: number;
+      createdAt: string;
+      user: {
+        avatar: string;
+        name: string;
+      };
+    }
+  ];
 }
 
 interface PostData {
@@ -54,22 +68,59 @@ export default function CommunityDetail({ params }: ProductId) {
             <span className="text-orange-500 font-medium">Q. </span>
             {data?.findPostData.question}
           </div>
-          <CommunityLike />
-        </div>
-        <div className="px-4 my-5">
-          <div className="flex items-start space-x-3">
-            <div className="w-8 h-8 rounded-full bg-emerald-500" />
-            <div className="mt-0.5">
-              <span className="text-sm block font-medium text-gray-700">
-                정수
-              </span>
-              <span className="text-xs text-gray-500 block">18시간 전</span>
-              <p className="text-gray-700 mt-2">
-                The best mandu restaurant is the one next to my house.
-              </p>
-            </div>
+          <div className="flex space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[1.5px] w-full shadow-sm">
+            <span className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span>궁금해요 {data?.findPostData._count.wondering}</span>
+            </span>
+            <span className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                ></path>
+              </svg>
+              <span>답변 {data?.findPostData._count.answer}</span>
+            </span>
           </div>
         </div>
+        {data?.findPostData.answer.map((result) => {
+          <div key={result.id} className="px-4 my-5">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500" />
+              <div className="mt-0.5">
+                <span className="text-sm block font-medium text-gray-700">
+                  {result.user.name}
+                </span>
+                <span className="text-xs text-gray-500 block">
+                  {result.createdAt}
+                </span>
+                <p className="text-gray-700 mt-2">{result.answer}</p>
+              </div>
+            </div>
+          </div>;
+        })}
         <div className="mt-3 px-4">
           <textarea
             rows={4}
