@@ -1,5 +1,4 @@
 import CommunityHashTag from "@/components/community-hashtag";
-import CommunityLike from "@/components/community-like";
 import FloatingButton from "@/components/floating-button";
 import Link from "next/link";
 import RootLayout from "../layout";
@@ -7,7 +6,7 @@ import RootLayout from "../layout";
 export default function Community() {
   return (
     <RootLayout hasTabBar title="동네생활">
-      <div className="space-y-8 px-4 -mt-5">
+      <div className="space-y-8 px-4 -mt-5 mb-10">
         {[1, 2, 3, 4, 5, 6].map((_, key) => (
           <Link key={key} href="/community/1">
             <div className="flex flex-col items-start cursor-pointer mt-5">
@@ -20,7 +19,6 @@ export default function Community() {
                 <span>정수</span>
                 <span>18시간 전</span>
               </div>
-              <CommunityLike />
             </div>
           </Link>
         ))}

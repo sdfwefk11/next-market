@@ -6,8 +6,8 @@ import apiClient from "@/libs/server/client";
 
 export async function POST(req: Request) {
   const { name, price, description } = await req.json();
-  const session = getIronSession<SessionData>(cookies(), sessionOption);
-  console.log((await session).user.id);
+  const session = await getIronSession<SessionData>(cookies(), sessionOption);
+  console.log(session.user.id);
   const product = await apiClient.product.create({
     data: {
       name,
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       image: "sdfsf",
       user: {
         connect: {
-          id: (await session).user.id,
+          id: session.user.id,
         },
       },
     },

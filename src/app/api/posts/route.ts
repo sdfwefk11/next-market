@@ -9,14 +9,14 @@ interface ProductId {
 }
 
 export async function POST(req: Request, { params }: ProductId) {
-  const session = getIronSession<SessionData>(cookies(), sessionOption);
+  const session = await getIronSession<SessionData>(cookies(), sessionOption);
   const { question } = await req.json();
   const post = await apiClient.post.create({
     data: {
       question,
       user: {
         connect: {
-          id: (await session).user.id,
+          id: session.user.id,
         },
       },
     },

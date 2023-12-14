@@ -16,12 +16,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       error: "Invalid Token: Please check input value",
     });
-  const session = getIronSession<SessionData>(cookies(), sessionOption);
-  (await session).user = {
+  const session = await getIronSession<SessionData>(cookies(), sessionOption);
+  session.user = {
     id: foundToken.userId,
   };
-  (await session).isLoggedIn = true;
-  await (await session).save();
+  session.isLoggedIn = true;
+  await session.save();
   await apiClient.token.deleteMany({
     where: {
       userId: foundToken.userId,

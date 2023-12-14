@@ -10,7 +10,7 @@ interface ProductId {
 
 export async function GET(req: NextRequest, { params }: ProductId) {
   const { id } = params;
-  const session = getIronSession<SessionData>(cookies(), sessionOption);
+  const session = await getIronSession<SessionData>(cookies(), sessionOption);
   const product = await apiClient.product.findUnique({
     where: {
       id: +id,
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest, { params }: ProductId) {
     await apiClient.fav.findFirst({
       where: {
         productId: product.id,
-        userId: (await session).user.id,
+        userId: session.user.id,
       },
       select: { id: true },
     })

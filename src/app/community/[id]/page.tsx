@@ -1,6 +1,7 @@
 "use client";
 import RootLayout from "@/app/layout";
 import CommunityHashTag from "@/components/community-hashtag";
+import useMutation from "@/libs/client/useMutation";
 import { Answer, Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -14,7 +15,7 @@ interface PostAndUser extends Post {
   user: { id: number; name: string; avatar: string };
   _count: {
     wondering: number;
-    answer: number;
+    answer?: number;
   };
   answer: [
     answer: {
@@ -35,9 +36,24 @@ interface PostData {
 }
 
 export default function CommunityDetail({ params }: ProductId) {
-  const { data, error } = useSWR<PostData>(
+  const { data, error, mutate } = useSWR<PostData>(
     params.id ? `/api/posts/${params.id}` : null
   );
+  const [wonder] = useMutation(`/api/posts/${params.id}/wonder`);
+  const onWonderClick = () => {
+    if (!data) return;
+    mutate({
+      ...data,
+      findPostData: {
+        ...data.findPostData,
+        _count: {
+          ...data.findPostData._count,
+          wondering: data.findPostData._count.wondering + 1,
+        },
+      },
+    });
+    wonder({});
+  };
   const router = useRouter();
   useEffect(() => {
     if (data && !data.ok) {
@@ -45,11 +61,10 @@ export default function CommunityDetail({ params }: ProductId) {
     }
   }, [data, router]);
   if (error) console.log(error);
-  console.log(data?.findPostData.user.id);
   return (
     <RootLayout canGoBack title={true}>
-      <div className="-mt-5">
-        <div className="px-4">
+      <>
+        <div className="px-4 -mt-4 pb-1">
           <CommunityHashTag />
         </div>
         <div className="flex items-center space-x-3 py-3 border-t border-b px-4">
@@ -69,7 +84,10 @@ export default function CommunityDetail({ params }: ProductId) {
             {data?.findPostData.question}
           </div>
           <div className="flex space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[1.5px] w-full shadow-sm">
-            <span className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors">
+            <button
+              onClick={onWonderClick}
+              className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors"
+            >
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -85,7 +103,7 @@ export default function CommunityDetail({ params }: ProductId) {
                 ></path>
               </svg>
               <span>궁금해요 {data?.findPostData._count.wondering}</span>
-            </span>
+            </button>
             <span className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors">
               <svg
                 className="w-4 h-4"
@@ -131,7 +149,7 @@ export default function CommunityDetail({ params }: ProductId) {
             Reply
           </button>
         </div>
-      </div>
+      </>
     </RootLayout>
   );
 }
