@@ -10,8 +10,9 @@ interface ProductId {
 
 export async function GET(req: NextRequest, { params }: ProductId) {
   const { id } = params;
+  const session = await getIronSession<SessionData>(cookies(), sessionOption);
   const findPostData = await apiClient.post.findUnique({
-    where: { id: +id },
+    where: { id: +id.toString() },
     include: {
       user: { select: { id: true, name: true, avatar: true } },
       _count: {
@@ -35,9 +36,13 @@ export async function GET(req: NextRequest, { params }: ProductId) {
       },
     },
   });
-  if (!findPostData)
-    return NextResponse.json({
-      inValid: "inValid id value please check id params",
-    });
-  return NextResponse.json({ ok: true, findPostData });
+  const isWondering = Boolean(
+    await apiClient.wondering.findFirst({
+      where: {
+        postId: +id.toString(),
+        userId: session.user.id,
+      },
+    })
+  );
+  return NextResponse.json({ ok: true, findPostData, isWondering });
 }

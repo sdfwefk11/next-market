@@ -2,6 +2,7 @@
 import RootLayout from "@/app/layout";
 import CommunityHashTag from "@/components/community-hashtag";
 import useMutation from "@/libs/client/useMutation";
+import { cls } from "@/libs/utils";
 import { Answer, Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -13,10 +14,6 @@ interface ProductId {
 
 interface PostAndUser extends Post {
   user: { id: number; name: string; avatar: string };
-  _count: {
-    wondering: number;
-    answer?: number;
-  };
   answer: [
     answer: {
       answer: string;
@@ -28,11 +25,16 @@ interface PostAndUser extends Post {
       };
     }
   ];
+  _count: {
+    wondering: number;
+    answer?: number;
+  };
 }
 
 interface PostData {
   ok: boolean;
   findPostData: PostAndUser;
+  isWondering: boolean;
 }
 
 export default function CommunityDetail({ params }: ProductId) {
@@ -42,17 +44,21 @@ export default function CommunityDetail({ params }: ProductId) {
   const [wonder] = useMutation(`/api/posts/${params.id}/wonder`);
   const onWonderClick = () => {
     if (!data) return;
-    mutate({
-      ...data,
-      findPostData: {
-        ...data.findPostData,
-        _count: {
-          ...data.findPostData._count,
-          wondering: data.findPostData._count.wondering + 1,
+    mutate(
+      {
+        ...data,
+        findPostData: {
+          ...data.findPostData,
+          _count: {
+            ...data.findPostData._count,
+            wondering: data.findPostData._count.wondering + 1,
+          },
         },
+        isWondering: !data.isWondering,
       },
-    });
-    wonder({});
+      false
+    );
+    // wonder({});
   };
   const router = useRouter();
   useEffect(() => {
@@ -86,7 +92,10 @@ export default function CommunityDetail({ params }: ProductId) {
           <div className="flex space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[1.5px] w-full shadow-sm">
             <button
               onClick={onWonderClick}
-              className="flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors"
+              className={cls(
+                "flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors",
+                data?.isWondering ? "text-red-500" : ""
+              )}
             >
               <svg
                 className="w-4 h-4"
