@@ -15,7 +15,7 @@ export default function Profile() {
             </div>
           </Link>
         </div>
-        <div className="mt-12 flex justify-around space-x-3 px-4">
+        <div className="mt-12 flex flex-col items-start justify-center px-4 space-y-3">
           <ProfileButton href="/profile/sold" title="판매내역">
             <svg
               className="w-6 h-6"
@@ -120,14 +120,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-gray-700">
-              Normally, both your asses would be dead as fucking fried chicken,
-              but you happen to pull this shit while I&apos;m in a transitional
-              period so I don&apos;t wanna kill you, I wanna help you. But I
-              can&apos;t give you this case, it don&apos;t belong to me.
-              Besides, I&apos;ve already been through too much shit this morning
-              over this case to hand it over to your dumb ass.
-            </p>
+            <p className="text-gray-700">1</p>
           </div>
         </div>
       </div>

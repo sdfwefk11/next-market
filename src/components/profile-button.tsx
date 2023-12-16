@@ -14,7 +14,7 @@ export default function ProfileButton({
 }: ProfileButton) {
   return (
     <Link href={href}>
-      <div className="flex flex-col items-center space-y-2">
+      <div className="flex items-center space-y-2 space-x-3">
         <div
           className={cls(
             "flex items-center justify-center w-16 h-16 rounded-full bg-blue-500 text-white shadow-sm cursor-pointer transition-colors hover:bg-blue-600",

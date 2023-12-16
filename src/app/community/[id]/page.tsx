@@ -1,11 +1,13 @@
 "use client";
 import RootLayout from "@/app/layout";
 import CommunityHashTag from "@/components/community-hashtag";
+import TextArea from "@/components/textarea";
 import useMutation from "@/libs/client/useMutation";
 import { cls } from "@/libs/utils";
 import { Answer, Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import useSWR from "swr";
 
 interface ProductId {
@@ -37,11 +39,19 @@ interface PostData {
   isWondering: boolean;
 }
 
+interface AnswerForm {
+  answer: string;
+}
+
 export default function CommunityDetail({ params }: ProductId) {
   const { data, error, mutate } = useSWR<PostData>(
     params.id ? `/api/posts/${params.id}` : null
   );
-  const [wonder] = useMutation(`/api/posts/${params.id}/wonder`);
+  const [wonder, { loading }] = useMutation(`/api/posts/${params.id}/wonder`);
+  const [answer, { data: answerData, loading: answerLoading }] = useMutation(
+    `/api/posts/${params.id}/answers`
+  );
+  const { register, handleSubmit } = useForm<AnswerForm>();
   const onWonderClick = () => {
     if (!data) return;
     mutate(
@@ -51,14 +61,19 @@ export default function CommunityDetail({ params }: ProductId) {
           ...data.findPostData,
           _count: {
             ...data.findPostData._count,
-            wondering: data.findPostData._count.wondering + 1,
+            wondering:
+              data.isWondering === false
+                ? data.findPostData._count.wondering + 1
+                : data.findPostData._count.wondering - 1,
           },
         },
         isWondering: !data.isWondering,
       },
       false
     );
-    // wonder({});
+    if (!loading) {
+      wonder({});
+    }
   };
   const router = useRouter();
   useEffect(() => {
@@ -67,6 +82,10 @@ export default function CommunityDetail({ params }: ProductId) {
     }
   }, [data, router]);
   if (error) console.log(error);
+  const onValid = (form: AnswerForm) => {
+    if (answerLoading) return;
+    answer(form);
+  };
   return (
     <RootLayout canGoBack title={true}>
       <>
@@ -94,7 +113,9 @@ export default function CommunityDetail({ params }: ProductId) {
               onClick={onWonderClick}
               className={cls(
                 "flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors",
-                data?.isWondering ? "text-red-500" : ""
+                data?.isWondering
+                  ? "text-emerald-500 bg-orange-100 rounded-md py-1"
+                  : ""
               )}
             >
               <svg
@@ -148,16 +169,17 @@ export default function CommunityDetail({ params }: ProductId) {
             </div>
           </div>;
         })}
-        <div className="mt-3 px-4">
-          <textarea
-            rows={4}
+        <form className="mt-3 px-4" onSubmit={handleSubmit(onValid)}>
+          <TextArea
+            register={register("answer", { required: true, minLength: 5 })}
+            name="description"
             placeholder="Answer this question!"
-            className="mt-1 shadow-sm w-full rounded-md border border-gray-300 focus:ring-emerald-600 focus:outline-none focus:border-emerald-600"
+            required
           />
           <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-2 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition w-full">
             Reply
           </button>
-        </div>
+        </form>
       </>
     </RootLayout>
   );
