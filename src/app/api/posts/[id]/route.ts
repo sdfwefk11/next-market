@@ -10,6 +10,13 @@ interface ProductId {
 
 export async function GET(req: NextRequest, { params }: ProductId) {
   const { id } = params;
+  const pageExists = await apiClient.post.findUnique({
+    where: {
+      id: +id.toString(),
+    },
+    select: { id: true },
+  });
+  if (!pageExists) return;
   const session = await getIronSession<SessionData>(cookies(), sessionOption);
   const findPostData = await apiClient.post.findUnique({
     where: { id: +id.toString() },

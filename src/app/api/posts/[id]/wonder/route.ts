@@ -11,6 +11,14 @@ interface ProductId {
 export async function POST(req: NextRequest, { params }: ProductId) {
   const { id } = params;
   const session = await getIronSession<SessionData>(cookies(), sessionOption);
+  const pageExists = await apiClient.post.findUnique({
+    where: {
+      id: +id.toString(),
+    },
+    select: { id: true },
+  });
+  if (!pageExists) return;
+
   const alreadyExists = await apiClient.wondering.findFirst({
     where: { userId: session.user.id, postId: +id.toString() },
     select: {
