@@ -15,7 +15,7 @@ interface ProductId {
 }
 
 interface PostAndUser extends Post {
-  user: { id: number; name: string; avatar: string };
+  user: User;
   answer: [
     answer: {
       answer: string;
@@ -90,8 +90,9 @@ export default function CommunityDetail({ params }: ProductId) {
     }
     if (answerData && answerData.ok) {
       reset();
+      mutate();
     }
-  }, [data, router, reset, answerData]);
+  }, [data, router, reset, answerData, mutate]);
   if (error) console.log(error);
   const onValid = (form: AnswerForm) => {
     if (answerLoading) return;
@@ -125,7 +126,7 @@ export default function CommunityDetail({ params }: ProductId) {
               onClick={onWonderClick}
               className={cls(
                 "flex mt-1 space-x-1 items-center justify-center text-sm hover:text-emerald-500 transition-colors",
-                data?.isWondering ? "text-emerald-500" : ""
+                data?.isWondering ? "text-emerald-500 text font-extrabold" : ""
               )}
             >
               <svg
