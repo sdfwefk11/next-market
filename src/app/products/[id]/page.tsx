@@ -3,7 +3,7 @@ import RootLayout from "@/app/layout";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
 import { cls } from "@/libs/utils";
-import { Product, User } from "@prisma/client";
+import { Product } from "@prisma/client";
 import Link from "next/link";
 import useSWR, { useSWRConfig } from "swr";
 
