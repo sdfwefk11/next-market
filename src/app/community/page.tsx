@@ -31,17 +31,17 @@ export default function Community() {
       <div className="space-y-8 px-4 -mt-5 mb-10">
         {data?.posts.map((posts) => (
           <Link key={posts.id} href={`/community/${posts.id}`}>
-            <div className="flex flex-col items-start cursor-pointer mt-5">
+            <div className="flex flex-col items-start cursor-pointer mt-5 bg-blue-200 rounded-md px-3 hover:bg-blue-300 transition-colors">
               <CommunityHashTag />
               <div className="mt-2 text-gray-700">
-                <span className="text-orange-500 font-medium">Q.</span>
-                {posts.question}
+                <span className="text-orange-500 font-medium mr-1">Q.</span>
+                <span>{posts.question}</span>
               </div>
               <div className="mt-5 flex items-center justify-between w-full text-gray-500 font-medium text-xs">
                 <span>{posts.user.name}</span>
                 <span>{String(posts.createdAt)}</span>
               </div>
-              <div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t   w-full">
+              <div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t border-orange-500 w-full">
                 <span className="flex space-x-2 items-center text-sm">
                   <svg
                     className="w-4 h-4"
