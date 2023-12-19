@@ -7,6 +7,7 @@ import RootLayout from "./layout";
 import useSWR from "swr";
 import Item from "@/components/item";
 import { Product } from "@prisma/client";
+import Navi from "@/components/navi";
 
 interface ProductData {
   ok: boolean;
@@ -23,6 +24,7 @@ export default function Product() {
   const { data, mutate } = useSWR<ProductData>("/api/products");
   return (
     <>
+      <Navi title="홈" />
       <Head title={"홈"} />
       {data?.product?.map((result) => (
         <div key={result.id}>

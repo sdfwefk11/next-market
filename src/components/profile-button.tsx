@@ -13,7 +13,7 @@ export default function ProfileButton({
   title,
 }: ProfileButton) {
   return (
-    <Link href={href}>
+    <Link scroll={false} href={href}>
       <div className="flex items-center space-y-2 space-x-3">
         <div
           className={cls(

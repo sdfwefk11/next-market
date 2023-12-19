@@ -1,5 +1,6 @@
 "use client";
 import RootLayout from "@/app/layout";
+import Navi from "@/components/navi";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
 import { cls } from "@/libs/utils";
@@ -43,7 +44,8 @@ export default function Detail({ params }: ProductId) {
     }
   };
   return (
-    <RootLayout canGoBack title>
+    <>
+      <Navi title={data?.product.name} />
       <div className="px-4">
         <div className="mb-6">
           <div className="h-96 bg-emerald-400" />
@@ -121,6 +123,6 @@ export default function Detail({ params }: ProductId) {
           </div>
         </div>
       </div>
-    </RootLayout>
+    </>
   );
 }

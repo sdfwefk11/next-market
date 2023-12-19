@@ -2,6 +2,7 @@
 import RootLayout from "@/app/layout";
 import Button from "@/components/button";
 import Input from "@/components/input";
+import Navi from "@/components/navi";
 import TextArea from "@/components/textarea";
 import useMutation from "@/libs/client/useMutation";
 import { Product } from "@prisma/client";
@@ -35,7 +36,8 @@ export default function Upload() {
     }
   }, [uploadData, router]);
   return (
-    <RootLayout canGoBack title={true}>
+    <>
+      <Navi title="상품등록" />
       <form className="px-4" onSubmit={handleSubmit(onValid)}>
         <div className="w-full flex items-center justify-center border-dashed border-2 hover:border-gray-300 py-6 h-48 rounded-md group border-emerald-600 transition">
           <label className="group-hover:text-orange-500 text-blue-200  cursor-pointer transition group-hover:shadow-md rounded-full">
@@ -79,6 +81,6 @@ export default function Upload() {
         />
         <Button text={loading ? "Loading..." : "Upload product"} />
       </form>
-    </RootLayout>
+    </>
   );
 }

@@ -1,8 +1,10 @@
 import RootLayout from "@/app/layout";
+import Navi from "@/components/navi";
 
 export default function Create() {
   return (
-    <RootLayout canGoBack title={true}>
+    <>
+      <Navi title="라이브 생성" />
       <div className="space-y-5 py-10 px-4">
         <div className="my-5">
           <label
@@ -41,6 +43,6 @@ export default function Create() {
           Go Live
         </button>
       </div>
-    </RootLayout>
+    </>
   );
 }

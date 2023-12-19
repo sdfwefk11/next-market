@@ -1,8 +1,10 @@
 import RootLayout from "@/app/layout";
+import Navi from "@/components/navi";
 
 export default function StreamDetail() {
   return (
-    <RootLayout canGoBack title={true}>
+    <>
+      <Navi />
       <div className="px-4">
         <div className="w-full bg-red-300 aspect-video rounded-md shadow-sm" />
         <div className="mt-6">
@@ -118,6 +120,6 @@ export default function StreamDetail() {
           </div>
         </div>
       </div>
-    </RootLayout>
+    </>
   );
 }

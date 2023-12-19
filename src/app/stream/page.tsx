@@ -1,9 +1,10 @@
 import FloatingButton from "@/components/floating-button";
-import RootLayout from "../layout";
+import Navi from "@/components/navi";
 
 export default function Stream() {
   return (
     <>
+      <Navi title="라이브" />
       <div className="divide-y-2 space-y-4">
         {[1, 2, 3, 4, 5, 6].map((_, key) => (
           <div className="pt-4 px-4" key={key}>

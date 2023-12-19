@@ -1,10 +1,12 @@
 import RootLayout from "@/app/layout";
 import Item from "@/components/item";
+import Navi from "@/components/navi";
 
 export default function Buy() {
   return (
-    <RootLayout canGoBack title={true}>
+    <>
+      <Navi title="구매목록" />
       <Item key={1} />
-    </RootLayout>
+    </>
   );
 }

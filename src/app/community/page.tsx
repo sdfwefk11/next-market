@@ -2,7 +2,6 @@
 import CommunityHashTag from "@/components/community-hashtag";
 import FloatingButton from "@/components/floating-button";
 import Link from "next/link";
-import RootLayout from "../layout";
 import useSWR from "swr";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -28,15 +27,15 @@ export default function Community() {
   const router = useRouter();
   useEffect(() => {
     if (data && !data.ok) {
-      router.push("/404page");
+      router.push("/404page", { scroll: false });
     }
   }, [data, router]);
   return (
     <>
-      <Navi />
+      <Navi title="동네생활" />
       <div className="space-y-8 px-4 -mt-5 mb-10">
         {data?.posts.map((posts) => (
-          <Link key={posts.id} href={`/community/${posts.id}`}>
+          <Link scroll={false} key={posts.id} href={`/community/${posts.id}`}>
             <div className="flex flex-col items-start cursor-pointer mt-5 bg-blue-200 rounded-md px-3 hover:bg-blue-300 transition-colors">
               <CommunityHashTag />
               <div className="mt-2 text-gray-700">
