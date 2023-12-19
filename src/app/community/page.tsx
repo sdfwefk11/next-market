@@ -7,6 +7,8 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Post, User } from "@prisma/client";
+import useCoords from "@/libs/client/useCoords";
+import Navi from "@/components/navi";
 
 interface PostData extends Post {
   user: User;
@@ -19,7 +21,10 @@ interface PostsResponse {
 }
 
 export default function Community() {
-  const { data } = useSWR<PostsResponse>("/api/posts");
+  const { latitude, longitude } = useCoords();
+  const { data } = useSWR<PostsResponse>(
+    `/api/posts?latitude=${latitude}&longitude=${longitude}`
+  );
   const router = useRouter();
   useEffect(() => {
     if (data && !data.ok) {
@@ -27,7 +32,8 @@ export default function Community() {
     }
   }, [data, router]);
   return (
-    <RootLayout hasTabBar title="동네생활">
+    <>
+      <Navi />
       <div className="space-y-8 px-4 -mt-5 mb-10">
         {data?.posts.map((posts) => (
           <Link key={posts.id} href={`/community/${posts.id}`}>
@@ -97,6 +103,6 @@ export default function Community() {
           ></path>
         </svg>
       </FloatingButton>
-    </RootLayout>
+    </>
   );
 }

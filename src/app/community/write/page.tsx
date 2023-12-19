@@ -1,6 +1,7 @@
 "use client";
 import RootLayout from "@/app/layout";
 import Button from "@/components/button";
+import Navi from "@/components/navi";
 import TextArea from "@/components/textarea";
 import useCoords from "@/libs/client/useCoords";
 import useMutation from "@/libs/client/useMutation";
@@ -33,7 +34,8 @@ export default function Write() {
     }
   }, [data, router]);
   return (
-    <RootLayout canGoBack title="Write Post">
+    <>
+      <Navi />
       <form onSubmit={handleSubmit(onPostSubmit)} className="px-4">
         <TextArea
           required
@@ -42,6 +44,6 @@ export default function Write() {
         />
         <Button text={loading ? "Loading..." : "Submit"} />
       </form>
-    </RootLayout>
+    </>
   );
 }

@@ -22,11 +22,11 @@ export default function Product() {
   const { user, isLoading } = useUser();
   const { data, mutate } = useSWR<ProductData>("/api/products");
   return (
-    <RootLayout hasTabBar title="홈">
+    <>
       <Head title={"홈"} />
       {data?.product?.map((result) => (
         <div key={result.id}>
-          <Link href={`/products/${result.id}`}>
+          <Link scroll={false} href={`/products/${result.id}`}>
             <Item
               name={result.name}
               image={result.image}
@@ -54,6 +54,6 @@ export default function Product() {
           />
         </svg>
       </FloatingButton>
-    </RootLayout>
+    </>
   );
 }

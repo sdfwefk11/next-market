@@ -14,9 +14,9 @@ export default function useCoords() {
     coords: { latitude, longitude },
     timestamp,
   }: GeolocationPosition) => {
-    console.log(
-      `[latitude: ${latitude}, longitude: ${longitude}] timestamp: ${timestamp}`
-    );
+    // console.log(
+    //   `[latitude: ${latitude}, longitude: ${longitude}] timestamp: ${timestamp}`
+    // );
     setCoords({ latitude, longitude });
   };
   useEffect(() => {

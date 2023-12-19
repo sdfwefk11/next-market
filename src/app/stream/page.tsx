@@ -3,7 +3,7 @@ import RootLayout from "../layout";
 
 export default function Stream() {
   return (
-    <RootLayout title="라이브" hasTabBar>
+    <>
       <div className="divide-y-2 space-y-4">
         {[1, 2, 3, 4, 5, 6].map((_, key) => (
           <div className="pt-4 px-4" key={key}>
@@ -28,6 +28,6 @@ export default function Stream() {
           />
         </svg>
       </FloatingButton>
-    </RootLayout>
+    </>
   );
 }
