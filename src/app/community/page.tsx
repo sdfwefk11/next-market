@@ -22,7 +22,9 @@ interface PostsResponse {
 export default function Community() {
   const { latitude, longitude } = useCoords();
   const { data } = useSWR<PostsResponse>(
-    `/api/posts?latitude=${latitude}&longitude=${longitude}`
+    latitude && longitude
+      ? `/api/posts?latitude=${latitude}&longitude=${longitude}`
+      : null
   );
   const router = useRouter();
   useEffect(() => {
@@ -36,7 +38,7 @@ export default function Community() {
       <div className="space-y-8 px-4 -mt-5 mb-10">
         {data?.posts.map((posts) => (
           <Link scroll={false} key={posts.id} href={`/community/${posts.id}`}>
-            <div className="flex flex-col items-start cursor-pointer mt-5 bg-blue-200 rounded-md px-3 hover:bg-blue-300 transition-colors">
+            <div className="flex flex-col items-start cursor-pointer mt-5 bg-green-200 rounded-md px-3 shadow-md hover:bg-green-300 transition-colors">
               <CommunityHashTag />
               <div className="mt-2 text-gray-700">
                 <span className="text-orange-500 font-medium mr-1">Q.</span>

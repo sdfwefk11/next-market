@@ -39,9 +39,9 @@ export default function Navi({ title }: NaviProps) {
           </button>
         )}
       </nav>
-      <h1 className="fixed top-4 w-full max-w-xl flex justify-center pointer-events-none">
-        {title}
-      </h1>
+      <div className="fixed top-4 w-full max-w-xl flex justify-center pointer-events-none items-center">
+        <h1 className="text-orange-500 font-semibold text-lg -mt-1">{title}</h1>
+      </div>
     </>
   );
 }

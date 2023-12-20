@@ -5,7 +5,7 @@ export default function ChatProfile() {
   return (
     <>
       <Navi />
-      <div className="pt-5 px-5 space-y-4 pb-36">
+      <div className="pt-5 px-5 space-y-4 pb-44">
         <div className="flex items-start space-x-2">
           <div className="w-8 h-8 rounded-full bg-amber-300 shadow-sm" />
           <div className="w-auto text-gray-700 rounded-md border p-1 border-amber-300">
@@ -168,7 +168,7 @@ export default function ChatProfile() {
             <p>Okay</p>
           </div>
         </div>
-        <div className="fixed w-full mx-auto max-w-md bottom-3 inset-x-0">
+        <div className="fixed w-full mx-auto max-w-md bottom-24 inset-x-0">
           <div className="flex items-center relative">
             <input
               type="text"

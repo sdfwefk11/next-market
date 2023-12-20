@@ -101,7 +101,7 @@ export default function CommunityDetail({ params }: ProductId) {
   };
 
   return (
-    <>
+    <div className="mb-10">
       <Navi />
       <div className="px-4 -mt-4 pb-1">
         <CommunityHashTag />
@@ -192,6 +192,6 @@ export default function CommunityDetail({ params }: ProductId) {
           {answerLoading ? "Loading..." : "Reply"}
         </button>
       </form>
-    </>
+    </div>
   );
 }

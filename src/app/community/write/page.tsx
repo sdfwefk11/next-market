@@ -35,7 +35,7 @@ export default function Write() {
   }, [data, router]);
   return (
     <>
-      <Navi />
+      <Navi title="궁금해요" />
       <form onSubmit={handleSubmit(onPostSubmit)} className="px-4">
         <TextArea
           required
