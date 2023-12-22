@@ -1,8 +1,11 @@
-import RootLayout from "@/app/layout";
+"use client";
 import Item from "@/components/item";
 import Navi from "@/components/navi";
+import useSWR from "swr";
 
 export default function Sold() {
+  const { data } = useSWR("/api/users/me/record?kind=Sale");
+  console.log(data);
   return (
     <>
       <Navi title="판매목록" />
