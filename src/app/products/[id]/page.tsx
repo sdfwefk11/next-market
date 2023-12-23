@@ -55,7 +55,10 @@ export default function Detail({ params }: ProductId) {
               <p className="text-sm font-medium text-gray-700">
                 {isLoading ? "Loading..." : data?.product.user.name}
               </p>
-              <Link href={`/users/profiles/${data?.product.user.id}`}>
+              <Link
+                scroll={false}
+                href={`/users/profiles/${data?.product.user.id}`}
+              >
                 <p className="text-xs font-medium text-gray-500 cursor-pointer">
                   View profile &rarr;
                 </p>

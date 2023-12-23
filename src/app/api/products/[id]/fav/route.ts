@@ -31,7 +31,7 @@ export async function POST(req: NextRequest, { params }: ProductId) {
       data: {
         user: {
           connect: {
-            id: (await session).user.id,
+            id: session.user.id,
           },
         },
         product: {

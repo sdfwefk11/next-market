@@ -4,7 +4,7 @@ import Navi from "@/components/navi";
 import useSWR from "swr";
 
 export default function Sold() {
-  const { data } = useSWR("/api/users/me/record?kind=Sale");
+  const { data } = useSWR("/api/users/me/sales");
   console.log(data);
   return (
     <>

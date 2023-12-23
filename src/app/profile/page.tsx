@@ -1,9 +1,20 @@
+"use client";
 import Navi from "@/components/navi";
 import ProfileButton from "@/components/profile-button";
+import useUser from "@/libs/client/useUser";
+import useSWR from "swr";
 import Link from "next/link";
-import RootLayout from "../layout";
+import { Review, User } from "@prisma/client";
+
+interface Reviews {
+  ok: boolean;
+  reviews: Review[];
+}
 
 export default function Profile() {
+  const { user } = useUser();
+  const { data } = useSWR<Reviews>("/api/review");
+  console.log(data);
   return (
     <div>
       <Navi title="마이페이지" />
@@ -11,7 +22,9 @@ export default function Profile() {
         <div className="w-16 h-16 rounded-full bg-purple-400" />
         <Link scroll={false} href="profile/edit">
           <div className="flex flex-col cursor-pointer">
-            <span className="font-medium text-gray-900">Steve Jebs</span>
+            <span className="font-medium text-gray-900">
+              {user ? user.name : "Loading..."}
+            </span>
             <span className="font-sm text-gray-700">Edit profile &rarr;</span>
           </div>
         </Link>
