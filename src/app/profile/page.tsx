@@ -5,31 +5,37 @@ import useUser from "@/libs/client/useUser";
 import useSWR from "swr";
 import Link from "next/link";
 import { Review, User } from "@prisma/client";
+import { cls } from "@/libs/utils";
+
+interface ReviewBy extends Review {
+  createBy: User;
+}
 
 interface Reviews {
   ok: boolean;
-  reviews: Review[];
+  reviews: ReviewBy[];
 }
 
 export default function Profile() {
   const { user } = useUser();
   const { data } = useSWR<Reviews>("/api/review");
-  console.log(data);
   return (
     <div>
       <Navi title="마이페이지" />
       <div className="flex items-center space-x-3 border-b pb-5 px-4">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
-        <Link scroll={false} href="profile/edit">
-          <div className="flex flex-col cursor-pointer">
-            <span className="font-medium text-gray-900">
-              {user ? user.name : "Loading..."}
+        <div className="flex flex-col">
+          <span className="font-bold text-gray-900 ml-1 mb-2">
+            {user ? user.name : "Loading..."}
+          </span>
+          <Link scroll={false} href="profile/edit">
+            <span className="font-sm text-gray-700 hover:bg-zinc-200 hover:text-emerald-500 transition-colors bg-zinc-100 rounded-md px-2 py-1 select-none">
+              Edit profile &rarr;
             </span>
-            <span className="font-sm text-gray-700">Edit profile &rarr;</span>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
-      <div className="mt-12 flex flex-col items-start justify-center px-4 space-y-3">
+      <div className="items-start justify-center px-4 mt-3 mb-3 select-none">
         <ProfileButton href="/profile/sold" title="판매내역">
           <svg
             className="w-6 h-6"
@@ -79,63 +85,48 @@ export default function Profile() {
           </svg>
         </ProfileButton>
       </div>
-      <div className="mt-12 px-4">
-        <div className="flex items-center space-x-3 border-t pt-5">
-          <div className="w-12 h-12 bg-emerald-400 rounded-full" />
-          <div>
-            <h4 className="text-sm font-bold text-gray-800 pl-1">정수</h4>
-            <div className="flex">
-              <svg
-                className="text-yellow-400 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <svg
-                className="text-yellow-400 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <svg
-                className="text-yellow-400 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <svg
-                className="text-yellow-400 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <svg
-                className="text-gray-400 h-5 w-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
+      <div className="px-10">
+        {data ? (
+          data.reviews.map((reviews) => (
+            <div
+              key={reviews.id}
+              className="flex mb-3 border py-3 pl-3 space-x-1 rounded-md"
+            >
+              <div className="flex flex-col justify-center items-center space-y-2">
+                <div className="w-12 h-12 bg-emerald-400 rounded-full" />
+                <p className="text-gray-700 ml-2">{reviews.review}</p>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-bold text-gray-800 pl-1">
+                  {reviews.createBy.name}
+                </h4>
+                <div className="flex">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <svg
+                      key={star}
+                      className={cls(
+                        "h-5 w-5",
+                        reviews.score >= star
+                          ? "text-yellow-400"
+                          : "text-gray-400"
+                      )}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="flex justify-center items-center">
+            <h1>Loading...</h1>
           </div>
-        </div>
-        <div className="mt-4">
-          <p className="text-gray-700">1</p>
-        </div>
+        )}
       </div>
     </div>
   );
