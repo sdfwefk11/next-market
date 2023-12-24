@@ -23,6 +23,9 @@ export default function Profile() {
   const { data } = useSWR<Reviews>("/api/review");
   return (
     <div>
+      {!user && !data ? (
+        <div className="fixed w-full h-full max-w-xl flex justify-center backdrop-blur-sm items-center top-0"></div>
+      ) : null}
       <Navi title="마이페이지" />
       <div className="flex items-center space-x-3 border-b pb-5 px-4">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
@@ -91,7 +94,7 @@ export default function Profile() {
           </svg>
         </ProfileButton>
       </div>
-      <div className="px-10">
+      <div className={cls(data ? "px-10" : "")}>
         {data ? (
           data.reviews.map((reviews) => (
             <div
@@ -129,7 +132,7 @@ export default function Profile() {
             </div>
           ))
         ) : (
-          <div className="fixed w-full max-w-lg justify-center flex bottom-72">
+          <div className="fixed w-full max-w-xl justify-center flex bottom-72 mx-auto">
             <Loading />
           </div>
         )}
