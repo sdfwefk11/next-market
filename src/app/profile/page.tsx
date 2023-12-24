@@ -6,6 +6,8 @@ import useSWR from "swr";
 import Link from "next/link";
 import { Review, User } from "@prisma/client";
 import { cls } from "@/libs/utils";
+import Loading from "@/components/loading";
+import ProfileLoading from "@/components/profile-loading";
 
 interface ReviewBy extends Review {
   createBy: User;
@@ -25,9 +27,13 @@ export default function Profile() {
       <div className="flex items-center space-x-3 border-b pb-5 px-4">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
         <div className="flex flex-col">
-          <span className="font-bold text-gray-900 ml-1 mb-2">
-            {user ? user.name : "Loading..."}
-          </span>
+          {user ? (
+            <span className="font-bold text-gray-900 ml-1 mb-2">
+              {user.name}
+            </span>
+          ) : (
+            <ProfileLoading profile />
+          )}
           <Link scroll={false} href="profile/edit">
             <span className="font-sm text-gray-700 hover:bg-zinc-200 hover:text-emerald-500 transition-colors bg-zinc-100 rounded-md px-2 py-1 select-none">
               Edit profile &rarr;
@@ -123,8 +129,8 @@ export default function Profile() {
             </div>
           ))
         ) : (
-          <div className="flex justify-center items-center">
-            <h1>Loading...</h1>
+          <div className="fixed w-full max-w-lg justify-center flex bottom-72">
+            <Loading />
           </div>
         )}
       </div>

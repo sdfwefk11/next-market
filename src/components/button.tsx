@@ -2,7 +2,7 @@ import { cls } from "../libs/utils";
 
 interface ButtonProps {
   large?: boolean;
-  text: string;
+  text?: string;
   [key: string]: any;
 }
 

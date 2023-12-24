@@ -7,6 +7,7 @@ import Input from "@/components/input";
 import Button from "@/components/button";
 import useMutation from "@/libs/client/useMutation";
 import { useRouter } from "next/navigation";
+import ProfileLoading from "@/components/profile-loading";
 
 interface EnterForm {
   email?: string;
@@ -73,7 +74,9 @@ export default function Enter() {
               type="number"
               required
             />
-            <Button text={tokenLoading ? "Loading..." : "Confirm Token"} />
+            <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-5 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition w-full flex justify-center">
+              {tokenLoading ? <ProfileLoading /> : "Confirm Token"}
+            </button>
           </form>
         ) : (
           <>
@@ -131,12 +134,14 @@ export default function Enter() {
                 />
               ) : null}
               {method === "email" ? (
-                <Button text={loading ? "Loading..." : "Get login link"} />
+                <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-5 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition w-full flex justify-center">
+                  {loading ? <ProfileLoading /> : "Get login link"}
+                </button>
               ) : null}
               {method === "phone" ? (
-                <Button
-                  text={loading ? "Loading..." : "Get one-time password"}
-                />
+                <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-5 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition w-full flex justify-center">
+                  {loading ? <ProfileLoading /> : "Get login link"}
+                </button>
               ) : null}
             </form>
           </>

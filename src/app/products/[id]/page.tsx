@@ -1,6 +1,8 @@
 "use client";
 import RootLayout from "@/app/layout";
+import Loading from "@/components/loading";
 import Navi from "@/components/navi";
+import ProfileLoading from "@/components/profile-loading";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
 import { cls } from "@/libs/utils";
@@ -52,9 +54,13 @@ export default function Detail({ params }: ProductId) {
           <div className="flex items-center space-x-3 py-3 border-t border-b px-4">
             <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
             <div>
-              <p className="text-sm font-medium text-gray-700">
-                {isLoading ? "Loading..." : data?.product.user.name}
-              </p>
+              {isLoading ? (
+                <ProfileLoading />
+              ) : (
+                <p className="text-sm font-medium text-gray-700">
+                  {data?.product.user.name}
+                </p>
+              )}
               <Link
                 scroll={false}
                 href={`/users/profiles/${data?.product.user.id}`}
@@ -65,46 +71,54 @@ export default function Detail({ params }: ProductId) {
               </Link>
             </div>
           </div>
-          <div className="mt-5">
-            <h1 className="text-3xl font-bold text-gray-900">
-              {data?.product.name}
-            </h1>
-            <p className="text-3xl mt-3 text-gray-900 block">
-              {isLoading ? "Loading..." : `${data?.product.price}원`}
-            </p>
-            <p className="text-base my-6 text-gray-700">
-              {data?.product.description}
-            </p>
-            <div className="flex items-center justify-between space-x-2">
-              <button className="flex-1 bg-orange-500 text-white py-3 rounded-md focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 hover:bg-orange-600 transition focus:outline-none shadow-md">
-                판매자와 대화하기
-              </button>
-              <button
-                onClick={onFavClick}
-                className={cls(
-                  "p-3 flex items-center justify-center  transition rounded-md",
-                  data?.isLiked
-                    ? "hover:bg-gray-100 text-red-500"
-                    : "text-red-400 hover:bg-gray-100 hover:text-red-500"
-                )}
+          <div
+            className={cls(isLoading ? "my-5 flex flex-col items-center " : "")}
+          >
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  {data?.product.name}
+                </h1>
+                <p className="text-3xl mt-3 text-gray-900 block">
+                  {`${data?.product.price}원`}
+                </p>
+                <p className="text-base my-6 text-gray-700">
+                  {data?.product.description}
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center justify-between space-x-2">
+            <button className="flex-1 py-3 rounded-md focus:ring-offset-2 shadow-md text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium transition-colors">
+              판매자와 대화하기
+            </button>
+            <button
+              onClick={onFavClick}
+              className={cls(
+                "p-3 flex items-center justify-center  transition rounded-md",
+                data?.isLiked
+                  ? "hover:bg-gray-100 text-red-500"
+                  : "text-red-400 hover:bg-gray-100 hover:text-red-500"
+              )}
+            >
+              <svg
+                className="h-6 w-6 "
+                xmlns="http://www.w3.org/2000/svg"
+                fill={data?.isLiked ? "red" : "white"}
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
               >
-                <svg
-                  className="h-6 w-6 "
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill={data?.isLiked ? "red" : "white"}
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
-              </button>
-            </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+            </button>
           </div>
         </div>
         <div className="border-t py-5">
