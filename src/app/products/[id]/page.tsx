@@ -72,7 +72,9 @@ export default function Detail({ params }: ProductId) {
             </div>
           </div>
           <div
-            className={cls(isLoading ? "my-5 flex flex-col items-center " : "")}
+            className={cls(
+              isLoading ? "my-5 flex flex-col items-center" : "mt-3"
+            )}
           >
             {isLoading ? (
               <Loading />

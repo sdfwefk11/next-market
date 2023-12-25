@@ -21,7 +21,7 @@ export default function Item({
     <div className="flex flex-col space-y-5" key={key}>
       <div className="flex border-b px-4 py-3 cursor-pointer justify-between">
         <div className="flex space-x-4">
-          <div className="w-20 h-20 bg-emerald-500 rounded-md" />
+          <div className="w-14 h-14 bg-emerald-500 rounded-md" />
           <div className="pt-2 flex flex-col">
             <h3 className="text-sm font-medium text-gray-900">{name}</h3>
             <span className="text-xs text-gray-500">{createdAt}</span>

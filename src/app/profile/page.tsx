@@ -24,19 +24,17 @@ export default function Profile() {
   return (
     <div>
       {!user && !data ? (
-        <div className="fixed w-full h-full max-w-xl flex justify-center backdrop-blur-sm items-center top-0"></div>
+        <div className="fixed w-full h-full max-w-xl flex justify-center backdrop-blur-sm items-center top-0">
+          <Loading />
+        </div>
       ) : null}
       <Navi title="마이페이지" />
       <div className="flex items-center space-x-3 border-b pb-5 px-4">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
         <div className="flex flex-col">
-          {user ? (
-            <span className="font-bold text-gray-900 ml-1 mb-2">
-              {user.name}
-            </span>
-          ) : (
-            <ProfileLoading profile />
-          )}
+          <span className="font-bold text-gray-900 ml-1 mb-2">
+            {user?.name}
+          </span>
           <Link scroll={false} href="profile/edit">
             <span className="font-sm text-gray-700 hover:bg-zinc-200 hover:text-emerald-500 transition-colors bg-zinc-100 rounded-md px-2 py-1 select-none">
               Edit profile &rarr;
@@ -132,9 +130,7 @@ export default function Profile() {
             </div>
           ))
         ) : (
-          <div className="fixed w-full max-w-xl justify-center flex bottom-72 mx-auto">
-            <Loading />
-          </div>
+          <div className="fixed w-full max-w-xl justify-center flex bottom-72 mx-auto"></div>
         )}
       </div>
     </div>
