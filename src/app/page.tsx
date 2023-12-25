@@ -18,41 +18,10 @@ interface ProductDetail extends Product {
     favs: string;
   };
 }
-type CreateAt = {
-  year: string;
-  month: string;
-  date: string;
-  func: ({ 연, 월, 일 }: CreateTime) => void;
-};
-
-interface CreateTime {
-  연: string;
-  월: string;
-  일: string;
-}
 
 export default function Product() {
   const { user, isLoading } = useUser();
   const { data, mutate } = useSWR<ProductData>("/api/products");
-  console.log(
-    data?.product.map((res) => {
-      const year = String(new Date(res.createdAt).getFullYear());
-      const month = String(new Date(res.createdAt).getMonth());
-      const date = String(new Date(res.createdAt).getDate());
-      const time: CreateAt = {
-        year,
-        month,
-        date,
-        func: function ({ 연, 월, 일 }) {
-          const year = this.year;
-          const month = this.month;
-          const date = this.date;
-          return `${year + 연} ${month + 월} ${date + 일}`;
-        },
-      };
-      return time.func({ 연: "년", 월: "월", 일: "일" });
-    })
-  );
   return (
     <>
       <Navi title="홈" />

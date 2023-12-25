@@ -7,7 +7,6 @@ import Link from "next/link";
 import { Review, User } from "@prisma/client";
 import { cls } from "@/libs/utils";
 import Loading from "@/components/loading";
-import ProfileLoading from "@/components/profile-loading";
 
 interface ReviewBy extends Review {
   createBy: User;
