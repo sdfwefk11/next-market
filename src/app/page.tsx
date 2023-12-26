@@ -26,7 +26,7 @@ export default function Product() {
     <>
       <Navi title="홈" />
       <Head title="홈" />
-      <div className="grid-cols-2 grid">
+      <div>
         {data?.product?.map((result) => (
           <div key={result.id}>
             <Link scroll={false} href={`/products/${result.id}`}>

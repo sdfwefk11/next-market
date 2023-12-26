@@ -127,17 +127,15 @@ export default function Detail({ params }: ProductId) {
           <h2 className="text-2xl font-bold text-gray-900">비슷한 상품</h2>
           <div className="grid grid-cols-2 gap-4 mt-6">
             {data?.relatedProducts.map((product) => (
-              <>
-                <Link href={`/products/${product.id}`}>
-                  <div key={product.id}>
-                    <div className="h-56 w-56 bg-yellow-500 mb-4" />
-                    <h3 className="text-gray-700 -mb-1">{product.name}</h3>
-                    <p className="text-sm font-medium text-gray-900">
-                      {product.price}원
-                    </p>
-                  </div>
+              <div key={product.id}>
+                <Link scroll={false} href={`/products/${product.id}`}>
+                  <div className="h-56 w-56 bg-yellow-500 mb-4" />
+                  <h3 className="text-gray-700 -mb-1">{product.name}</h3>
+                  <p className="text-sm font-medium text-gray-900">
+                    {product.price}원
+                  </p>
                 </Link>
-              </>
+              </div>
             ))}
           </div>
         </div>

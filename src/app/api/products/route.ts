@@ -25,8 +25,9 @@ export async function POST(req: Request) {
   return NextResponse.json({ ok: true, product });
 }
 export async function GET() {
-  const product = await apiClient.product.findMany({
+  const result = await apiClient.product.findMany({
     include: { _count: { select: { favs: true } } },
   });
+  const product = result.sort((d) => +d.id).reverse();
   return NextResponse.json({ ok: true, product });
 }
