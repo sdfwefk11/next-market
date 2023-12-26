@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <SWRProvider>
       <html>
-        <body className="w-full max-w-xl mx-auto pt-[80px] pb-[70px]">
+        <body className="w-full max-w-xl mx-auto pt-[70px] pb-[70px]">
           {children}
           <BottomNav />
         </body>

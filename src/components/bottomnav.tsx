@@ -8,7 +8,7 @@ export default function BottomNav() {
   return (
     <>
       {pathName === "/enter" ? null : (
-        <nav className="bg-white text-gray-800 border-t fixed bottom-0 py-3 px-10 flex justify-between items-center max-w-xl w-full select-none">
+        <nav className="text-gray-800 border-2 fixed bottom-0 py-3 px-10 flex justify-between items-center max-w-xl w-full select-none rounded-md backdrop-blur-sm">
           <Link scroll={false} href="/">
             <div
               className={cls(

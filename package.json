@@ -17,6 +17,8 @@
     "autoprefixer": "10.4.15",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "flowbite": "^2.2.1",
+    "flowbite-react": "^0.7.2",
     "iron-session": "^8.0.0-beta.6",
     "next": "13.4.19",
     "next-auth": "^4.24.5",

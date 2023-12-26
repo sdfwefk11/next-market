@@ -1,11 +1,16 @@
+"use client";
+import { cls } from "@/libs/utils";
+import useSWR from "swr";
+
 interface ProductDetailData {
   createdAt?: string;
   description?: string;
   image?: string;
   name?: string;
   price?: number;
-  hearts?: string;
+  hearts?: number;
   key?: number;
+  favsId?: number;
 }
 
 type CreateAt = {
@@ -13,6 +18,11 @@ type CreateAt = {
   month: string;
   date: string;
 };
+
+interface myFavType {
+  ok: boolean;
+  myFav: boolean;
+}
 
 export default function Item({
   description,
@@ -22,7 +32,11 @@ export default function Item({
   createdAt,
   hearts,
   key,
+  favsId,
 }: ProductDetailData) {
+  const { data } = useSWR<myFavType>(
+    String(favsId) ? `/api/products/${favsId}/myfav` : null
+  );
   const year = String(new Date(createdAt!).getFullYear());
   const month = String(new Date(createdAt!).getMonth());
   const date = String(new Date(createdAt!).getDate());
@@ -50,25 +64,34 @@ export default function Item({
   const times = new Time({ year, month, date });
   const currentDay = String(new Date().getDate());
   return (
-    <div className="flex flex-col space-y-5">
-      <div className="flex border-b px-4 py-3 cursor-pointer justify-between">
-        <div className="flex space-x-4">
-          <div className="w-14 h-14 bg-emerald-500 rounded-md" />
-          <div className="pt-2 flex flex-col">
-            <h3 className="text-sm font-medium text-gray-900">{name}</h3>
-            <span className="text-xs text-gray-500">{times.finalDate}</span>
-            <span className="font-md mt-1 text-gray-950">{price}원</span>
+    <div className="flex flex-col border my-1 rounded-lg border-gray-200 shadow bg-white hover:bg-gray-100 transition-colors">
+      <div className="flex px-4 py-3 cursor-pointer justify-between">
+        <div className="flex space-x-4 justify-center items-center">
+          <div className="w-14 h-14 bg-emerald-500 rounded-md shadow" />
+          <div className=" flex flex-col">
+            <h3 className="text-xs font-normal text-gray-500">
+              {times.finalDate}
+            </h3>
+            <span className="text-lg font-semibold text-gray-900 tracking-tight pt-2">
+              {name}
+            </span>
+            <span className="font-normal text-gray-950">{price}원</span>
           </div>
         </div>
         <div className="flex justify-between flex-col">
-          <h4 className="font-bold text-red-500 px-3 animate-pulse">
+          <h4 className="flex font-bold text-red-600 animate-pulse shadow rounded-full bg-gray-100 justify-center items-center">
             {currentDay === times.date ? "New" : ""}
           </h4>
           <div className="flex items-end justify-end space-x-2">
-            <div className="flex space-x-0.5 items-center text-sm text-gray-600">
+            <div
+              className={cls(
+                "flex space-x-0.5 items-center text-sm",
+                hearts === 0 ? "text-gray-600" : " text-red-500"
+              )}
+            >
               <svg
                 className="w-4 h-4"
-                fill="none"
+                fill={data?.myFav ? "red" : "none"}
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"

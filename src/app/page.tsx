@@ -3,7 +3,6 @@ import FloatingButton from "@/components/floating-button";
 import useUser from "@/libs/client/useUser";
 import Link from "next/link";
 import Head from "./head";
-import RootLayout from "./layout";
 import useSWR from "swr";
 import Item from "@/components/item";
 import { Product } from "@prisma/client";
@@ -19,7 +18,7 @@ interface ProductDetail extends Product {
   };
 }
 
-export default function Product() {
+export default function Product({ params }: { params: { id: string } }) {
   const { user, isLoading } = useUser();
   const { data, mutate } = useSWR<ProductData>("/api/products");
   return (
@@ -35,7 +34,8 @@ export default function Product() {
                 image={result.image}
                 price={result.price}
                 createdAt={String(result.createdAt)}
-                hearts={result._count.favs}
+                hearts={+result._count.favs}
+                favsId={result.id}
               />
             </Link>
           </div>

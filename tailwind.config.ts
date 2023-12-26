@@ -16,6 +16,6 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require("flowbite/plugin")],
 };
 export default config;

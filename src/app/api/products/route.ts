@@ -8,7 +8,6 @@ export async function POST(req: Request) {
   const { name, price, description } = await req.json();
   console.log(name, price, description);
   const session = await getIronSession<SessionData>(cookies(), sessionOption);
-  console.log(session.user.id);
   const product = await apiClient.product.create({
     data: {
       name,
@@ -25,6 +24,8 @@ export async function POST(req: Request) {
   return NextResponse.json({ ok: true, product });
 }
 export async function GET() {
+  const session = await getIronSession<SessionData>(cookies(), sessionOption);
+  if (!session) return;
   const result = await apiClient.product.findMany({
     include: { _count: { select: { favs: true } } },
   });
