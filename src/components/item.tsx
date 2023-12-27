@@ -17,6 +17,7 @@ type CreateAt = {
   year: string;
   month: string;
   date: string;
+  hours: string;
 };
 
 interface myFavType {
@@ -40,6 +41,7 @@ export default function Item({
   const year = String(new Date(createdAt!).getFullYear());
   const month = String(new Date(createdAt!).getMonth());
   const date = String(new Date(createdAt!).getDate());
+  const hours = String(new Date(createdAt!).getHours());
 
   abstract class Constr {
     private year: string;
@@ -54,24 +56,51 @@ export default function Item({
 
   class Time extends Constr {
     readonly date: string;
+    readonly hours: string;
     public finalDate: string;
-    constructor({ year, month, date }: Partial<CreateAt>) {
+    constructor({ year, month, date, hours }: Partial<CreateAt>) {
       super({ year, month });
       this.date = date!;
+      this.hours = hours!;
       this.finalDate = `${this.time} ${this.date}`;
     }
   }
-  const times = new Time({ year, month, date });
-  const currentDay = String(new Date().getDate());
+  const times = new Time({ year, month, date, hours });
+  const currentDay = String(new Date().getDate()); // 오늘
+  const currentHours = String(new Date().getHours()); //현재 시간
+  const thisTime = Number(currentHours) - Number(hours); // xx시간 전 구현 변수
+
   return (
     <div className="flex flex-col border my-1 rounded-lg border-gray-200 shadow bg-white hover:bg-gray-100 transition-colors">
       <div className="flex px-4 py-3 cursor-pointer justify-between">
         <div className="flex space-x-4 justify-center items-center">
           <div className="w-14 h-14 bg-emerald-500 rounded-md shadow" />
           <div className=" flex flex-col">
-            <h3 className="text-xs font-normal text-gray-500">
-              {times.finalDate}
-            </h3>
+            <div className="flex items-center space-x-3">
+              {currentDay === times.date ? (
+                <div className="flex justify-center items-center space-x-1 text-xs font-bold text-gray-500">
+                  <svg
+                    className="w-3 h-3 text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M10 6v4l3.276 3.276M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                  <h4>{thisTime === 0 ? "방금 전" : `${thisTime}시간 전`}</h4>
+                </div>
+              ) : (
+                <h3 className="text-xs font-normal text-gray-500">
+                  {times.finalDate}
+                </h3>
+              )}
+            </div>
             <span className="text-lg font-semibold text-gray-900 tracking-tight pt-2">
               {name}
             </span>

@@ -21,6 +21,7 @@ interface ProductDetail extends Product {
 export default function Product({ params }: { params: { id: string } }) {
   const { user, isLoading } = useUser();
   const { data, mutate } = useSWR<ProductData>("/api/products");
+
   return (
     <>
       <Navi title="홈" />

@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
 import { SessionData, sessionOption } from "@/libs/lib";
 import apiClient from "@/libs/server/client";
-import { NextRequest } from "next/dist/server/web/spec-extension/request";
 
 export async function GET(
   req: Request,

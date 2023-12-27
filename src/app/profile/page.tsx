@@ -74,7 +74,7 @@ export default function Profile() {
             ></path>
           </svg>
         </ProfileButton>
-        <ProfileButton href="/profile/like" title="관심목록">
+        <ProfileButton href="/profile/like" title="찜목록">
           <svg
             className="w-6 h-6"
             fill="none"
