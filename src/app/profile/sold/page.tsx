@@ -1,6 +1,9 @@
 "use client";
 import Item from "@/components/item";
+import Loading from "@/components/loading";
 import Navi from "@/components/navi";
+import ProfileLoading from "@/components/profile-loading";
+import useUser from "@/libs/client/useUser";
 import { Product, Sale, User } from "@prisma/client";
 import useSWR from "swr";
 
@@ -20,19 +23,27 @@ interface MySales {
 
 export default function Sold() {
   const { data } = useSWR<MySales>("/api/users/me/sales");
+  const {} = useUser();
   return (
     <>
       <Navi title="판매목록" />
-      {data?.sales.map((sales) => (
-        <div key={sales.id}>
-          <Item
-            hearts={sales.product._count.favs}
-            name={sales.product.name}
-            price={sales.product.price}
-            createdAt={String(sales.product.createdAt)}
-          />
+      {data ? (
+        data.sales.map((sales) => (
+          <div key={sales.id}>
+            <Item
+              hearts={sales.product._count.favs}
+              name={sales.product.name}
+              price={sales.product.price}
+              createdAt={String(sales.product.createdAt)}
+              soldAt={String(sales.createdAt)}
+            />
+          </div>
+        ))
+      ) : (
+        <div className="fixed top-0 bottom-0 justify-center items-center flex right-0 left-0">
+          <Loading />
         </div>
-      ))}
+      )}
     </>
   );
 }

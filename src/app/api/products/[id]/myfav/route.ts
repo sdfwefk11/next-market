@@ -8,6 +8,7 @@ export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
+  if (params.id === "undefined") return NextResponse.json({ ok: false });
   const session = await getIronSession<SessionData>(cookies(), sessionOption);
   const myFav = Boolean(
     await apiClient.fav.findFirst({

@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   const user = phone ? { phone } : email ? { email } : null;
   if (!user) return NextResponse.json<ResponseType>({ ok: false });
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
-  const randomName = Math.random().toString(36).substring(2, 12);
+  const randomName = "@" + Math.random().toString(36).substring(2, 12);
   const token = await apiClient.token.create({
     data: {
       payload,

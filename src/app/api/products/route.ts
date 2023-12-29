@@ -27,7 +27,9 @@ export async function GET() {
   const session = await getIronSession<SessionData>(cookies(), sessionOption);
   if (!session) return;
   const result = await apiClient.product.findMany({
-    include: { _count: { select: { favs: true } } },
+    include: {
+      _count: { select: { favs: true, sales: true } },
+    },
   });
   const product = result.sort((d) => +d.id).reverse();
   return NextResponse.json({ ok: true, product });

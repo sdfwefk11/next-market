@@ -5,8 +5,9 @@ import Link from "next/link";
 import Head from "./head";
 import useSWR from "swr";
 import Item from "@/components/item";
-import { Product } from "@prisma/client";
+import { Product, Sale } from "@prisma/client";
 import Navi from "@/components/navi";
+import Loading from "@/components/loading";
 
 interface ProductData {
   ok: boolean;
@@ -15,21 +16,25 @@ interface ProductData {
 interface ProductDetail extends Product {
   _count: {
     favs: string;
+    sales: number;
   };
+  sales: Sale;
 }
 
 export default function Product({ params }: { params: { id: string } }) {
   const { user, isLoading } = useUser();
   const { data, mutate } = useSWR<ProductData>("/api/products");
-
   return (
     <>
       <Navi title="홈" />
       <Head title="홈" />
-      <div>
-        {data?.product?.map((result) => (
+      {data ? (
+        data.product?.map((result) => (
           <div key={result.id}>
-            <Link scroll={false} href={`/products/${result.id}`}>
+            <Link
+              scroll={false}
+              href={result._count.sales === 0 ? `/products/${result.id}` : ""}
+            >
               <Item
                 name={result.name}
                 image={result.image}
@@ -37,11 +42,16 @@ export default function Product({ params }: { params: { id: string } }) {
                 createdAt={String(result.createdAt)}
                 hearts={+result._count.favs}
                 favsId={result.id}
+                sold={result._count.sales}
               />
             </Link>
           </div>
-        ))}
-      </div>
+        ))
+      ) : (
+        <div className="fixed top-0 bottom-0 justify-center items-center flex right-0 left-0">
+          <Loading />
+        </div>
+      )}
       <FloatingButton href="/products/upload">
         <svg
           className="h-6 w-6"
