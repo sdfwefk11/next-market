@@ -10,7 +10,10 @@ export async function GET(req: NextRequest) {
     where: { userId: session.user.id },
     include: {
       product: {
-        include: { user: { select: { name: true, avatar: true, id: true } } },
+        include: {
+          user: { select: { name: true, avatar: true, id: true } },
+          _count: { select: { favs: true } },
+        },
       },
     },
   });
