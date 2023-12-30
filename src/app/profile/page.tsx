@@ -42,6 +42,22 @@ export default function Profile() {
         </div>
       </div>
       <div className="items-start justify-center px-4 mt-3 mb-3 select-none">
+        <ProfileButton href="/profile/myproducts" title="내상품">
+          <svg
+            className="w-6 h-6"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="skyBlue"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2"
+              d="M1 10c1.5 1.5 5.25 3 9 3s7.5-1.5 9-3m-9-1h.01M2 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1ZM14 5V3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2h8Z"
+            />
+          </svg>
+        </ProfileButton>
         <ProfileButton href="/profile/sold" title="판매내역">
           <svg
             className="w-6 h-6"
