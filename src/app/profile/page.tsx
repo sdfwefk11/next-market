@@ -22,13 +22,13 @@ export default function Profile() {
   const { data } = useSWR<Reviews>("/api/review");
   return (
     <div>
+      <Navi title="마이페이지" />
       {!user && !data ? (
         <div className="fixed w-full h-full max-w-xl flex justify-center backdrop-blur-sm items-center top-0">
           <Loading />
         </div>
       ) : null}
-      <Navi title="마이페이지" />
-      <div className="flex items-center space-x-3 border-b pb-5 px-4">
+      <div className="flex items-center space-x-3 border-b pb-5 px-4 mt-2">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
         <div className="flex flex-col">
           <span className="font-bold text-gray-900 ml-1 mb-2">
@@ -45,7 +45,7 @@ export default function Profile() {
         <ProfileButton href="/profile/sold" title="판매내역">
           <svg
             className="w-6 h-6"
-            fill="none"
+            fill="skyBlue"
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ export default function Profile() {
         <ProfileButton href="/profile/buy" title="구매내역">
           <svg
             className="w-6 h-6"
-            fill="none"
+            fill="skyBlue"
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +77,7 @@ export default function Profile() {
         <ProfileButton href="/profile/like" title="찜목록">
           <svg
             className="w-6 h-6"
-            fill="none"
+            fill="skyBlue"
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
@@ -91,6 +91,7 @@ export default function Profile() {
           </svg>
         </ProfileButton>
       </div>
+      {/* 댓글기능 */}
       <div className={cls(data ? "px-10" : "")}>
         {data ? (
           data.reviews.map((reviews) => (

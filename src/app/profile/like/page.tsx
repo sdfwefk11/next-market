@@ -29,7 +29,7 @@ export default function Like() {
       <Navi title="찜목록" />
       {data ? (
         data.favs.map((favs) => (
-          <div key={favs.id}>
+          <div key={favs.id} className="select-none">
             <Link scroll={false} href={`/products/${favs.productId}`}>
               <Item
                 createdAt={String(favs.product.createdAt)}

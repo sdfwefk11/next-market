@@ -29,7 +29,7 @@ export default function Sold() {
       <Navi title="판매목록" />
       {data ? (
         data.sales.map((sales) => (
-          <div key={sales.id}>
+          <div key={sales.id} className="select-none">
             <Item
               hearts={sales.product._count.favs}
               name={sales.product.name}

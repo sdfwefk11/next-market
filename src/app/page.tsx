@@ -25,7 +25,7 @@ export default function Product({ params }: { params: { id: string } }) {
   const { user, isLoading } = useUser();
   const { data, mutate } = useSWR<ProductData>("/api/products");
   return (
-    <>
+    <div className="mb-4 select-none">
       <Navi title="홈" />
       <Head title="홈" />
       {data ? (
@@ -69,6 +69,6 @@ export default function Product({ params }: { params: { id: string } }) {
           />
         </svg>
       </FloatingButton>
-    </>
+    </div>
   );
 }

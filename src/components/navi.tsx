@@ -37,7 +37,7 @@ export default function Navi({ title }: NaviProps) {
           </svg>
         </button>
       )}
-      <div className="fixed items-center justify-center flex mx-auto left-0 right-0 bg-opacity-0 pointer-events-none">
+      <div className="fixed items-center justify-center flex mx-auto left-0 right-0 bg-opacity-0 pointer-events-none select-none">
         <h1 className="text-orange-500 font-semibold text-lg -mt-1">{title}</h1>
       </div>
     </nav>

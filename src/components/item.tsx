@@ -44,6 +44,7 @@ export default function Item({
     String(favsId) ? `/api/products/${favsId}/myfav` : null
   );
   class DivideTime {
+    // 자주 사용되는것은 클래스화
     readonly year: string;
     readonly month: string;
     readonly date: string;
@@ -98,7 +99,7 @@ export default function Item({
   const thisTime = Number(currentHours) - Number(hours); // xx시간 전 구현 변수
   return (
     <>
-      {soldAt || sold === 1 ? (
+      {soldAt || sold === 1 ? ( // 내판매 목록은 판매완료 날짜가 존재하면 판매완료 표시 || 메인홈은 sold === 1이면 판매 완료되었다는 뜻이니 판매완료 표시(서로 다른 페이지에서 같은 컴포넌트를 사용하기위해 두가지 conditional이 함께 존재하는데 나중에 백엔드 api를 한가지 조건으로도 가능하게 리팩터링할것)
         <Sold salesTime={soldAt ? salesTime.finalDate : ""} />
       ) : null}
       <div className="flex flex-col border my-1 rounded-lg border-gray-200 shadow bg-white hover:bg-gray-100 transition-colors justify-center mx-2">
