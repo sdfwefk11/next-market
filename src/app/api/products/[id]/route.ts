@@ -17,6 +17,12 @@ export async function GET(req: NextRequest, { params }: ProductId) {
     },
     include: { user: { select: { name: true, id: true, avatar: true } } },
   });
+  const currentUser = await apiClient.user.findUnique({
+    where: {
+      id: session.user.id,
+    },
+    select: { id: true },
+  });
   if (!product) return NextResponse.error();
   // const productName = "제로 콜라";
   // console.log(
@@ -42,5 +48,11 @@ export async function GET(req: NextRequest, { params }: ProductId) {
       select: { id: true },
     })
   );
-  return NextResponse.json({ ok: true, product, relatedProducts, isLiked });
+  return NextResponse.json({
+    ok: true,
+    product,
+    relatedProducts,
+    isLiked,
+    currentUser,
+  });
 }

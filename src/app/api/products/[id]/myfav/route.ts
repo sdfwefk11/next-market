@@ -8,7 +8,8 @@ export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  if (params.id === "undefined") return NextResponse.json({ ok: false });
+  if (params.id === "undefiend")
+    return NextResponse.json({ ok: false, message: "params id is undefiend" });
   const session = await getIronSession<SessionData>(cookies(), sessionOption);
   const myFav = Boolean(
     await apiClient.fav.findFirst({

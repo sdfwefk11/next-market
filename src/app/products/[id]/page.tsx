@@ -6,7 +6,7 @@ import ProfileLoading from "@/components/profile-loading";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
 import { cls } from "@/libs/utils";
-import { Product } from "@prisma/client";
+import { Product, User } from "@prisma/client";
 import Link from "next/link";
 import useSWR, { useSWRConfig } from "swr";
 
@@ -23,11 +23,7 @@ interface ProductDetail {
   product: UserIds;
   relatedProducts: Product[];
   isLiked: boolean;
-}
-
-interface FavType {
-  ok: boolean;
-  message: string;
+  currentUser: User;
 }
 
 export default function Detail({ params }: ProductId) {
@@ -38,14 +34,18 @@ export default function Detail({ params }: ProductId) {
     isLoading,
     mutate: boundMutate,
   } = useSWR<ProductDetail>(params.id ? `/api/products/${params.id}` : null);
-  const [toggleFav, { loading, data: favData }] = useMutation<FavType>(
+  const [toggleFav, { loading, data: favData }] = useMutation(
     `/api/products/${params.id}/fav`
   );
-  console.log(favData?.message);
   const onFavClick = () => {
     if (!data) return console.log("No data");
-    boundMutate((prev) => prev && { ...prev, isLiked: !data.isLiked });
-    //unboundMutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false); 전체 데이터를 mutate할때, 예를 들어 좋아요 버튼을 누르면 로그인 화면으로 돌아가게 하고싶을때
+    if (data.currentUser.id === data.product.user.id) {
+      // 현재유저가 보고있는 상품의 등록 유저라면 좋아요를 할수 없게 보호
+      alert("자신의 상품에는 좋아요를 할 수 없습니다.");
+    } else {
+      boundMutate((prev) => prev && { ...prev, isLiked: !data.isLiked }, false);
+      //unboundMutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false); 전체 데이터를 mutate할때, 예를 들어 좋아요 버튼을 누르면 로그인 화면으로 돌아가게 하고싶을때
+    }
     if (!loading) {
       toggleFav({});
     }

@@ -19,6 +19,7 @@ export async function POST(req: NextRequest, { params }: ProductId) {
     },
   });
   const isMyProduct = Boolean(
+    //백엔드에도 자신의 상품에 좋아요를 누르지 못하게 조건을 걸어 강력하게 보호
     await apiClient.product.findFirst({
       where: {
         userId: session.user.id,
