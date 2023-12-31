@@ -18,6 +18,19 @@ export async function POST(req: NextRequest, { params }: ProductId) {
       userId: session.user.id, //81
     },
   });
+  const isMyProduct = Boolean(
+    await apiClient.product.findFirst({
+      where: {
+        userId: session.user.id,
+        id: +id.toString(),
+      },
+    })
+  );
+  if (isMyProduct)
+    return NextResponse.json({
+      ok: false,
+      message: "자신의 상품에는 좋아요를 할 수 없습니다.",
+    });
   if (alreadyExists) {
     //delete
     await apiClient.fav.delete({

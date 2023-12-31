@@ -25,6 +25,11 @@ interface ProductDetail {
   isLiked: boolean;
 }
 
+interface FavType {
+  ok: boolean;
+  message: string;
+}
+
 export default function Detail({ params }: ProductId) {
   const { user, isLoading: useUserLoading } = useUser();
   const { mutate: unboundMutate } = useSWRConfig();
@@ -33,13 +38,13 @@ export default function Detail({ params }: ProductId) {
     isLoading,
     mutate: boundMutate,
   } = useSWR<ProductDetail>(params.id ? `/api/products/${params.id}` : null);
-  console.log(data);
-  const [toggleFav, { loading }] = useMutation(
+  const [toggleFav, { loading, data: favData }] = useMutation<FavType>(
     `/api/products/${params.id}/fav`
   );
+  console.log(favData?.message);
   const onFavClick = () => {
     if (!data) return console.log("No data");
-    boundMutate((prev) => prev && { ...prev, isLiked: !data.isLiked }, false);
+    boundMutate((prev) => prev && { ...prev, isLiked: !data.isLiked });
     //unboundMutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false); 전체 데이터를 mutate할때, 예를 들어 좋아요 버튼을 누르면 로그인 화면으로 돌아가게 하고싶을때
     if (!loading) {
       toggleFav({});

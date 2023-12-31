@@ -17,7 +17,6 @@ interface MyProductType {
 
 export default function MyProducts() {
   const { data } = useSWR<MyProductType>("/api/users/me/myproducts");
-  console.log(data);
   return (
     <>
       <Navi title="내상품" />

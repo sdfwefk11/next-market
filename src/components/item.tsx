@@ -1,11 +1,12 @@
 "use client";
 import { cls } from "@/libs/utils";
 import useSWR from "swr";
-import Sold from "./sold";
+import Complete from "./complete";
 
 interface ProductDetailData {
   createdAt?: string;
   soldAt?: string;
+  buyAt?: string;
   description?: string;
   image?: string;
   name?: string;
@@ -38,6 +39,7 @@ export default function Item({
   key,
   favsId,
   soldAt,
+  buyAt,
   sold,
 }: ProductDetailData) {
   const { data } = useSWR<myFavType>(
@@ -86,6 +88,12 @@ export default function Item({
     date: soldDate,
     hours: soldHours,
   } = new DivideTime(soldAt!);
+  const {
+    year: buyYear,
+    month: buyMonth,
+    date: buyDate,
+    hours: buyHours,
+  } = new DivideTime(buyAt!);
 
   const times = new Time({ year, month, date, hours });
   const salesTime = new Time({
@@ -94,13 +102,24 @@ export default function Item({
     date: soldDate,
     hours: soldHours,
   });
+  const buyTime = new Time({
+    year: buyYear,
+    month: buyMonth,
+    date: buyDate,
+    hours: buyHours,
+  });
   const currentDay = String(new Date().getDate()); // 오늘
   const currentHours = String(new Date().getHours()); //현재 시간
   const thisTime = Number(currentHours) - Number(hours); // xx시간 전 구현 변수
   return (
     <>
-      {soldAt || sold === 1 ? ( // 내판매 목록은 판매완료 날짜가 존재하면 판매완료 표시 || 메인홈은 sold === 1이면 판매 완료되었다는 뜻이니 판매완료 표시(서로 다른 페이지에서 같은 컴포넌트를 사용하기위해 두가지 conditional이 함께 존재하는데 나중에 백엔드 api를 한가지 조건으로도 가능하게 리팩터링할것)
-        <Sold salesTime={soldAt ? salesTime.finalDate : ""} />
+      {soldAt || sold === 1 || buyAt ? ( // 내판매 목록은 판매완료 날짜가 존재하면 판매완료 표시 || 메인홈은 sold === 1이면 판매 완료되었다는 뜻이니 판매완료 표시(서로 다른 페이지에서 같은 컴포넌트를 사용하기위해 두가지 conditional이 함께 존재하는데 나중에 백엔드 api를 한가지 조건으로도 가능하게 리팩터링할것)
+        <Complete
+          completeTime={
+            soldAt ? salesTime.finalDate : buyAt ? buyTime.finalDate : ""
+          }
+          type={buyAt ? "구매" : "판매"} // 판매완료인지 구매완료인지 타입설정
+        />
       ) : null}
       <div className="flex flex-col border my-1 rounded-lg border-gray-200 shadow bg-white hover:bg-gray-100 transition-colors justify-center mx-2">
         <div className="flex px-4 py-3 cursor-pointer justify-between">
