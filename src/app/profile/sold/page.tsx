@@ -26,7 +26,7 @@ export default function Sold() {
   const {} = useUser();
   return (
     <>
-      <Navi title="판매목록" />
+      <Navi title="판매내역" />
       {data ? (
         data.sales.map((sales) => (
           <div key={sales.id} className="select-none">

@@ -20,7 +20,7 @@ export default function MyProducts() {
   console.log(data);
   return (
     <>
-      <Navi title="찜목록" />
+      <Navi title="내상품" />
       {data ? (
         data.myProducts.map((products) => (
           <div key={products.id} className="select-none">
