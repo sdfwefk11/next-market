@@ -36,6 +36,7 @@ export default function Sold() {
               price={sales.product.price}
               createdAt={String(sales.product.createdAt)}
               soldAt={String(sales.createdAt)}
+              favsId={sales.productId}
             />
           </div>
         ))

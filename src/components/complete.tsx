@@ -1,6 +1,6 @@
 interface SaledProps {
   completeTime: string;
-  type: string;
+  type: "판매" | "구매";
 }
 
 export default function Complete({ completeTime, type }: SaledProps) {

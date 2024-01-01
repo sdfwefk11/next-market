@@ -13,7 +13,7 @@ interface ProductDetailData {
   price?: number;
   hearts?: number;
   key?: number;
-  favsId?: number;
+  favsId: number;
   sold?: number;
 }
 
@@ -53,7 +53,7 @@ export default function Item({
     readonly hours: string;
     constructor(timeVariable: string) {
       this.year = String(new Date(timeVariable!).getFullYear());
-      this.month = String(new Date(timeVariable!).getMonth());
+      this.month = String(new Date(timeVariable!).getMonth() + 1);
       this.date = String(new Date(timeVariable!).getDate());
       this.hours = String(new Date(timeVariable!).getHours());
     }
@@ -121,7 +121,7 @@ export default function Item({
           type={buyAt ? "구매" : "판매"} // 판매완료인지 구매완료인지 타입설정
         />
       ) : null}
-      <div className="flex flex-col border my-1 rounded-lg border-gray-200 shadow bg-white hover:bg-gray-100 transition-colors justify-center mx-2">
+      <div className="flex flex-col border my-1 rounded-lg border-gray-200 shadow bg-neutral-50 hover:bg-neutral-100 justify-center mx-2 transition-colors">
         <div className="flex px-4 py-3 cursor-pointer justify-between">
           <div className="flex space-x-4 justify-center items-center">
             <div className="w-14 h-14 bg-emerald-500 rounded-md shadow" />

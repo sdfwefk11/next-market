@@ -1,10 +1,27 @@
+"use client";
+import Button from "@/components/button";
+import Input from "@/components/input";
 import Navi from "@/components/navi";
+import useUser from "@/libs/client/useUser";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+interface EditProfileForm {
+  email?: string;
+  phone?: string;
+}
 
 export default function Edit() {
+  const { user } = useUser();
+  const { register, handleSubmit, setValue } = useForm<EditProfileForm>();
+  useEffect(() => {
+    if (user?.email) setValue("email", user?.email); //email | phone 존재하면 해당 input에 값을 설정
+    if (user?.phone) setValue("phone", user.phone);
+  }, [user, setValue]);
   return (
     <>
       <Navi title="프로필 수정하기" />
-      <div className="px-4 space-y-4">
+      <form className="px-4 space-y-4">
         <div className="flex items-center space-x-3">
           <div className="w-14 h-14 rounded-full bg-orange-500" />
           <label
@@ -20,37 +37,23 @@ export default function Edit() {
             />
           </label>
         </div>
-        <div className="space-y-1">
-          <label htmlFor="email" className="text-sm font-medium text-gray-700">
-            Email Adress
-          </label>
-          <input
-            id="email"
-            className="appearance-none w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-emerald-600 focus:ring-emerald-600"
-            type="email"
-            required
-          />
-        </div>
-        <div className="space-y-1">
-          <label htmlFor="phone" className="text-sm font-medium text-gray-700">
-            Phone Number
-          </label>
-          <div className="flex rounded-md shadow-sm">
-            <span className="flex items-center justify-center px-3 rounded-l-md border border-r-0 bg-gray-50 border-gray-300 text-gray-500 select-none text-sm">
-              +82
-            </span>
-            <input
-              id="phone"
-              type="number"
-              className="appearance-none w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-emerald-600 focus:ring-emerald-600 rounded-l-none"
-              required
-            />
-          </div>
-        </div>
-        <button className="bg-emerald-500 hover:text-orange-300 hover:bg-emerald-600 mt-4 shadow-md text-white rounded-md border-transparent py-2 px-4 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 focus:outline-none transition w-full">
-          Update Profile
-        </button>
-      </div>
+        <Input
+          register={register("email")}
+          required
+          label="Eamil address"
+          name="email"
+          type="email"
+        />
+        <Input
+          register={register("phone")}
+          required
+          label="Phone number"
+          name="phone"
+          type="text"
+          kind="phone"
+        />
+        <Button text="Update profile" />
+      </form>
     </>
   );
 }
