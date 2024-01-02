@@ -18,6 +18,7 @@ export default function Edit() {
     if (user?.email) setValue("email", user?.email); //email | phone 존재하면 해당 input에 값을 설정
     if (user?.phone) setValue("phone", user.phone);
   }, [user, setValue]);
+  const onVaild = () => {};
   return (
     <>
       <Navi title="프로필 수정하기" />

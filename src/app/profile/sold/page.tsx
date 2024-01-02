@@ -2,8 +2,6 @@
 import Item from "@/components/item";
 import Loading from "@/components/loading";
 import Navi from "@/components/navi";
-import ProfileLoading from "@/components/profile-loading";
-import useUser from "@/libs/client/useUser";
 import { Product, Sale, User } from "@prisma/client";
 import useSWR from "swr";
 
@@ -23,7 +21,6 @@ interface MySales {
 
 export default function Sold() {
   const { data } = useSWR<MySales>("/api/users/me/sales");
-  const {} = useUser();
   return (
     <>
       <Navi title="판매내역" />

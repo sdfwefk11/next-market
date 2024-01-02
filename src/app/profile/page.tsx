@@ -23,11 +23,6 @@ export default function Profile() {
   return (
     <div>
       <Navi title="마이페이지" />
-      {!user && !data ? (
-        <div className="fixed w-full h-full max-w-xl flex justify-center backdrop-blur-sm items-center top-0">
-          <Loading />
-        </div>
-      ) : null}
       <div className="flex items-center space-x-3 border-b pb-5 px-4 mt-2">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
         <div className="flex flex-col">

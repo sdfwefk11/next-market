@@ -5,7 +5,6 @@ import { Fav, Product, User } from "@prisma/client";
 import useSWR from "swr";
 import Link from "next/link";
 import Loading from "@/components/loading";
-import useUser from "@/libs/client/useUser";
 
 interface FavCount extends Product {
   user: User;
@@ -23,7 +22,6 @@ interface MyFavs {
 
 export default function Like() {
   const { data } = useSWR<MyFavs>("/api/users/me/favs");
-  const {} = useUser();
   return (
     <>
       <Navi title="찜목록" />

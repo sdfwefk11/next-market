@@ -2,7 +2,6 @@
 import Item from "@/components/item";
 import Loading from "@/components/loading";
 import Navi from "@/components/navi";
-import useUser from "@/libs/client/useUser";
 import { Product } from "@prisma/client";
 import Link from "next/link";
 import useSWR from "swr";
@@ -18,7 +17,6 @@ interface MyProductType {
 
 export default function MyProducts() {
   const { data } = useSWR<MyProductType>("/api/users/me/myproducts");
-  const {} = useUser();
   return (
     <>
       <Navi title="내상품" />
