@@ -26,25 +26,21 @@ export default function Buy() {
   return (
     <>
       <Navi title="구매내역" />
-      {data?.ok ? (
-        data.purchases.map((buy) => (
-          <div key={buy.id}>
-            <Item
-              createdAt={String(buy.product.createdAt)}
-              image={buy.product.image}
-              price={buy.product.price}
-              name={buy.product.name}
-              buyAt={String(buy.createdAt)}
-              hearts={buy.product._count.favs}
-              favsId={buy.productId}
-            />
-          </div>
-        ))
-      ) : (
-        <div className="fixed top-0 bottom-0 justify-center items-center flex right-0 left-0">
-          <Loading />
-        </div>
-      )}
+      {data?.ok
+        ? data.purchases.map((buy) => (
+            <div key={buy.id}>
+              <Item
+                createdAt={String(buy.product.createdAt)}
+                image={buy.product.image}
+                price={buy.product.price}
+                name={buy.product.name}
+                buyAt={String(buy.createdAt)}
+                hearts={buy.product._count.favs}
+                favsId={buy.productId}
+              />
+            </div>
+          ))
+        : null}
     </>
   );
 }

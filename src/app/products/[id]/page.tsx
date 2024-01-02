@@ -59,13 +59,9 @@ export default function Detail({ params }: ProductId) {
           <div className="flex items-center space-x-3 py-3 border-t border-b px-4">
             <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
             <div>
-              {isLoading ? (
-                <ProfileLoading />
-              ) : (
-                <p className="text-sm font-medium text-gray-700">
-                  {data?.product.user.name}
-                </p>
-              )}
+              <p className="text-sm font-medium text-gray-700">
+                {data?.product.user.name}
+              </p>
               <Link
                 scroll={false}
                 href={`/users/profiles/${data?.product.user.id}`}
@@ -76,27 +72,28 @@ export default function Detail({ params }: ProductId) {
               </Link>
             </div>
           </div>
-          <div
-            className={cls(
-              isLoading ? "my-5 flex flex-col items-center" : "mt-3"
-            )}
-          >
-            {isLoading ? (
-              <Loading />
-            ) : (
+          {!data ? (
+            <div role="status" className="max-w-sm animate-pulse my-5 px-2">
+              <div className="h-6 bg-gray-300 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+              <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+              <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-700 mb-2.5 max-w-[320px]"></div>
+              <span className="sr-only">Loading...</span>
+            </div>
+          ) : (
+            <div className="my-3">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
-                  {data?.product.name}
+                  {data.product.name}
                 </h1>
                 <p className="text-3xl mt-3 text-gray-900 block">
-                  {`${data?.product.price}원`}
+                  {`${data.product.price}원`}
                 </p>
                 <p className="text-base my-6 text-gray-700">
-                  {data?.product.description}
+                  {data.product.description}
                 </p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
           <div className="flex items-center justify-between space-x-2">
             <button className="flex-1 py-3 rounded-md focus:ring-offset-2 shadow-md text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium transition-colors">
               판매자와 대화하기

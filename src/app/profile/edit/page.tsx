@@ -2,9 +2,9 @@
 import Button from "@/components/button";
 import Input from "@/components/input";
 import Navi from "@/components/navi";
-import useUser from "@/libs/client/useUser";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { PageContext, UserProfile } from "../layout";
 
 interface EditProfileForm {
   email?: string;
@@ -12,7 +12,7 @@ interface EditProfileForm {
 }
 
 export default function Edit() {
-  const { user } = useUser();
+  const user = React.useContext<UserProfile>(PageContext); //부모인 Layout에서 user정보를 props로 받아옴.
   const { register, handleSubmit, setValue } = useForm<EditProfileForm>();
   useEffect(() => {
     if (user?.email) setValue("email", user?.email); //email | phone 존재하면 해당 input에 값을 설정

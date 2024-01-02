@@ -1,12 +1,12 @@
 "use client";
 import Navi from "@/components/navi";
 import ProfileButton from "@/components/profile-button";
-import useUser from "@/libs/client/useUser";
 import useSWR from "swr";
 import Link from "next/link";
 import { Review, User } from "@prisma/client";
 import { cls } from "@/libs/utils";
-import Loading from "@/components/loading";
+import { useContext } from "react";
+import { PageContext, UserProfile } from "./layout";
 
 interface ReviewBy extends Review {
   createBy: User;
@@ -18,7 +18,7 @@ interface Reviews {
 }
 
 export default function Profile() {
-  const { user } = useUser();
+  const user = useContext<UserProfile>(PageContext);
   const { data } = useSWR<Reviews>("/api/review");
   return (
     <div>

@@ -20,26 +20,22 @@ export default function MyProducts() {
   return (
     <>
       <Navi title="내상품" />
-      {data ? (
-        data.myProducts.map((products) => (
-          <div key={products.id} className="select-none">
-            <Link scroll={false} href={`/products/${products.id}`}>
-              <Item
-                createdAt={String(products.createdAt)}
-                favsId={products.id}
-                name={products.name}
-                price={products.price}
-                image={products.image}
-                hearts={products._count.favs}
-              />
-            </Link>
-          </div>
-        ))
-      ) : (
-        <div className="fixed top-0 bottom-0 justify-center items-center flex right-0 left-0">
-          <Loading />
-        </div>
-      )}
+      {data
+        ? data.myProducts.map((products) => (
+            <div key={products.id} className="select-none">
+              <Link scroll={false} href={`/products/${products.id}`}>
+                <Item
+                  createdAt={String(products.createdAt)}
+                  favsId={products.id}
+                  name={products.name}
+                  price={products.price}
+                  image={products.image}
+                  hearts={products._count.favs}
+                />
+              </Link>
+            </div>
+          ))
+        : null}
     </>
   );
 }
