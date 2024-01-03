@@ -1,7 +1,5 @@
 "use client";
 import Item from "@/components/item";
-import Loading from "@/components/loading";
-import Navi from "@/components/navi";
 import { Product, Sale, User } from "@prisma/client";
 import useSWR from "swr";
 
@@ -23,7 +21,6 @@ export default function Sold() {
   const { data } = useSWR<MySales>("/api/users/me/sales");
   return (
     <>
-      <Navi title="판매내역" />
       {data
         ? data.sales.map((sales) => (
             <div key={sales.id} className="select-none">

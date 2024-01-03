@@ -1,5 +1,4 @@
 "use client";
-import Navi from "@/components/navi";
 import ProfileButton from "@/components/profile-button";
 import useSWR from "swr";
 import Link from "next/link";
@@ -22,7 +21,6 @@ export default function Profile() {
   const { data } = useSWR<Reviews>("/api/review");
   return (
     <div>
-      <Navi title="마이페이지" />
       <div className="flex items-center space-x-3 border-b pb-5 px-4 mt-2">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
         <div className="flex flex-col">

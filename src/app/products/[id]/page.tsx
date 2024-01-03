@@ -59,9 +59,15 @@ export default function Detail({ params }: ProductId) {
           <div className="flex items-center space-x-3 py-3 border-t border-b px-4">
             <div className="w-12 h-12 rounded-full bg-pink-300 shadow-md" />
             <div>
-              <p className="text-sm font-medium text-gray-700">
-                {data?.product.user.name}
-              </p>
+              {!data ? (
+                <div role="status" className="max-w-sm animate-pulse">
+                  <div className="h-4 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[300px] mb-1 shadow"></div>
+                </div>
+              ) : (
+                <p className="text-sm font-medium text-gray-700">
+                  {data.product.user.name}
+                </p>
+              )}
               <Link
                 scroll={false}
                 href={`/users/profiles/${data?.product.user.id}`}
@@ -74,9 +80,9 @@ export default function Detail({ params }: ProductId) {
           </div>
           {!data ? (
             <div role="status" className="max-w-sm animate-pulse my-5 px-2">
-              <div className="h-6 bg-gray-300 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-              <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-              <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-700 mb-2.5 max-w-[320px]"></div>
+              <div className="h-6 bg-gray-300 rounded-full dark:bg-gray-700 w-48 mb-4 shadow"></div>
+              <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5 shadow"></div>
+              <div className="h-5 bg-gray-300 rounded-full dark:bg-gray-700 mb-2.5 max-w-[320px] shadow"></div>
               <span className="sr-only">Loading...</span>
             </div>
           ) : (

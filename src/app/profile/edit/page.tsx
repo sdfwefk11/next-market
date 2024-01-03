@@ -1,7 +1,6 @@
 "use client";
 import Button from "@/components/button";
 import Input from "@/components/input";
-import Navi from "@/components/navi";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { PageContext, UserProfile } from "../layout";
@@ -21,7 +20,6 @@ export default function Edit() {
   const onVaild = () => {};
   return (
     <>
-      <Navi title="프로필 수정하기" />
       <form className="px-4 space-y-4">
         <div className="flex items-center space-x-3">
           <div className="w-14 h-14 rounded-full bg-orange-500" />

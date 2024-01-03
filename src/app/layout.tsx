@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { SWRProvider } from "./swr-provider";
-import BottomNav from "@/components/bottomnav";
+import BottomNav from "@/components/bottom-nav";
 
 export const metadata: Metadata = {
   title: "Create Next App",

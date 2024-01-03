@@ -1,8 +1,5 @@
 "use client";
 import Item from "@/components/item";
-import Loading from "@/components/loading";
-import Navi from "@/components/navi";
-import useUser from "@/libs/client/useUser";
 import { Product, Purchase, User } from "@prisma/client";
 import useSWR from "swr";
 
@@ -22,10 +19,8 @@ interface PurchasesDataType {
 
 export default function Buy() {
   const { data } = useSWR<PurchasesDataType>("/api/users/me/purchases");
-  const {} = useUser();
   return (
     <>
-      <Navi title="구매내역" />
       {data?.ok
         ? data.purchases.map((buy) => (
             <div key={buy.id}>
