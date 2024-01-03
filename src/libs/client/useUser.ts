@@ -14,6 +14,7 @@ export default function useUser() {
   const router = useRouter();
   useEffect(() => {
     if (data && !data.ok) {
+      alert("회원보기 전용 페이지입니다. 회원가입을 진행해주세요.");
       router.replace("/enter");
     }
   }, [data, router]);

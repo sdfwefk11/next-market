@@ -1,26 +1,41 @@
 "use client";
 import Button from "@/components/button";
 import Input from "@/components/input";
+import useMutation from "@/libs/client/useMutation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { PageContext, UserProfile } from "../layout";
 
 interface EditProfileForm {
-  email?: string;
-  phone?: string;
+  nickName: string;
+  formErrors?: string;
 }
 
 export default function Edit() {
   const user = React.useContext<UserProfile>(PageContext); //부모인 Layout에서 user정보를 props로 받아옴.
-  const { register, handleSubmit, setValue } = useForm<EditProfileForm>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    formState: { errors },
+  } = useForm<EditProfileForm>();
+  const [editProfile, { data, loading }] = useMutation("/api/users/me");
   useEffect(() => {
-    if (user?.email) setValue("email", user?.email); //email | phone 존재하면 해당 input에 값을 설정
-    if (user?.phone) setValue("phone", user.phone);
+    if (user?.name) setValue("nickName", user?.nickName); //name 존재하면 해당 input에 값을 설정
   }, [user, setValue]);
-  const onVaild = () => {};
+  const onVaild = ({ nickName }: EditProfileForm) => {
+    if (nickName === "") {
+      return setError("formErrors", {
+        message: "닉네임을 입력해주세요.",
+      });
+    }
+    editProfile({ nickName });
+  };
+  console.log(data);
   return (
     <>
-      <form className="px-4 space-y-4">
+      <form className="px-4 space-y-4" onSubmit={handleSubmit(onVaild)}>
         <div className="flex items-center space-x-3">
           <div className="w-14 h-14 rounded-full bg-orange-500" />
           <label
@@ -37,20 +52,17 @@ export default function Edit() {
           </label>
         </div>
         <Input
-          register={register("email")}
-          required
-          label="Eamil address"
-          name="email"
-          type="email"
-        />
-        <Input
-          register={register("phone")}
-          required
-          label="Phone number"
-          name="phone"
+          register={register("nickName")}
+          required={false}
+          label="닉네임"
+          name="name"
           type="text"
-          kind="phone"
         />
+        {errors.formErrors ? (
+          <span className="my-2 text-red-500 font-bold flex text-center justify-center">
+            {errors.formErrors.message}
+          </span>
+        ) : null}
         <Button text="Update profile" />
       </form>
     </>
