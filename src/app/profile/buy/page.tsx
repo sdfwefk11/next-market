@@ -32,6 +32,7 @@ export default function Buy() {
                 buyAt={String(buy.createdAt)}
                 hearts={buy.product._count.favs}
                 favsId={buy.productId}
+                viewCount={buy.product.viewCount}
               />
             </div>
           ))

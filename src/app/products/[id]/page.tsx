@@ -1,8 +1,5 @@
 "use client";
-import RootLayout from "@/app/layout";
-import Loading from "@/components/loading";
 import Navi from "@/components/navi";
-import ProfileLoading from "@/components/profile-loading";
 import useMutation from "@/libs/client/useMutation";
 import useUser from "@/libs/client/useUser";
 import { cls } from "@/libs/utils";
@@ -38,13 +35,11 @@ export default function Detail({ params }: ProductId) {
   const [toggleFav, { loading, data: favData }] = useMutation(
     `/api/products/${params.id}/fav`
   );
-  const [count, { data: viewCountData }] = useMutation(
-    `/api/products/${params.id}/viewcount`
-  );
+  const [count] = useMutation(`/api/products/${params.id}/viewcount`);
   useEffect(() => {
+    // 유저의 클릭에 의해 페이지가 로드될때 조회수가 1만 올라가야하기 때문에 useEffact 사용
     count({});
   }, []);
-  console.log(viewCountData);
   const onFavClick = () => {
     if (!data) return console.log("No data");
     if (data.currentUser.id === data.product.user.id) {

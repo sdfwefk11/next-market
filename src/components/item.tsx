@@ -42,6 +42,7 @@ export default function Item({
   soldAt,
   buyAt,
   sold,
+  viewCount,
 }: ProductDetailData) {
   const { data } = useSWR<myFavType>(
     String(favsId) ? `/api/products/${favsId}/myfav` : null
@@ -124,7 +125,7 @@ export default function Item({
       ) : null}
       <div className="flex flex-col border my-1 rounded-lg border-gray-200 shadow bg-neutral-50 hover:bg-neutral-100 justify-center mx-2 transition-colors">
         <div className="flex px-4 py-3 cursor-pointer justify-between">
-          <div className="flex space-x-4 justify-center items-center bg-red-300">
+          <div className="flex space-x-4 justify-center items-center">
             <div className="w-14 h-14 bg-emerald-500 rounded-md shadow" />
             <div className=" flex flex-col ">
               <div className="flex items-center space-x-3">
@@ -158,11 +159,12 @@ export default function Item({
               <span className="font-normal text-gray-950">{price}원</span>
             </div>
           </div>
-          <div className="flex justify-between flex-col">
+          <div className="flex justify-between flex-col items-center">
             <h4 className="flex font-bold text-red-600 animate-pulse shadow rounded-full bg-gray-100 justify-center items-center">
               {currentDay === times.date ? "New" : ""}
             </h4>
-            <div className="flex items-end justify-end space-x-2 bg-red-300 rounded-md">
+            <p className="font-light text-sm">{`조회수 ${viewCount}`}</p>
+            <div className="flex items-end justify-end space-x-2 bg-red-200 rounded-md shadow px-1">
               <div
                 className={cls(
                   "flex space-x-0.5 items-center text-sm",

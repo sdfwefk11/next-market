@@ -33,6 +33,7 @@ export default function Like() {
                   price={favs.product.price}
                   image={favs.product.image}
                   hearts={favs.product._count.favs}
+                  viewCount={favs.product.viewCount}
                 />
               </Link>
             </div>

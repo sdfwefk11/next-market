@@ -28,6 +28,7 @@ export default function MyProducts() {
                   price={products.price}
                   image={products.image}
                   hearts={products._count.favs}
+                  viewCount={products.viewCount}
                 />
               </Link>
             </div>
