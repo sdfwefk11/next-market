@@ -8,6 +8,7 @@ import useUser from "@/libs/client/useUser";
 import { cls } from "@/libs/utils";
 import { Product, User } from "@prisma/client";
 import Link from "next/link";
+import { useEffect } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 interface ProductId {
@@ -37,6 +38,13 @@ export default function Detail({ params }: ProductId) {
   const [toggleFav, { loading, data: favData }] = useMutation(
     `/api/products/${params.id}/fav`
   );
+  const [count, { data: viewCountData }] = useMutation(
+    `/api/products/${params.id}/viewcount`
+  );
+  useEffect(() => {
+    count({});
+  }, []);
+  console.log(viewCountData);
   const onFavClick = () => {
     if (!data) return console.log("No data");
     if (data.currentUser.id === data.product.user.id) {

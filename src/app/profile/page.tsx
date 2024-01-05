@@ -21,26 +21,27 @@ export default function Profile() {
   const { data } = useSWR<Reviews>("/api/review");
   return (
     <div>
-      <div className="flex items-center space-x-3 border-b pb-5 px-4 mt-2">
+      <div className="flex items-center space-x-3 border-b pb-5 px-4 mt-2 ">
         <div className="w-16 h-16 rounded-full bg-purple-400" />
         <div className="flex flex-col space-y-2">
           {!user ? (
-            <div role="status" className="max-w-sm animate-pulse">
-              <div className="h-4 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[300px] mb-1 shadow"></div>
+            <div role="status" className="max-w-sm animate-pulse space-y-2">
+              <div className="h-4 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[70px] mb-1 shadow" />
+              <div className="h-4 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[300px] mb-1 shadow" />
             </div>
           ) : (
-            <div className="space-x-2 -mt-1">
+            <div className="flex justify-center flex-col">
+              <span className="font-bold text-gray-900 text-lg ml-1">
+                {user?.nickName}
+              </span>
               <span className="font-bold text-gray-900 ml-1 mb-2">
                 {user?.name}
-              </span>
-              <span className="font-bold text-gray-900 text-lg">
-                {user?.nikName}
               </span>
             </div>
           )}
           <Link scroll={false} href="profile/edit">
-            <span className="font-sm text-gray-700 hover:bg-zinc-200 hover:text-emerald-500 transition-colors bg-zinc-100 rounded-md px-2 py-1 select-none">
-              Edit profile &rarr;
+            <span className="font-sm text-gray-700 hover:bg-zinc-200 hover:text-emerald-500 transition-colors bg-zinc-100 rounded-md px-2 py-1 select-none shadow ml-1">
+              프로필수정 &rarr;
             </span>
           </Link>
         </div>

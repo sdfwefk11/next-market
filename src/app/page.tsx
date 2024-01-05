@@ -43,6 +43,7 @@ export default function Product({ params }: { params: { id: string } }) {
                 hearts={+result._count.favs}
                 favsId={result.id}
                 sold={result._count.sales}
+                viewCount={result.viewCount}
               />
             </Link>
           </div>
