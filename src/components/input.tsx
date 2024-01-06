@@ -1,7 +1,7 @@
 import type { UseFormRegisterReturn } from "react-hook-form";
 
 interface InputProps {
-  label: string;
+  label?: string;
   name: string;
   type: string;
   required: boolean;

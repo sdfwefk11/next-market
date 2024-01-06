@@ -8,7 +8,6 @@ export async function POST(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log(params.id);
   const viewCount = await apiClient.product.update({
     where: {
       id: +params.id.toString(),

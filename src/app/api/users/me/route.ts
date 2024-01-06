@@ -34,5 +34,12 @@ export async function POST(req: NextRequest) {
         message: "중복된 닉네임입니다.",
       });
     }
+    await apiClient.user.update({
+      where: { id: session.user.id },
+      data: {
+        nickName,
+      },
+    });
   }
+  return NextResponse.json({ ok: true, message: "닉네임이 변경되었습니다." });
 }
