@@ -1,7 +1,6 @@
 "use client";
 import Button from "@/components/button";
 import Input from "@/components/input";
-import ProfileLoading from "@/components/profile-loading";
 import useMutation from "@/libs/client/useMutation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -39,7 +38,6 @@ export default function Edit() {
       return setError("formErrors", { message: "닉네임은 최소 2자입니다." });
     }
     editProfile({ nickName });
-    setNameToggle(data?.message ? false : true);
   };
   useEffect(() => {
     if (data) {
@@ -53,6 +51,7 @@ export default function Edit() {
     <form className="px-4 space-y-7" onSubmit={handleSubmit(onVaild)}>
       <div className="flex items-center space-x-3">
         <div className="w-14 h-14 rounded-full bg-orange-500" />
+        <div>{user.name}</div>
         <label
           htmlFor="picture"
           className="cursor-pointer border-gray-300 py-2 px-3 border rounded-md bg-emerald-500 shadow-sm text-sm text-white transition-colors hover:bg-emerald-600 hover:text-orange-300"
@@ -66,7 +65,7 @@ export default function Edit() {
           className="text-sm font-medium text-gray-700 flex space-x-3 justify-center items-center border rounded-md shadow bg-slate-100"
           htmlFor="name"
         >
-          <h2 className="text-lg font-bold">닉네임</h2>
+          <h2 className="text-lg font-bold">닉네임수정</h2>
           <svg
             className="w-6 h-6 text-gray-500 dark:text-white cursor-pointer hover:text-sky-300 transition-colors"
             aria-hidden="true"

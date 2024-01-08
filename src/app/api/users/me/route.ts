@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
         select: { id: true },
       })
     );
-    console.log(alreadyExists);
     if (alreadyExists) {
       return NextResponse.json({
         ok: false,

@@ -7,6 +7,7 @@ interface InputProps {
   required: boolean;
   kind?: "text" | "phone" | "price";
   register: UseFormRegisterReturn;
+  placeholder?: string;
   // [key: string]: any 모든 prop을 받아오는 shortcut
 }
 
@@ -17,6 +18,7 @@ export default function Input({
   register,
   type,
   required,
+  placeholder,
 }: InputProps) {
   return (
     <div className="my-4">
@@ -32,6 +34,7 @@ export default function Input({
             id={name}
             type={type}
             required={required}
+            placeholder={placeholder}
             {...register}
             className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-600 focus:border-emerald-600"
           />
@@ -46,6 +49,7 @@ export default function Input({
             type="number"
             id={name}
             required={required}
+            placeholder={placeholder}
             {...register}
             className="appearance-none pl-7 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-600 focus:border-emerald-600"
           />
@@ -64,6 +68,7 @@ export default function Input({
             {...register}
             type={type}
             required={required}
+            placeholder={placeholder}
             className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md rounded-l-none shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-600 focus:border-emerald-600"
           />
         </div>
