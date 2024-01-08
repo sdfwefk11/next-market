@@ -1,24 +1,35 @@
-import RootLayout from "@/app/layout";
+"use client";
 import Navi from "@/components/navi";
+import { Stream, User } from "@prisma/client";
+import useSWR from "swr";
 
-export default function StreamDetail() {
+interface StreamInfo extends Stream {
+  user: User;
+}
+
+interface StreamResponse {
+  ok: boolean;
+  getStream: StreamInfo;
+}
+
+export default function StreamDetail({ params }: { params: { id: string } }) {
+  const { data, isLoading } = useSWR<StreamResponse>(
+    params.id ? `/api/streams/${params.id}` : null
+  );
   return (
     <>
-      <Navi />
+      <Navi title={data?.getStream.name} />
       <div className="px-4">
         <div className="w-full bg-red-300 aspect-video rounded-md shadow-sm" />
         <div className="mt-6">
-          <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
-          <p className="text-3xl mt-3 text-gray-900 block">$140</p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {data?.getStream.name}
+          </h1>
+          <p className="text-3xl mt-3 text-gray-900 block">
+            {data?.getStream.price}
+          </p>
           <p className="text-base my-6 text-gray-700">
-            My money&apos;s in that office, right? If she start giving me some
-            bullshit about it ain&apos;t there, and we got to go someplace else
-            and get it, I&apos;m gonna shoot you in the head then and there.
-            Then I&apos;m gonna shoot that bitch in the kneecaps, find out where
-            my goddamn money is. She gonna tell me too. Hey, look at me when
-            I&apos;m talking to you, motherfucker. You listen: we go in there,
-            and that ni**a Winston or anybody else is in there, you the first
-            motherfucker to get shot. You understand?
+            {data?.getStream.description}
           </p>
         </div>
         <div className="pb-16 h-[50vh] overflow-y-scroll">

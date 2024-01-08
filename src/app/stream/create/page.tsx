@@ -4,6 +4,9 @@ import Input from "@/components/input";
 import Navi from "@/components/navi";
 import TextArea from "@/components/textarea";
 import useMutation from "@/libs/client/useMutation";
+import { Stream } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface CreateStreamDataType {
@@ -11,13 +14,26 @@ interface CreateStreamDataType {
   price: number;
   description: string;
 }
+interface ResponseData {
+  ok: boolean;
+  stream: Stream;
+}
 
 export default function Create() {
   const { register, handleSubmit } = useForm<CreateStreamDataType>();
-  const [] = useMutation("/api/lives");
-  const onValid = (data: CreateStreamDataType) => {
-    console.log(data);
+  const [createStream, { data, loading }] =
+    useMutation<ResponseData>("/api/streams");
+  const router = useRouter();
+  const onValid = (formData: CreateStreamDataType) => {
+    if (loading) return;
+    createStream(formData);
   };
+  useEffect(() => {
+    if (data && data.ok) {
+      router.push(`/stream/${data.stream.id}`);
+    }
+  }, [data, router]);
+  console.log(data);
   return (
     <>
       <Navi title="라이브 생성" />
@@ -39,7 +55,10 @@ export default function Create() {
             name="가격"
             required
             placeholder="가격을 입력해주세요."
-            register={register("price", { required: true })}
+            register={register("price", {
+              required: true,
+              valueAsNumber: true,
+            })}
           />
           <TextArea
             required
@@ -47,7 +66,7 @@ export default function Create() {
             placeholder="제품 설명을 입력해주세요."
             register={register("description", { required: true })}
           />
-          <Button text="스트리밍 시작" />
+          <Button text="스트리밍 시작" loading={loading} />
         </form>
       </div>
     </>

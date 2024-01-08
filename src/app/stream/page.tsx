@@ -1,15 +1,32 @@
+"use client";
 import FloatingButton from "@/components/floating-button";
 import Navi from "@/components/navi";
+import { Stream, User } from "@prisma/client";
+import Link from "next/link";
+import useSWR from "swr";
+
+interface StreamInfo extends Stream {
+  user: User;
+}
+
+interface StreamsType {
+  ok: boolean;
+  streams: StreamInfo[];
+}
 
 export default function Stream() {
+  const { data } = useSWR<StreamsType>("/api/streams");
+  console.log(data);
   return (
     <>
       <Navi title="라이브" />
       <div className="divide-y-2 space-y-4">
-        {[1, 2, 3, 4, 5, 6].map((_, key) => (
-          <div className="pt-4 px-4" key={key}>
-            <div className="w-full bg-red-300 aspect-video rounded-md shadow-sm" />
-            <h3 className="text-gray-700 text-lg mt-2">스트리밍 서비스</h3>
+        {data?.streams.map((streams) => (
+          <div className="pt-4 px-4" key={streams.id}>
+            <Link scroll={false} href={`/stream/${streams.id}`}>
+              <div className="w-full bg-red-300 aspect-video rounded-md shadow-sm" />
+              <h3 className="text-gray-700 text-lg mt-2">{streams.name}</h3>
+            </Link>
           </div>
         ))}
       </div>
